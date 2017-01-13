@@ -9,17 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet var textView:UITextView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
+        if #available(iOS 9.0, *)
+        {
+            let item : UITextInputAssistantItem = textView!.inputAssistantItem
+            item.leadingBarButtonGroups = []
+            item.trailingBarButtonGroups = []
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
-
