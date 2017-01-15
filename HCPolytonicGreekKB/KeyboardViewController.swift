@@ -21,7 +21,7 @@ extension UIInputView: UIInputViewAudioFeedback {
 class KeyboardViewController: UIInputViewController {
 
     var capsLockOn = true
-    let bgColor = UIColor.white
+    let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
     let useAnimation = false
     var deleteHoldTimer:Timer? = nil
@@ -39,7 +39,8 @@ class KeyboardViewController: UIInputViewController {
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
         
-        let buttonSpacing:CGFloat = 4.0
+        let buttonSpacing:CGFloat = 5.0
+        let widthMultiple:CGFloat = 0.0999
 
         /*
          let upperBorder: CALayer = CALayer()
@@ -122,131 +123,150 @@ class KeyboardViewController: UIInputViewController {
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
-                               ["CP", "KB", "SP", "RT", "BK"]]
+                               ["CP", "KB", "Space", "RT", "BK"]]
 
-        //var lastRow: NSLayoutYAxisAnchor?
-        //lastRow = nil
         for row in keys
         {
-            //var lastKey:NSLayoutXAxisAnchor?
-            //lastKey = nil
-
-            var b:UIButton
-
             for key in row
             {
-                b = HCButton(type: .system)
-                
-                b.layer.borderWidth = 1.0
-                b.layer.borderColor = UIColor.blue.cgColor
-                b.layer.cornerRadius = 4.0
-                b.titleLabel?.textColor = UIColor.black
-                b.setTitleColor(keyTextColor, for: [])
-                b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
-                //b.layer.backgroundColor = UIColor.brown.cgColor
-                b.setTitle(key, for: [])
-                
-                b.isUserInteractionEnabled = true
-                b.translatesAutoresizingMaskIntoConstraints = false
-                
-                if row == keys[0]
-                {
-                    b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
-                }
-                else if row == keys[1] || row == keys[2] || row == keys[3]
-                {
-                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                }
-                else if key == "KB"
-                {
-                    b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
-                }
-                else if key == "RT"
-                {
-                    b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
-                }
-                else if key == "SP"
-                {
-                    b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
-                }
-                else if key == "BK"
-                {
-                    let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
-                    lpgr.minimumPressDuration = 0.5
-                    lpgr.delaysTouchesBegan = true
-                    lpgr.allowableMovement = 50.0
-                    b.addGestureRecognizer(lpgr)
-                    
-                    //need both long and normal
-                    b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchUpInside)
-                    
-                    //deleteButton = b
-                }
-                /*
-                if lastKey == nil
-                {
-                    lastKey = self.view.layoutMarginsGuide.leftAnchor //self.view.leftAnchor
-                }
-                if lastRow == nil
-                {
-                    lastRow = self.view.layoutMarginsGuide.topAnchor// topAnchor
-                }
-                */
-                
-                //b.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.11).isActive = true
-                //NSLog("width: %f", self.view.bounds.width)
-                //b.widthAnchor.constraint(equalToConstant: 42.0)
-                //self.view.leftAnchor.constraint(equalTo: self.view.p)
+                var b:UIButton
 
-                
-                //this works, but doesn't rotate
-                //let bWidth3:CGFloat = UIScreen.main.bounds.size.width / 9
-                //b.addConstraint(NSLayoutConstraint(item: b, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant:bWidth3))
-                
-                //or
-                /*
-                self.view.addConstraint(NSLayoutConstraint(item: b, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1/9, constant: 0.0))
-                
-                
-                b.leftAnchor.constraint(equalTo: lastKey!).isActive = true
-                b.topAnchor.constraint(equalTo: lastRow!).isActive = true
-                
-                lastKey = b.rightAnchor
-                if key == row[row.count - 1]
-                {
-                    b.rightAnchor.constraint(equalTo: self.view.layoutMarginsGuide.rightAnchor).isActive = true
-                    lastRow = b.bottomAnchor
-                }
-                if row == keys[keys.count - 1]
-                {
-                    b.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
-                }
-                */
-                let widthMultiple:CGFloat = 0.10
                 if row == keys[0]
                 {
+                    b = HCAccentButton(buttonType:1)
+                    
+                    //b.layer.borderWidth = 1.0
+                    //b.layer.borderColor = UIColor.blue.cgColor
+                    b.layer.cornerRadius = 4.0
+                    //b.titleLabel?.textColor = UIColor.black
+                    //b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[1]
                 {
+                    b = HCButton(buttonType:1)
+                    
+                    //b.layer.borderWidth = 1.0
+                    //b.layer.borderColor = UIColor.blue.cgColor
+                    b.layer.cornerRadius = 4.0
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView2.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[2]
                 {
+                    b = HCButton(buttonType:1)
+                    
+                    //b.layer.borderWidth = 1.0
+                    //b.layer.borderColor = UIColor.blue.cgColor
+                    b.layer.cornerRadius = 4.0
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView3.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[3]
                 {
+                    b = HCButton(buttonType:1)
+                    
+                    //b.layer.borderWidth = 1.0
+                    //b.layer.borderColor = UIColor.blue.cgColor
+                    b.layer.cornerRadius = 4.0
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView4.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[4]
                 {
-                    stackView5.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    b = HCButton(buttonType:1)
+                    
+                    b.layer.borderWidth = 1.0
+                    b.layer.borderColor = UIColor.blue.cgColor
+                    b.layer.cornerRadius = 4.0
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    if key == "CP"
+                    {
+                        //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    }
+                    else if key == "KB"
+                    {
+                        b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    }
+                    else if key == "RT"
+                    {
+                        b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    }
+                    else if key == "Space"
+                    {
+                        b.setTitleColor(UIColor.gray, for: [])
+                        b.layer.borderColor = UIColor.gray.cgColor
+                        b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
+                        //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
+                    }
+                    else if key == "BK"
+                    {
+                        b = HCDeleteButton()
+                        
+                        //b.layer.borderWidth = 1.0
+                        //b.layer.borderColor = UIColor.blue.cgColor
+                        //b.layer.cornerRadius = 4.0
+                        //b.titleLabel?.textColor = UIColor.black
+                        //b.setTitleColor(keyTextColor, for: [])
+                        //b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                        //b.layer.backgroundColor = UIColor.brown.cgColor
+                        //b.setTitle(key, for: [])
+                        
+                        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
+                        lpgr.minimumPressDuration = 0.5
+                        lpgr.delaysTouchesBegan = true
+                        lpgr.allowableMovement = 50.0
+                        b.addGestureRecognizer(lpgr)
+                        
+                        //need both long and normal
+                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchUpInside)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        
+                        //deleteButton = b
+                    }
+                    
+                    
                 }
                 
             }
@@ -256,8 +276,8 @@ class KeyboardViewController: UIInputViewController {
         
         stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:4.0).isActive = true
-        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-4.0).isActive = true
+        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
+        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
         
         //charSet2.isHidden = true
         /*
@@ -459,6 +479,9 @@ class KeyboardViewController: UIInputViewController {
     
     func spacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(" ")
+    }
+    func didDoubleTapSapce(_ button: UIButton) {
+        (textDocumentProxy as UIKeyInput).insertText(". ")
     }
     
     func returnPressed(_ button: UIButton) {

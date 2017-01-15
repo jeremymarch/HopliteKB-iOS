@@ -19,6 +19,8 @@
 		3F0F5E881E0F86BB00DE5744 /* newathu405.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F0F5E871E0F86BB00DE5744 /* newathu405.ttf */; };
 		3F0F5E911E0F875A00DE5744 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E8E1E0F875A00DE5744 /* libmorph.c */; };
 		3F4547AD1E2B0A6300946694 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4547AC1E2B0A6300946694 /* HCbutton.swift */; };
+		3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
+		3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		3F0F5E8E1E0F875A00DE5744 /* libmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = libmorph.c; path = libmorph/libmorph.c; sourceTree = "<group>"; };
 		3F0F5E8F1E0F875A00DE5744 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libmorph.h; path = libmorph/libmorph.h; sourceTree = "<group>"; };
 		3F4547AC1E2B0A6300946694 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
+		3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
+		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,8 +178,10 @@
 		3F0F5E7C1E0F81D700DE5744 /* HCPolytonicGreekKB */ = {
 			isa = PBXGroup;
 			children = (
+				3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */,
 				3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */,
 				3F4547AC1E2B0A6300946694 /* HCbutton.swift */,
+				3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */,
 				3F0F5E891E0F873000DE5744 /* libmorph */,
 				3F0F5E7F1E0F81D700DE5744 /* Info.plist */,
 			);
@@ -390,7 +396,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */,
 				3F0F5E911E0F875A00DE5744 /* libmorph.c in Sources */,
+				3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */,
 				3F0F5E7E1E0F81D700DE5744 /* KeyboardViewController.swift in Sources */,
 				3F4547AD1E2B0A6300946694 /* HCbutton.swift in Sources */,
 			);

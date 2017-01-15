@@ -1,5 +1,5 @@
 //
-//  HCbutton.swift
+//  HCAccentButton.swift
 //  HCPolytonicGreekKBapp
 //
 //  Created by Jeremy March on 1/14/17.
@@ -8,9 +8,8 @@
 
 import UIKit
 
-class HCButton: UIButton {
-
-    var btype: Int? = nil
+class HCAccentButton: UIButton {
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -18,7 +17,7 @@ class HCButton: UIButton {
         // Drawing code
     }
     */
-    
+    var btype: Int? = nil
     required init(buttonType: Int = 0) {
         // set myValue before super.init is called
         self.btype = buttonType
@@ -26,14 +25,13 @@ class HCButton: UIButton {
         super.init(frame: .zero)
         
         // set other operations after super.init, if required
-        if btype == 1
-        {
-                backgroundColor = .white
-        }
+
+            backgroundColor = .gray
+            setTitleColor(UIColor.white, for: [])
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
