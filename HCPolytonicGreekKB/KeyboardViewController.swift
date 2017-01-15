@@ -135,7 +135,7 @@ class KeyboardViewController: UIInputViewController {
 
             for key in row
             {
-                b = UIButton(type: .system)
+                b = HCButton(type: .system)
                 
                 b.layer.borderWidth = 1.0
                 b.layer.borderColor = UIColor.blue.cgColor
@@ -222,30 +222,31 @@ class KeyboardViewController: UIInputViewController {
                     b.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
                 }
                 */
+                let widthMultiple:CGFloat = 0.10
                 if row == keys[0]
                 {
                     stackView1.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0.111111).isActive = true
+                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[1]
                 {
                     stackView2.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0.111111).isActive = true
+                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[2]
                 {
                     stackView3.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0.111111).isActive = true
+                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[3]
                 {
                     stackView4.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0.111111).isActive = true
+                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 else if row == keys[4]
                 {
                     stackView5.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0.111111).isActive = true
+                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 }
                 
             }
@@ -255,8 +256,8 @@ class KeyboardViewController: UIInputViewController {
         
         stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:4.0).isActive = true
+        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-4.0).isActive = true
         
         //charSet2.isHidden = true
         /*
