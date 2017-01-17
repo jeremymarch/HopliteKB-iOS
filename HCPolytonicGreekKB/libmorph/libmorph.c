@@ -287,6 +287,9 @@ void combiningToPrecomposed(UCS2 *ucs2String, int i, int *len);
 void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
 void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
 
+#define NUM_COMBINING_ACCENTS 7
+int combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX, COMBINING_IOTA_SUBSCRIPT };
+
 bool isCombiningDiacritic(UCS2 l)
 {
     switch (l)
@@ -479,10 +482,51 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
         circumflex = false;
     }
     
-    //4. this creates the new letter
-    if (macron)
+    //4. this creates the new letter, either with combining or precomposed accents
+    
+    if (macron || onlyUseCombiningDiacritics) //if there is a macron we use combining accents, else precomposed
     {
         ucs2String[i] = letterCodeToUCS2(letterCode);
+        *len = 1;
+        for (int k = 0; k < NUM_COMBINING_ACCENTS; k++)
+        {
+            if (combiningAccents[k] == COMBINING_MACRON && macron)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_ROUGH_BREATHING && rough)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_SMOOTH_BREATHING && smooth)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_ACUTE && acute)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_GRAVE && grave)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_CIRCUMFLEX && circumflex)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+            else if (combiningAccents[k] == COMBINING_IOTA_SUBSCRIPT && iota_sub)
+            {
+                ucs2String[i + *len] = combiningAccents[k];
+                ++(*len);
+            }
+        }
+        /*
         ucs2String[i+1] = COMBINING_MACRON;
         *len = 2;
         if (smooth || rough)
@@ -530,6 +574,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
             ucs2String[i+2] = COMBINING_IOTA_SUBSCRIPT;
             *len = 3;
         }
+        */
     }
     else
     {
