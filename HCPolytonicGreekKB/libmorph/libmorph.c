@@ -395,6 +395,16 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
         ucs2String[i] = GREEK_SMALL_LETTER_RHO;
         return;
     }
+    else if (ucs2String[i] == GREEK_CAPITAL_LETTER_RHO && accent == ROUGH_BREATHING)
+    {
+        ucs2String[i] = GREEK_CAPITAL_LETTER_RHO_WITH_DASIA;
+        return;
+    }
+    else if (ucs2String[i] == GREEK_CAPITAL_LETTER_RHO_WITH_DASIA && accent == ROUGH_BREATHING)
+    {
+        ucs2String[i] = GREEK_CAPITAL_LETTER_RHO;
+        return;
+    }
     else if (ucs2String[i] == GREEK_SMALL_LETTER_NU && accent == SURROUNDING_PARENTHESES)
     {
         ucs2String[i] = LEFT_PARENTHESIS;
