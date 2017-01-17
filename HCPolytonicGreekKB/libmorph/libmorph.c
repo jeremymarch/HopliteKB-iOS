@@ -526,55 +526,6 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
                 ++(*len);
             }
         }
-        /*
-        ucs2String[i+1] = COMBINING_MACRON;
-        *len = 2;
-        if (smooth || rough)
-        {
-            ucs2String[i+2] = smooth ? COMBINING_SMOOTH_BREATHING : COMBINING_ROUGH_BREATHING;
-            *len = 3;
-            if (acute || grave || circumflex)
-            {
-                if (acute)
-                    ucs2String[i+3] = COMBINING_ACUTE;
-                else if (grave)
-                    ucs2String[i+3] = COMBINING_GRAVE;
-                else
-                    ucs2String[i+3] = COMBINING_CIRCUMFLEX;
-                *len = 4;
-                if (iota_sub)
-                {
-                    ucs2String[i+4] = COMBINING_IOTA_SUBSCRIPT;
-                    *len = 5;
-                }
-            }
-            else if (iota_sub)
-            {
-                ucs2String[i+3] = COMBINING_IOTA_SUBSCRIPT;
-                *len = 4;
-            }
-        }
-        else if (acute || grave || circumflex)
-        {
-            if (acute)
-                ucs2String[i+2] = COMBINING_ACUTE;
-            else if (grave)
-                ucs2String[i+2] = COMBINING_GRAVE;
-            else
-                ucs2String[i+2] = COMBINING_CIRCUMFLEX;
-            *len = 3;
-            if (iota_sub)
-            {
-                ucs2String[i+3] = COMBINING_IOTA_SUBSCRIPT;
-                *len = 4;
-            }
-        }
-        else if (iota_sub)
-        {
-            ucs2String[i+2] = COMBINING_IOTA_SUBSCRIPT;
-            *len = 3;
-        }
-        */
     }
     else
     {
