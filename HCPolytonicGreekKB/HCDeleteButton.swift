@@ -10,34 +10,67 @@ import UIKit
 
 class HCDeleteButton: UIButton {
     var device:Int?
+    var buttonDown:Bool = false
+    
+    required init(device:Int = 1) {
+        super.init(frame: .zero)
+        if device == 2
+            {
+                self.buttonDown = true
+            }
+        
+        self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
+        self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
+        self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDown)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func touchUpInside1(sender: UIButton!) {
+        self.buttonDown = false
+        self.setNeedsDisplay()
+        NSLog("a")
+    }
+    
+    func touchUpOutside1(sender: UIButton!) {
+        self.buttonDown = false
+        self.setNeedsDisplay()
+        NSLog("b")
+    }
+    
+    func touchDown1(sender: UIButton!) {
+        self.buttonDown = true
+        self.setNeedsDisplay()
+        NSLog("c")
+    }
     
     override func draw(_ rect: CGRect) {
+        self.device = 1
         // Drawing code
+        
         let buttonLight = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0).cgColor
-        let buttonDark = UIColor.init(red: 203/255.0, green: 204/255.0, blue: 210/255.0, alpha: 1.0).cgColor
-        let buttonRadius:CGFloat = 4.0
+        let delIconColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+        var xColor:CGColor?
+        //let buttonDark = UIColor.init(red: 203/255.0, green: 204/255.0, blue: 210/255.0, alpha: 1.0).cgColor
+        //let buttonDownLight = UIColor.init(red: 145/255.0, green: 145/255.0, blue: 160/255.0, alpha: 1.0)
+        //let buttonDown = UIColor.init(red: 130/255.0, green: 130/255.0, blue: 147/255.0, alpha: 1.0)
+        //let delIconColorLight = UIColor.init(red: 120/255.0, green: 120/255.0, blue: 138/255.0, alpha: 1.0)
 
         //NSLog(@"Draw");
         let context = UIGraphicsGetCurrentContext()
         
-        let buttonDownLight = UIColor.init(red: 145/255.0, green: 145/255.0, blue: 160/255.0, alpha: 1.0)
-        let buttonDown = UIColor.init(red: 130/255.0, green: 130/255.0, blue: 147/255.0, alpha: 1.0)
-        
-        let delIconColorLight = UIColor.init(red: 120/255.0, green: 120/255.0, blue: 138/255.0, alpha: 1.0)
-        let delIconColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-        var xColor:CGColor?
-        
-        let buttonRadius1:CGFloat = 4.0
-        
-        let outerSideMargin:CGFloat = 0//2.75
-        let outerTopMargin:CGFloat = 0//5.0
+        let buttonRadius:CGFloat = 4.0
+        let outerSideMargin:CGFloat = 0.0//2.75
+        let outerTopMargin:CGFloat = 0.0//5.0
         
         let outerRect:CGRect = self.bounds.insetBy(dx: outerSideMargin, dy: outerTopMargin);
         
         var outerPath:CGPath?
         if self.device == 1
         {
-            outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: buttonRadius + 2).cgPath
+            outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: buttonRadius).cgPath
         }
         else
         {
@@ -58,17 +91,18 @@ class HCDeleteButton: UIButton {
         }
         context?.fillPath();
         context!.restoreGState();
-        
-        if (!self.isSelected)
+
+        if self.buttonDown == false
         {
             //up state
             // Draw gradient for outer path
-            context!.saveGState();
-            context!.addPath(outerPath!);
-            context?.clip();
+            //context!.saveGState();
+            //context!.addPath(outerPath!);
+            //context?.clip();
             
-            context!.restoreGState();
+            //context!.restoreGState();
             
+            /*
             if self.device == 2
             {
                 //the 1px highlight on top
@@ -93,16 +127,26 @@ class HCDeleteButton: UIButton {
                 
                 context!.restoreGState();
             }
+ */
+            context!.saveGState();
+            
+            context!.addPath(outerPath!);
+            if self.device == 1
+            {
+                context!.setFillColor(UIColor.black.cgColor);
+            }
+            else if self.device == 2
+            {
+                context!.setFillColor(delIconColor.cgColor);
+            }
+            context?.fillPath();
+            
+            context!.restoreGState();
         }
         else
         {
             //Down state
             // Draw gradient for outer path
-            
-            context!.saveGState();
-            
-            context!.addPath(outerPath!);
-            context?.clip();
             
             context!.saveGState();
             
@@ -163,7 +207,7 @@ class HCDeleteButton: UIButton {
         var iconColor:CGColor?
         if self.device == 2
         {
-            if self.isSelected
+            if self.buttonDown
             {
                 iconColor = buttonLight;
                 xColor = delIconColor.cgColor;
@@ -177,7 +221,7 @@ class HCDeleteButton: UIButton {
         }
         else
         {
-            if (self.isSelected)
+            if self.buttonDown
             {
                 iconColor = delIconColor.cgColor;
                 xColor = buttonLight;

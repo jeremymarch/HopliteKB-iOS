@@ -16,11 +16,11 @@
 		3F0F5E6A1E0F819C00DE5744 /* HCPolytonicGreekKBappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E691E0F819C00DE5744 /* HCPolytonicGreekKBappUITests.swift */; };
 		3F0F5E7E1E0F81D700DE5744 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */; };
 		3F0F5E821E0F81D700DE5744 /* HCPolytonicGreekKB.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3F0F5E7B1E0F81D700DE5744 /* HCPolytonicGreekKB.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3F0F5E881E0F86BB00DE5744 /* newathu405.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F0F5E871E0F86BB00DE5744 /* newathu405.ttf */; };
 		3F0F5E911E0F875A00DE5744 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E8E1E0F875A00DE5744 /* libmorph.c */; };
 		3F4547AD1E2B0A6300946694 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4547AC1E2B0A6300946694 /* HCbutton.swift */; };
 		3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
 		3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
+		3FE19A121E2DC8F30088E96C /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE19A111E2DC8F30088E96C /* newathu5.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,6 @@
 		3F0F5E7B1E0F81D700DE5744 /* HCPolytonicGreekKB.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HCPolytonicGreekKB.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F0F5E7F1E0F81D700DE5744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F0F5E871E0F86BB00DE5744 /* newathu405.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu405.ttf; sourceTree = "<group>"; };
 		3F0F5E8A1E0F875900DE5744 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
 		3F0F5E8C1E0F875A00DE5744 /* GreekForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekForms.h; path = libmorph/GreekForms.h; sourceTree = "<group>"; };
 		3F0F5E8D1E0F875A00DE5744 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
@@ -87,6 +86,7 @@
 		3F4547AC1E2B0A6300946694 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
 		3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
+		3FE19A111E2DC8F30088E96C /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +146,7 @@
 		3F0F5E481E0F819C00DE5744 /* HCPolytonicGreekKBapp */ = {
 			isa = PBXGroup;
 			children = (
-				3F0F5E871E0F86BB00DE5744 /* newathu405.ttf */,
+				3FE19A111E2DC8F30088E96C /* newathu5.ttf */,
 				3F0F5E491E0F819C00DE5744 /* AppDelegate.swift */,
 				3F0F5E4B1E0F819C00DE5744 /* ViewController.swift */,
 				3F0F5E4D1E0F819C00DE5744 /* Main.storyboard */,
@@ -339,7 +339,7 @@
 				3F0F5E541E0F819C00DE5744 /* LaunchScreen.storyboard in Resources */,
 				3F0F5E511E0F819C00DE5744 /* Assets.xcassets in Resources */,
 				3F0F5E4F1E0F819C00DE5744 /* Main.storyboard in Resources */,
-				3F0F5E881E0F86BB00DE5744 /* newathu405.ttf in Resources */,
+				3FE19A121E2DC8F30088E96C /* newathu5.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

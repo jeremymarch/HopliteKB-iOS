@@ -6,7 +6,7 @@
 	<string>en</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>newathu405.ttf</string>
+		<string>newathu5.ttf</string>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

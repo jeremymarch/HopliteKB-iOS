@@ -119,12 +119,14 @@ class KeyboardViewController: UIInputViewController {
             raised dot, ano teleia
             question mark
         */
-        let keys: [[String]] = [["(", ")", "/", "\\", "=", "-", "|", "()"],
+        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", "()"],
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
                                ["CP", "KB", "Space", "RT", "BK"]]
 
+        let fontSize:CGFloat = 24.0
+        
         for row in keys
         {
             for key in row
@@ -140,13 +142,60 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     //b.titleLabel?.textColor = UIColor.black
                     //b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    
+                    //b.titleLabel!.transform = CGAffineTransform.init(scaleX: 2, y: 2)// .identity.scaledBy(x: 1.5, y: 1.5)
+                    
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
+                    
+                    if key == "´"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "˜"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "`"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "¯"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                    }
+                    else if key == "῾"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                    }
+                    else if key == "᾿"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                    }
+                    else if key == "ͺ"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(-24, 0, 0, 0)
+                    }
+                    else if key == "()"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
                     
                     b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: 0.2).isActive = true
+                    b.heightAnchor.constraint(equalToConstant: 42.0).isActive = true
+                    
+                    
                 }
                 else if row == keys[1]
                 {
@@ -157,7 +206,7 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
@@ -174,7 +223,7 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
@@ -191,7 +240,7 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
@@ -208,7 +257,7 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
@@ -241,14 +290,14 @@ class KeyboardViewController: UIInputViewController {
                     }
                     else if key == "BK"
                     {
-                        b = HCDeleteButton()
+                        b = HCDeleteButton(device:2)
                         
                         //b.layer.borderWidth = 1.0
                         //b.layer.borderColor = UIColor.blue.cgColor
                         //b.layer.cornerRadius = 4.0
                         //b.titleLabel?.textColor = UIColor.black
                         //b.setTitleColor(keyTextColor, for: [])
-                        //b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 24)
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         //b.layer.backgroundColor = UIColor.brown.cgColor
                         //b.setTitle(key, for: [])
                         
@@ -336,31 +385,31 @@ class KeyboardViewController: UIInputViewController {
     func accentPressed(_ button: UIButton) {
         let whichAccent = button.titleLabel!.text
         var accent = -1
-        if whichAccent == "/"
+        if whichAccent == "´"
         {
             accent = 1
         }
-        else if whichAccent == "="
+        else if whichAccent == "˜"
         {
             accent = 2
         }
-        else if whichAccent == "\\"
+        else if whichAccent == "`"
         {
             accent = 3
         }
-        else if whichAccent == "-"
+        else if whichAccent == "¯"
         {
             accent = 4
         }
-        else if whichAccent == "("
+        else if whichAccent == "῾"
         {
             accent = 5
         }
-        else if whichAccent == ")"
+        else if whichAccent == "᾿"
         {
             accent = 6
         }
-        else if whichAccent == "|"
+        else if whichAccent == "ͺ"
         {
             accent = 7
         }
