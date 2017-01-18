@@ -494,7 +494,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     }
     else if (accent == IOTA_SUBSCRIPT)
     {
-        if (letterCode != ALPHA && letterCode != ETA && letterCode != OMEGA)
+        if (letterCode != ALPHA && letterCode != ETA && letterCode != OMEGA && letterCode != ALPHA_CAP && letterCode != ETA_CAP && letterCode != OMEGA_CAP)
             return;
         
         iota_sub = (toggleOff) ? !iota_sub : true;

@@ -10,14 +10,11 @@ import UIKit
 
 class HCDeleteButton: UIButton {
     var device:Int?
-    var buttonDown:Bool = false
+    var buttonPressed:Bool = false
     
-    required init(device:Int = 1) {
+    required init(devicea:Int = 1) {
+        let device = 1
         super.init(frame: .zero)
-        if device == 2
-            {
-                self.buttonDown = true
-            }
         
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
@@ -29,20 +26,24 @@ class HCDeleteButton: UIButton {
     }
     
     func touchUpInside1(sender: UIButton!) {
-        self.buttonDown = false
-        self.setNeedsDisplay()
+        
+        buttonPressed = false
+        setNeedsDisplay()
         NSLog("a")
     }
     
     func touchUpOutside1(sender: UIButton!) {
-        self.buttonDown = false
-        self.setNeedsDisplay()
+        
+        buttonPressed = false
+        setNeedsDisplay()
         NSLog("b")
     }
     
     func touchDown1(sender: UIButton!) {
-        self.buttonDown = true
-        self.setNeedsDisplay()
+        
+        buttonPressed = true
+        setNeedsDisplay()
+        bringSubview(toFront: self)
         NSLog("c")
     }
     
@@ -58,7 +59,7 @@ class HCDeleteButton: UIButton {
         //let buttonDown = UIColor.init(red: 130/255.0, green: 130/255.0, blue: 147/255.0, alpha: 1.0)
         //let delIconColorLight = UIColor.init(red: 120/255.0, green: 120/255.0, blue: 138/255.0, alpha: 1.0)
 
-        //NSLog(@"Draw");
+        NSLog("Draw")
         let context = UIGraphicsGetCurrentContext()
         
         let buttonRadius:CGFloat = 4.0
@@ -77,60 +78,13 @@ class HCDeleteButton: UIButton {
             outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: buttonRadius).cgPath
         }
         //add bottom shadow
-        
-        context!.saveGState()
-        
-        context!.addPath(outerPath!);
-        if self.device == 1
-        {
-            context!.setFillColor(delIconColor.cgColor);
-        }
-        else
-        {
-            context!.setFillColor(UIColor.white.cgColor);
-        }
-        context?.fillPath();
-        context!.restoreGState();
 
-        if self.buttonDown == false
+        if buttonPressed == true
         {
-            //up state
-            // Draw gradient for outer path
-            //context!.saveGState();
-            //context!.addPath(outerPath!);
-            //context?.clip();
-            
-            //context!.restoreGState();
-            
+            //context!.saveGState()
+            context!.addPath(outerPath!)
+            context!.setFillColor(UIColor.white.cgColor)
             /*
-            if self.device == 2
-            {
-                //the 1px highlight on top
-                context!.saveGState();
-                var highlightRect:CGRect?
-                if self.device == 2
-                {
-                    highlightRect = outerRect.insetBy(dx: 2.0, dy: 2.0);
-                }
-                else
-                {
-                    highlightRect = outerRect.insetBy(dx: 1.0, dy: 1.0);
-                }
-                
-                let highlightPath: CGPath = UIBezierPath(roundedRect: highlightRect!, cornerRadius: buttonRadius).cgPath
-                
-                context!.addPath(outerPath!);
-                context!.addPath(highlightPath);
-                //CGContextEOClip(context);
-                
-                //context?.clip(using:)
-                
-                context!.restoreGState();
-            }
- */
-            context!.saveGState();
-            
-            context!.addPath(outerPath!);
             if self.device == 1
             {
                 context!.setFillColor(UIColor.black.cgColor);
@@ -139,29 +93,30 @@ class HCDeleteButton: UIButton {
             {
                 context!.setFillColor(delIconColor.cgColor);
             }
-            context?.fillPath();
-            
-            context!.restoreGState();
+            */
+            context?.fillPath()
+            //context!.restoreGState()
         }
         else
         {
             //Down state
             // Draw gradient for outer path
             
-            context!.saveGState();
-            
-            context!.addPath(outerPath!);
+            //context!.saveGState()
+            context!.addPath(outerPath!)
+            context!.setFillColor(delIconColor.cgColor)
+            /*
             if self.device == 1
             {
-                context!.setFillColor(UIColor.white.cgColor);
+                context!.setFillColor(UIColor.red.cgColor);
             }
             else if self.device == 2
             {
                 context!.setFillColor(delIconColor.cgColor);
             }
-            context?.fillPath();
-            
-            context!.restoreGState();
+ */
+            context?.fillPath()
+            //context!.restoreGState()
         }
         
         //Draw delete button icon
@@ -207,7 +162,7 @@ class HCDeleteButton: UIButton {
         var iconColor:CGColor?
         if self.device == 2
         {
-            if self.buttonDown
+            if buttonPressed
             {
                 iconColor = buttonLight;
                 xColor = delIconColor.cgColor;
@@ -221,7 +176,7 @@ class HCDeleteButton: UIButton {
         }
         else
         {
-            if self.buttonDown
+            if buttonPressed
             {
                 iconColor = delIconColor.cgColor;
                 xColor = buttonLight;
@@ -242,6 +197,7 @@ class HCDeleteButton: UIButton {
         drawX(context:context!, rect1:xFrame, offset:xIconPadding!, color:xColor!);
         
         context!.restoreGState();
+ 
     }
     
     func drawX(context:CGContext, rect1:CGRect, offset:CGFloat, color:CGColor)

@@ -20,16 +20,29 @@ extension UIInputView: UIInputViewAudioFeedback {
 */
 class KeyboardViewController: UIInputViewController {
 
-    var capsLockOn = true
+    var capsLockOn = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
     let useAnimation = false
     var deleteHoldTimer:Timer? = nil
+    let stackView1   = UIStackView()
+    let stackView2   = UIStackView()
+    let stackView3   = UIStackView()
+    let stackView4   = UIStackView()
     //var deleteButton:UIButton? = nil
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
         // Add custom view sizing constraints here
+    }
+    
+    override func viewDidAppear(_ animated:Bool) {
+        super.viewDidAppear(animated)
+    
+        for gesture:UIGestureRecognizer in (self.view.window?.gestureRecognizers!)!
+        {
+            gesture.delaysTouchesBegan = false
+        }
     }
     
     override func viewDidLoad() {
@@ -40,7 +53,7 @@ class KeyboardViewController: UIInputViewController {
         self.view.backgroundColor = bgColor
         
         let buttonSpacing:CGFloat = 5.0
-        let widthMultiple:CGFloat = 0.0999
+        let widthMultiple:CGFloat = 0.0976
 
         /*
          let upperBorder: CALayer = CALayer()
@@ -63,25 +76,22 @@ class KeyboardViewController: UIInputViewController {
 
 
         //Stack View
-        let stackView1   = UIStackView()
+
         stackView1.axis  = UILayoutConstraintAxis.horizontal
         stackView1.distribution  = UIStackViewDistribution.equalSpacing
         stackView1.alignment = UIStackViewAlignment.center
         stackView1.spacing   = buttonSpacing
         
-        let stackView2   = UIStackView()
         stackView2.axis  = UILayoutConstraintAxis.horizontal
         stackView2.distribution  = UIStackViewDistribution.equalSpacing
         stackView2.alignment = UIStackViewAlignment.center
         stackView2.spacing   = buttonSpacing
         
-        let stackView3   = UIStackView()
         stackView3.axis  = UILayoutConstraintAxis.horizontal
         stackView3.distribution  = UIStackViewDistribution.equalSpacing
         stackView3.alignment = UIStackViewAlignment.center
         stackView3.spacing   = buttonSpacing
         
-        let stackView4   = UIStackView()
         stackView4.axis  = UILayoutConstraintAxis.horizontal
         stackView4.distribution  = UIStackViewDistribution.equalSpacing
         stackView4.alignment = UIStackViewAlignment.center
@@ -119,11 +129,11 @@ class KeyboardViewController: UIInputViewController {
             raised dot, ano teleia
             question mark
         */
-        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", "()"],
+        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ";","·"],
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
-                               ["CP", "KB", "Space", "RT", "BK"]]
+                               ["CP", "KB", "Space", ".", "RT", "BK"]]
 
         let fontSize:CGFloat = 24.0
         
@@ -152,50 +162,68 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "˜"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "`"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "¯"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "῾"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "᾿"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == "ͺ"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(-24, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
+                    }
+                    else if key == ";"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                        
+                    }
+                    else if key == "·"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     }
                     else if key == "()"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     
-                    b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: 0.2).isActive = true
                     b.heightAnchor.constraint(equalToConstant: 42.0).isActive = true
-                    
-                    
                 }
                 else if row == keys[1]
                 {
@@ -252,8 +280,8 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b = HCButton(buttonType:1)
                     
-                    b.layer.borderWidth = 1.0
-                    b.layer.borderColor = UIColor.blue.cgColor
+                    //b.layer.borderWidth = 1.0
+                    //b.layer.borderColor = UIColor.blue.cgColor
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
@@ -263,12 +291,13 @@ class KeyboardViewController: UIInputViewController {
                     
                     if key == "CP"
                     {
-                        //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                        b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     }
                     else if key == "KB"
                     {
+                        //b.setTitle("", for: [])
                         b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
@@ -277,20 +306,32 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        
+                        
+                        b.setTitleColor(UIColor.white, for: [])
+
+                        b.layer.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+                        
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.75)).isActive = true
                     }
                     else if key == "Space"
                     {
                         b.setTitleColor(UIColor.gray, for: [])
-                        b.layer.borderColor = UIColor.gray.cgColor
+                        //b.layer.borderColor = UIColor.gray.cgColor
                         b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
                     }
+                    else if key == "."
+                    {
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                        stackView5.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    }
                     else if key == "BK"
                     {
-                        b = HCDeleteButton(device:2)
+                        b = HCDeleteButton(devicea:2)
                         
                         //b.layer.borderWidth = 1.0
                         //b.layer.borderColor = UIColor.blue.cgColor
@@ -303,14 +344,14 @@ class KeyboardViewController: UIInputViewController {
                         
                         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
                         lpgr.minimumPressDuration = 0.5
-                        lpgr.delaysTouchesBegan = true
+                        lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
                         lpgr.allowableMovement = 50.0
                         b.addGestureRecognizer(lpgr)
-                        
+ 
                         //need both long and normal
                         b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.3)).isActive = true
                         
                         //deleteButton = b
                     }
@@ -327,16 +368,6 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
         stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
-        
-        //charSet2.isHidden = true
-        /*
-        capsLockOn = !capsLockOn
-        changeCaps(row1)
-        changeCaps(row2)
-        changeCaps(row3)
-        changeCaps(row4)
- */
- 
     }
     /*
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -521,7 +552,8 @@ class KeyboardViewController: UIInputViewController {
             self.deleteHoldTimer = nil
             
             //need this or it stays in the down state
-            //[self.deleteButton touchUpInside:self.deleteButton];
+            let db:HCDeleteButton = gestureReconizer.view as! HCDeleteButton
+            db.touchUpInside1(sender: db)
         }
         //NSLog(@"lg: %ld", (long)gesture.state);
     }
@@ -537,16 +569,36 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\n")
     }
     
+    func capsPressed(_ button: UIButton) {
+        capsLockOn = !capsLockOn
+        changeCaps(stackView2)
+        changeCaps(stackView3)
+        changeCaps(stackView4)
+        //changeCaps(row4)
+    }
     func changeCaps(_ containerView: UIView) {
         for view in containerView.subviews {
             if let button = view as? UIButton {
                 let buttonTitle = button.titleLabel!.text
-                if capsLockOn {
-                    let text = buttonTitle!.uppercased()
-                    button.setTitle("\(text)", for: UIControlState())
-                } else {
-                    let text = buttonTitle!.lowercased()
-                    button.setTitle("\(text)", for: UIControlState())
+                
+                //final sigma alternates with digamma
+                if buttonTitle == "ς"
+                {
+                    button.setTitle("ϝ", for: UIControlState())
+                }
+                else if buttonTitle == "ϝ"
+                {
+                    button.setTitle("ς", for: UIControlState())
+                }
+                else
+                {
+                    if capsLockOn {
+                        let text = buttonTitle!.uppercased()
+                        button.setTitle("\(text)", for: UIControlState())
+                    } else {
+                        let text = buttonTitle!.lowercased()
+                        button.setTitle("\(text)", for: UIControlState())
+                    }
                 }
             }
         }
