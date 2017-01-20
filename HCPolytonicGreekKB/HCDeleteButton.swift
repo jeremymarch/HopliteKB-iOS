@@ -29,22 +29,18 @@ class HCDeleteButton: UIButton {
         
         buttonPressed = false
         setNeedsDisplay()
-        NSLog("a")
     }
     
     func touchUpOutside1(sender: UIButton!) {
         
         buttonPressed = false
         setNeedsDisplay()
-        NSLog("b")
     }
     
     func touchDown1(sender: UIButton!) {
         
         buttonPressed = true
         setNeedsDisplay()
-        bringSubview(toFront: self)
-        NSLog("c")
     }
     
     override func draw(_ rect: CGRect) {

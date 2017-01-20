@@ -30,12 +30,14 @@ class KeyboardViewController: UIInputViewController {
     let stackView3   = UIStackView()
     let stackView4   = UIStackView()
     //var deleteButton:UIButton? = nil
-    
+    var globeButton:UIButton? = nil
+    /*
     override func updateViewConstraints() {
         super.updateViewConstraints()
         // Add custom view sizing constraints here
     }
-    
+    */
+    /*
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
     
@@ -44,6 +46,7 @@ class KeyboardViewController: UIInputViewController {
             gesture.delaysTouchesBegan = false
         }
     }
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +136,7 @@ class KeyboardViewController: UIInputViewController {
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
-                               ["CP", "KB", "Space", ".", "RT", "BK"]]
+                               ["CP", "KB", "space", ".", "enter", "BK"]]
 
         let fontSize:CGFloat = 24.0
         
@@ -297,24 +300,36 @@ class KeyboardViewController: UIInputViewController {
                     }
                     else if key == "KB"
                     {
+                        b = HCGlobeButton()
+                        
+                        //b.layer.borderWidth = 1.0
+                        //b.layer.borderColor = UIColor.blue.cgColor
+                        b.layer.cornerRadius = 4.0
+                        b.titleLabel?.textColor = UIColor.black
+                        b.setTitleColor(keyTextColor, for: [])
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.layer.backgroundColor = UIColor.brown.cgColor
+                        b.setTitle("", for: [])
+                        
                         //b.setTitle("", for: [])
                         b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        
+                        globeButton = b
                     }
-                    else if key == "RT"
+                    else if key == "enter"
                     {
                         b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
-                        
                         
                         b.setTitleColor(UIColor.white, for: [])
 
                         b.layer.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0).cgColor
                         
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.75)).isActive = true
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2)).isActive = true
                     }
-                    else if key == "Space"
+                    else if key == "space"
                     {
                         b.setTitleColor(UIColor.gray, for: [])
                         //b.layer.borderColor = UIColor.gray.cgColor
@@ -355,10 +370,7 @@ class KeyboardViewController: UIInputViewController {
                         
                         //deleteButton = b
                     }
-                    
-                    
                 }
-                
             }
         }
         
@@ -369,12 +381,13 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
         stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
     }
-    /*
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updateViewConstraints()
+        //updateViewConstraints()
+        globeButton?.setNeedsDisplay() //to redraw globe icon
     }
-    */
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
