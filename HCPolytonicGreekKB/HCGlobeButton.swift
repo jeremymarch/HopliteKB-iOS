@@ -50,12 +50,12 @@ class HCGlobeButton: UIButton {
     }
     
     override func draw(_ rect: CGRect) {
-        // Drawing code
-        
-        let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
-        let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
         
         let ctx = UIGraphicsGetCurrentContext()
+        
+        // Draw background
+        let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
+        let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
         ctx!.addPath(outerPath)
         ctx!.setFillColor(UIColor.white.cgColor)
         ctx?.fillPath()
@@ -72,49 +72,48 @@ class HCGlobeButton: UIButton {
         var center = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
         
         ctx!.beginPath()
-        
-        //6
         ctx!.setLineWidth(1.5)
         
         //let x:CGFloat = center.x
         //let y:CGFloat = center.y
         let radius:CGFloat = min / 3.0
         let endAngle: CGFloat = CGFloat(2 * M_PI)
-        
-        //CGContextAddArc(ctx, x, y, radius, 0, endAngle, 0)
 
+        //circle
         ctx!.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
+        //clip everything outside the circle
         ctx!.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.clip()
         
+        //left arc
         center.x += 15
-        
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
+        //right arc
         center.x -= 30
-        
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
-        //
-         
+        
+        //bottom arc
         center.x += 15
         center.y += 28
-        
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
+        //top arc
         center.y -= 55
-        
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
-        //
+ 
+        //horizontal line
         ctx!.move(to: CGPoint(x:0, y:self.frame.size.height / 2.0))
         ctx!.addLine(to: CGPoint(x:self.frame.size.width, y: self.frame.size.height / 2.0))
         ctx!.strokePath()
         
+        //vertical line
         ctx!.move(to: CGPoint(x:self.frame.size.width / 2.0, y:0))
         ctx!.addLine(to: CGPoint(x:self.frame.size.width / 2.0, y: self.frame.size.height))
         ctx!.strokePath()
