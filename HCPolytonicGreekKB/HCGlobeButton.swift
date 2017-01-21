@@ -69,7 +69,7 @@ class HCGlobeButton: UIButton {
         {
             min = self.frame.size.width
         }
-        let center = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
+        var center = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
         
         ctx!.beginPath()
         
@@ -82,12 +82,41 @@ class HCGlobeButton: UIButton {
         let endAngle: CGFloat = CGFloat(2 * M_PI)
         
         //CGContextAddArc(ctx, x, y, radius, 0, endAngle, 0)
+
         ctx!.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
-        ctx!.addArc(center: center, radius: radius/2, startAngle: 1.5, endAngle: 19.5, clockwise: true)
+        ctx!.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        ctx!.clip()
+        
+        center.x += 15
+        
+        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
+        center.x -= 30
+        
+        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        ctx!.strokePath()
+        //
+         
+        center.x += 15
+        center.y += 28
+        
+        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        ctx!.strokePath()
+        
+        center.y -= 55
+        
+        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        ctx!.strokePath()
+        //
+        ctx!.move(to: CGPoint(x:0, y:self.frame.size.height / 2.0))
+        ctx!.addLine(to: CGPoint(x:self.frame.size.width, y: self.frame.size.height / 2.0))
+        ctx!.strokePath()
+        
+        ctx!.move(to: CGPoint(x:self.frame.size.width / 2.0, y:0))
+        ctx!.addLine(to: CGPoint(x:self.frame.size.width / 2.0, y: self.frame.size.height))
+        ctx!.strokePath()
     }
-
 }
