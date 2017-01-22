@@ -10,8 +10,6 @@ import UIKit
 
 class HCGlobeButton: UIButton {
     
-    
-
     var buttonPressed:Bool = false
     
     required init() {
@@ -53,11 +51,24 @@ class HCGlobeButton: UIButton {
         
         let ctx = UIGraphicsGetCurrentContext()
         
+        var lineColor:CGColor?
+        var bgColor:CGColor?
+        if buttonPressed
+        {
+            lineColor = UIColor.white.cgColor
+            bgColor = UIColor.black.cgColor
+        }
+        else
+        {
+            lineColor = UIColor.black.cgColor
+            bgColor = UIColor.white.cgColor
+        }
+        
         // Draw background
         let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
         let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
         ctx!.addPath(outerPath)
-        ctx!.setFillColor(UIColor.white.cgColor)
+        ctx!.setFillColor(bgColor!)
         ctx?.fillPath()
         
         let min:CGFloat
@@ -69,10 +80,13 @@ class HCGlobeButton: UIButton {
         {
             min = self.frame.size.width
         }
-        var center = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
+        let center = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
+        
+        var vCenter = CGPoint(x:self.frame.size.width / 2.0, y:self.frame.size.height / 2.0)
         
         ctx!.beginPath()
         ctx!.setLineWidth(1.5)
+        ctx!.setStrokeColor(lineColor!)
         
         //let x:CGFloat = center.x
         //let y:CGFloat = center.y
@@ -88,23 +102,23 @@ class HCGlobeButton: UIButton {
         ctx!.clip()
         
         //left arc
-        center.x += 15
+        vCenter.x += 15
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //right arc
-        center.x -= 30
+        vCenter.x -= 30
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //bottom arc
-        center.x += 15
-        center.y += 28
+        vCenter.x += 15
+        vCenter.y += 28
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //top arc
-        center.y -= 55
+        vCenter.y -= 55
         ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
  
