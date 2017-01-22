@@ -102,24 +102,24 @@ class HCGlobeButton: UIButton {
         ctx!.clip()
         
         //left arc
-        vCenter.x += 15
-        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        vCenter = CGPoint(x:center.x + (radius/0.75), y:center.y)
+        ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //right arc
-        vCenter.x -= 30
-        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        vCenter = CGPoint(x:center.x - (radius/0.75), y:center.y)
+        ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //bottom arc
-        vCenter.x += 15
-        vCenter.y += 28
-        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        vCenter = CGPoint(x:center.x, y:center.y + (radius*2.29))
+        ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //top arc
-        vCenter.y -= 55
-        ctx!.addArc(center: center, radius: radius + 9.5, startAngle: 0.0, endAngle: endAngle, clockwise: true)
+        //vCenter.y -= 55
+        vCenter = CGPoint(x:center.x, y:center.y - (radius*2.29))
+        ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
  
         //horizontal line
