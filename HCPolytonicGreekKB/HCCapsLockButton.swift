@@ -59,12 +59,14 @@ class HCCapsLockButton: UIButton {
         ctx!.setFillColor(UIColor.white.cgColor)
         ctx?.fillPath()
         
-        let bWidth = self.bounds.size.width
+        
         let bHeight = self.bounds.size.height
-        let stemWidth = bWidth / 3
+        let bWidth = self.bounds.size.width
+        
+        let stemWidth = bHeight * 0.28
         let hang = stemWidth / 2
         let stemHeight = bHeight / 5
-        let arrowHeight = stemHeight * 1.4
+        let arrowHeight = stemHeight * 1.5
         let topPadding:CGFloat = (bHeight - stemHeight - arrowHeight) / 2
         let sidePadding:CGFloat = (bWidth - (hang * 2) - stemWidth) / 2
         
@@ -74,9 +76,9 @@ class HCCapsLockButton: UIButton {
         path.addLine(to: CGPoint(x:sidePadding + hang, y:topPadding + arrowHeight)) //to top of stem
         path.addLine(to: CGPoint(x:sidePadding, y:topPadding + arrowHeight)) //to hang
         path.addLine(to: CGPoint(x:bWidth / 2, y:topPadding)) //to point
-        path.addLine(to: CGPoint(x:bWidth - sidePadding, y:topPadding + arrowHeight)) //to right hang
-        path.addLine(to: CGPoint(x:bWidth - sidePadding - hang, y:topPadding + arrowHeight)) //to stem
-        path.addLine(to: CGPoint(x:bWidth - sidePadding - hang, y:topPadding + arrowHeight + stemHeight)) //to bottom of stem
+        path.addLine(to: CGPoint(x:sidePadding + (hang * 2) + stemWidth, y:topPadding + arrowHeight)) //to right hang
+        path.addLine(to: CGPoint(x:sidePadding + hang + stemWidth, y:topPadding + arrowHeight)) //to stem
+        path.addLine(to: CGPoint(x:sidePadding + hang + stemWidth, y:topPadding + arrowHeight + stemHeight)) //to bottom of stem
         path.closeSubpath() //back to start
         
         ctx!.addPath(path);
@@ -88,6 +90,7 @@ class HCCapsLockButton: UIButton {
         }
         else
         {
+            ctx!.setLineWidth(1.5)
             ctx!.strokePath()
         }
     }
