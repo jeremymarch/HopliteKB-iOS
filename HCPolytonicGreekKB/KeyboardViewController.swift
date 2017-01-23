@@ -31,6 +31,7 @@ class KeyboardViewController: UIInputViewController {
     let stackView4   = UIStackView()
     //var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
+    var capsLockButton:UIButton? = nil
     /*
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -294,9 +295,22 @@ class KeyboardViewController: UIInputViewController {
                     
                     if key == "CP"
                     {
+                        b = HCCapsLockButton()
+                        
+                        //b.layer.borderWidth = 1.0
+                        //b.layer.borderColor = UIColor.blue.cgColor
+                        b.layer.cornerRadius = 4.0
+                        b.titleLabel?.textColor = UIColor.black
+                        b.setTitleColor(keyTextColor, for: [])
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.layer.backgroundColor = UIColor.brown.cgColor
+                        b.setTitle("", for: [])
+                        
                         b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        
+                        capsLockButton = b
                     }
                     else if key == "KB"
                     {
@@ -386,6 +400,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewWillTransition(to: size, with: coordinator)
         //updateViewConstraints()
         globeButton?.setNeedsDisplay() //to redraw globe icon
+        capsLockButton?.setNeedsDisplay()
     }
  
     override func didReceiveMemoryWarning() {

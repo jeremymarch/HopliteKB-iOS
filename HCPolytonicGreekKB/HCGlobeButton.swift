@@ -76,7 +76,7 @@ class HCGlobeButton: UIButton {
         {
             min = self.frame.size.height
         }
-        else /* mri 212-312-5179 */
+        else
         {
             min = self.frame.size.width
         }
@@ -88,8 +88,6 @@ class HCGlobeButton: UIButton {
         ctx!.setLineWidth(1.5)
         ctx!.setStrokeColor(lineColor!)
         
-        //let x:CGFloat = center.x
-        //let y:CGFloat = center.y
         let radius:CGFloat = min / 3.0
         let endAngle: CGFloat = CGFloat(2 * M_PI)
 
@@ -102,12 +100,12 @@ class HCGlobeButton: UIButton {
         ctx!.clip()
         
         //left arc
-        vCenter = CGPoint(x:center.x + (radius/0.75), y:center.y)
+        vCenter = CGPoint(x:center.x + (radius/0.73), y:center.y)
         ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
         //right arc
-        vCenter = CGPoint(x:center.x - (radius/0.75), y:center.y)
+        vCenter = CGPoint(x:center.x - (radius/0.73), y:center.y)
         ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()
         
@@ -117,7 +115,6 @@ class HCGlobeButton: UIButton {
         ctx!.strokePath()
         
         //top arc
-        //vCenter.y -= 55
         vCenter = CGPoint(x:center.x, y:center.y - (radius*2.29))
         ctx!.addArc(center: vCenter, radius: radius + (radius/1.2), startAngle: 0.0, endAngle: endAngle, clockwise: true)
         ctx!.strokePath()

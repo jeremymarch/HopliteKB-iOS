@@ -11,6 +11,7 @@ import UIKit
 class HCCapsLockButton: UIButton {
 
     var buttonPressed:Bool = false
+    var capsLockOn:Bool = false
     
     required init() {
         super.init(frame: .zero)
@@ -37,7 +38,7 @@ class HCCapsLockButton: UIButton {
     }
     
     func touchDown1(sender: UIButton!) {
-        
+        capsLockOn = !capsLockOn
         buttonPressed = true
         setNeedsDisplay()
     }
@@ -58,38 +59,36 @@ class HCCapsLockButton: UIButton {
         ctx!.setFillColor(UIColor.white.cgColor)
         ctx?.fillPath()
         
+        let bWidth = self.bounds.size.width
+        let bHeight = self.bounds.size.height
+        let stemWidth = bWidth / 3
+        let hang = stemWidth / 2
+        let stemHeight = bHeight / 5
+        let arrowHeight = stemHeight * 1.4
+        let topPadding:CGFloat = (bHeight - stemHeight - arrowHeight) / 2
+        let sidePadding:CGFloat = (bWidth - (hang * 2) - stemWidth) / 2
         
-        let padding = 4.0
-        let hang = 2.0
-        //let stemWidth = rect.size.width - padding * 2
-
-
-    }
-    
-    func drawX(context:CGContext, rect1:CGRect, offset:CGFloat, color:CGColor)
-    {
-        var rect:CGRect = rect1
-        //center and make the rect square
-        if rect.size.width > rect.size.height
+        let path:CGMutablePath = CGMutablePath()
+        
+        path.move(to: CGPoint(x: sidePadding + hang, y: topPadding + arrowHeight + stemHeight))
+        path.addLine(to: CGPoint(x:sidePadding + hang, y:topPadding + arrowHeight)) //to top of stem
+        path.addLine(to: CGPoint(x:sidePadding, y:topPadding + arrowHeight)) //to hang
+        path.addLine(to: CGPoint(x:bWidth / 2, y:topPadding)) //to point
+        path.addLine(to: CGPoint(x:bWidth - sidePadding, y:topPadding + arrowHeight)) //to right hang
+        path.addLine(to: CGPoint(x:bWidth - sidePadding - hang, y:topPadding + arrowHeight)) //to stem
+        path.addLine(to: CGPoint(x:bWidth - sidePadding - hang, y:topPadding + arrowHeight + stemHeight)) //to bottom of stem
+        path.closeSubpath() //back to start
+        
+        ctx!.addPath(path);
+        
+        if capsLockOn
         {
-            rect.origin.x += (rect.size.width - rect.size.height) / 2;
-            rect.size.width = rect.size.height;
+            ctx!.setFillColor(UIColor.black.cgColor)
+            ctx!.fillPath()
         }
         else
         {
-            rect.origin.y += (rect.size.height - rect.size.width) / 2;
-            rect.size.height = rect.size.width;
+            ctx!.strokePath()
         }
-        
-        context.saveGState();
-        context.setLineWidth(2.5);
-        context.setStrokeColor(color);
-        context.move(to: CGPoint(x:rect.minX + offset, y: rect.minY + offset))
-        context.addLine(to: CGPoint(x:rect.maxX - offset, y:rect.maxY - offset))
-        context.move(to: CGPoint(x:rect.maxX - offset, y:rect.minY + offset))
-        context.addLine(to: CGPoint(x:rect.minX + offset, y:rect.maxY - offset))
-        context.strokePath();
-        context.restoreGState();
     }
-
 }
