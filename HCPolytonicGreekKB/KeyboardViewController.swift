@@ -29,15 +29,42 @@ class KeyboardViewController: UIInputViewController {
     let stackView2   = UIStackView()
     let stackView3   = UIStackView()
     let stackView4   = UIStackView()
-    //var deleteButton:UIButton? = nil
+    var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
     var capsLockButton:UIButton? = nil
-    /*
+    var heightConstraint:NSLayoutConstraint?
+    let portraitHeight:CGFloat = 236.0
+    let landscapeHeight:CGFloat = 190.0
+    
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
         // Add custom view sizing constraints here
+        if (self.view.frame.size.width == 0 || self.view.frame.size.height == 0) {
+            return
+        }
+        self.inputView!.removeConstraint(heightConstraint!)
+        let screenSize = UIScreen.main.bounds.size
+        let screenH = screenSize.height;
+        let screenW = screenSize.width;
+        let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
+        
+        NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potriaint");
+        if (isLandscape) {
+            heightConstraint!.constant = landscapeHeight;
+            self.inputView!.addConstraint(heightConstraint!)
+        } else {
+            heightConstraint!.constant = self.portraitHeight;
+            self.inputView!.addConstraint(heightConstraint!)
+        }
     }
-    */
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // Update height when rotati
+        updateViewConstraints()
+    }
+    
     /*
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
@@ -51,36 +78,16 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("kb view did load")
+        //NSLog("kb view did load")
         self.view.translatesAutoresizingMaskIntoConstraints = true //this is needed
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
         
         let buttonSpacing:CGFloat = 5.0
         let widthMultiple:CGFloat = 0.0976
-
-        /*
-         let upperBorder: CALayer = CALayer()
-         upperBorder.backgroundColor = UIColor.green.cgColor
-         upperBorder.frame = CGRect(x:0,y:0,width:self.view.frame.width,height:4)
-         self.view.layer.addSublayer(upperBorder)
-         */
-        
-        //is this needed?  it seems to be
-        /*
-        self.view.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width).isActive = true
-        self.view.heightAnchor.constraint(equalToConstant: 315).isActive = true
-        let margins = view.layoutMarginsGuide
-        self.view.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.view.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        
-        self.view.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor).isActive = true
-        self.view.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
-        */
-
+        let buttonHeight:CGFloat = 42.0
 
         //Stack View
-
         stackView1.axis  = UILayoutConstraintAxis.horizontal
         stackView1.distribution  = UIStackViewDistribution.equalSpacing
         stackView1.alignment = UIStackViewAlignment.center
@@ -127,11 +134,12 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.addArrangedSubview(stackView5)
         
         /*
-        Also need:
+            punctuation:
             period
             comma
-            raised dot, ano teleia
+            raised dot (ano teleia)
             question mark
+            parentheses
         */
         let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ";","·"],
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
@@ -227,7 +235,7 @@ class KeyboardViewController: UIInputViewController {
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: 0.2).isActive = true
-                    b.heightAnchor.constraint(equalToConstant: 42.0).isActive = true
+                    b.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
                 }
                 else if row == keys[1]
                 {
@@ -382,7 +390,7 @@ class KeyboardViewController: UIInputViewController {
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.3)).isActive = true
                         
-                        //deleteButton = b
+                        deleteButton = b
                     }
                 }
             }
@@ -394,6 +402,20 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
         stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
+        
+        
+        //herehere
+        //set whole keyboard height
+        //http://stackoverflow.com/questions/24167909/ios-8-custom-keyboard-changing-the-height
+        //self.view.heightAnchor.constraint(equalToConstant: <#T##CGFloat#>)
+        
+        //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
+        
+        heightConstraint = NSLayoutConstraint(item: self.inputView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: portraitHeight)
+        heightConstraint!.priority = 999.0
+        heightConstraint?.isActive = true
+        
+        self.inputView!.addConstraint(heightConstraint!)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -401,6 +423,9 @@ class KeyboardViewController: UIInputViewController {
         //updateViewConstraints()
         globeButton?.setNeedsDisplay() //to redraw globe icon
         capsLockButton?.setNeedsDisplay()
+        deleteButton?.setNeedsDisplay()
+        
+        
     }
  
     override func didReceiveMemoryWarning() {

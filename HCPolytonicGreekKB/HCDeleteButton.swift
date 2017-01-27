@@ -132,25 +132,30 @@ class HCDeleteButton: UIButton {
         }
         else
         {
-            topPadding = self.bounds.size.height / 4.2;
+            topPadding = self.bounds.size.height / 5.0;
             sidePadding = self.bounds.size.width / 5.0;
             xIconPadding = 4.0;
         }
         //NSLog(@"H: %f, W: %f", self.bounds.size.height, self.bounds.size.width);
         
         let delRadius:CGFloat = 2.0
-        let startX:CGFloat = ((delWidth + (1 * sidePadding!)) * 1 / 3) - 1
+        //let startX:CGFloat = ((delWidth + (1 * sidePadding!)) * 1 / 3) - 1
         
         let path:CGMutablePath = CGMutablePath()
         
-        path.move(to: CGPoint(x: startX, y: topPadding!))
+        let iconWidth = delHeight * 0.75
+        let iconPointWidth = iconWidth / 3
+        let iconBodyWidth = iconWidth - iconPointWidth
+        let delSidePadding = (delWidth - iconWidth) / 2
         
-        path.addArc(tangent1End: CGPoint(x: delWidth - sidePadding!, y: topPadding!), tangent2End: CGPoint(x: delWidth - sidePadding!, y:delHeight - topPadding!), radius: delRadius)
         
-        path.addArc(tangent1End: CGPoint(x: delWidth - sidePadding!, y:delHeight - topPadding!), tangent2End: CGPoint(x: startX, y:delHeight - topPadding!), radius: delRadius)
+        path.move(to: CGPoint(x: delSidePadding + iconPointWidth, y: topPadding!)) //NW
         
-        path.addLine(to: CGPoint(x:startX, y:delHeight - topPadding!))
-        path.addLine(to: CGPoint(x:sidePadding! - 2, y:delHeight / 2.0))
+        path.addArc(tangent1End: CGPoint(x: delWidth - delSidePadding, y: topPadding!), tangent2End: CGPoint(x: delWidth - delSidePadding, y:delHeight - topPadding!), radius: delRadius)
+        path.addArc(tangent1End: CGPoint(x: delWidth - delSidePadding, y:delHeight - topPadding!), tangent2End: CGPoint(x: delSidePadding + iconPointWidth, y:delHeight - topPadding!), radius: delRadius)
+        path.addLine(to: CGPoint(x:delSidePadding + iconPointWidth, y:delHeight - topPadding!))
+        path.addLine(to: CGPoint(x:delSidePadding, y:delHeight / 2.0))
+        
         
         path.closeSubpath();
         
@@ -188,7 +193,7 @@ class HCDeleteButton: UIButton {
         context!.restoreGState()
         
         context!.saveGState();
-        let xFrame:CGRect = CGRect(x:startX,y:topPadding!,width:delWidth - (sidePadding! * 2) - (startX - sidePadding!),height:delHeight - (topPadding! * 2))
+        let xFrame:CGRect = CGRect(x:delSidePadding + iconPointWidth,y:topPadding!,width:iconBodyWidth, height:delHeight - (topPadding! * 2))
         
         drawX(context:context!, rect1:xFrame, offset:xIconPadding!, color:xColor!);
         
