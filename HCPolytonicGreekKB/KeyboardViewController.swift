@@ -33,8 +33,9 @@ class KeyboardViewController: UIInputViewController {
     var globeButton:UIButton? = nil
     var capsLockButton:UIButton? = nil
     var heightConstraint:NSLayoutConstraint?
-    let portraitHeight:CGFloat = 236.0
-    let landscapeHeight:CGFloat = 190.0
+    let portraitHeight:CGFloat = 218.0
+    let landscapeHeight:CGFloat = 186.0
+    let buttonHeightMultiplier:CGFloat = 0.17
     
     
     override func updateViewConstraints() {
@@ -63,6 +64,10 @@ class KeyboardViewController: UIInputViewController {
         super.viewWillLayoutSubviews()
         // Update height when rotati
         updateViewConstraints()
+        
+        globeButton?.setNeedsDisplay() //to redraw globe icon
+        capsLockButton?.setNeedsDisplay()
+        deleteButton?.setNeedsDisplay()
     }
     
     /*
@@ -132,6 +137,27 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.addArrangedSubview(stackView3)
         stackViewV.addArrangedSubview(stackView4)
         stackViewV.addArrangedSubview(stackView5)
+        
+        self.view.addSubview(stackViewV)
+        
+        stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
+        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
+        
+        
+        //herehere
+        //set whole keyboard height
+        //http://stackoverflow.com/questions/24167909/ios-8-custom-keyboard-changing-the-height
+        //self.view.heightAnchor.constraint(equalToConstant: <#T##CGFloat#>)
+        
+        //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
+        
+        heightConstraint = NSLayoutConstraint(item: self.inputView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: portraitHeight)
+        heightConstraint!.priority = 999.0
+        heightConstraint?.isActive = true
+        
+        self.inputView!.addConstraint(heightConstraint!)
         
         /*
             punctuation:
@@ -234,8 +260,8 @@ class KeyboardViewController: UIInputViewController {
                     
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                    //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: 0.2).isActive = true
-                    b.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                    //b.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
                 }
                 else if row == keys[1]
                 {
@@ -253,6 +279,7 @@ class KeyboardViewController: UIInputViewController {
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView2.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[2]
                 {
@@ -270,6 +297,7 @@ class KeyboardViewController: UIInputViewController {
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView3.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[3]
                 {
@@ -287,6 +315,7 @@ class KeyboardViewController: UIInputViewController {
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     stackView4.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[4]
                 {
@@ -317,6 +346,7 @@ class KeyboardViewController: UIInputViewController {
                         b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         capsLockButton = b
                     }
@@ -337,6 +367,7 @@ class KeyboardViewController: UIInputViewController {
                         b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         globeButton = b
                     }
@@ -350,6 +381,7 @@ class KeyboardViewController: UIInputViewController {
                         b.layer.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0).cgColor
                         
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2)).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "space"
                     {
@@ -359,12 +391,14 @@ class KeyboardViewController: UIInputViewController {
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "."
                     {
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "BK"
                     {
@@ -389,35 +423,15 @@ class KeyboardViewController: UIInputViewController {
                         b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.3)).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         deleteButton = b
                     }
                 }
             }
         }
-        
-        self.view.addSubview(stackViewV)
-        
-        stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
-        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
-        
-        
-        //herehere
-        //set whole keyboard height
-        //http://stackoverflow.com/questions/24167909/ios-8-custom-keyboard-changing-the-height
-        //self.view.heightAnchor.constraint(equalToConstant: <#T##CGFloat#>)
-        
-        //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
-        
-        heightConstraint = NSLayoutConstraint(item: self.inputView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: portraitHeight)
-        heightConstraint!.priority = 999.0
-        heightConstraint?.isActive = true
-        
-        self.inputView!.addConstraint(heightConstraint!)
     }
-    
+    /*
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         //updateViewConstraints()
@@ -427,7 +441,7 @@ class KeyboardViewController: UIInputViewController {
         
         
     }
- 
+ */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
