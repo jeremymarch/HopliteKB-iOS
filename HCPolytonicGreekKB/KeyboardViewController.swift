@@ -19,7 +19,13 @@ extension UIInputView: UIInputViewAudioFeedback {
 }
 */
 class KeyboardViewController: UIInputViewController {
-
+/*
+    enum UIUserInterfaceIdiom : Int {
+        case Unspecified
+        case Phone // iPhone and iPod touch style UI
+        case Pad // iPad style UI
+    }
+    */
     var capsLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
@@ -38,18 +44,20 @@ class KeyboardViewController: UIInputViewController {
     var heightConstraint:NSLayoutConstraint?
     
     let fontSize:CGFloat = 24.0
-    let smallerFontSize:CGFloat = 18.0
+    let smallerFontSize:CGFloat = 20.0
+
+    var portraitHeight:CGFloat = 220.0
+    var landscapeHeight:CGFloat = 190.0
     
-    let portraitHeight:CGFloat = 220.0
-    let landscapeHeight:CGFloat = 190.0
     let buttonHeightMultiplier:CGFloat = 0.174
     let buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
     //let buttonHeight:CGFloat = 42.0
     
+
+    
     
     override func updateViewConstraints() {
-        super.updateViewConstraints()
         // Add custom view sizing constraints here
         if (self.view.frame.size.width == 0 || self.view.frame.size.height == 0) {
             return
@@ -68,28 +76,30 @@ class KeyboardViewController: UIInputViewController {
             heightConstraint!.constant = self.portraitHeight;
             self.inputView!.addConstraint(heightConstraint!)
         }
+        super.updateViewConstraints()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         // Update height when rotates
-        updateViewConstraints()
+        //updateViewConstraints()
+        //self.inputView!.setNeedsUpdateConstraints()
         
         globeButton?.setNeedsDisplay() //to redraw globe icon
         capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
     }
  
-    /*
+ 
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updateViewConstraints()
+        self.inputView!.setNeedsUpdateConstraints()
+        
         globeButton?.setNeedsDisplay() //to redraw globe icon
         capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
      }
- */
-    
+ 
     /*
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
@@ -103,6 +113,17 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            portraitHeight = 300.0
+            landscapeHeight = 260.0
+        }
+        else
+        {
+            portraitHeight = 220.0
+            landscapeHeight = 190.0
+        }
+        
         //NSLog("kb view did load")
         self.view.translatesAutoresizingMaskIntoConstraints = true //this is needed
         self.view.isUserInteractionEnabled = true
