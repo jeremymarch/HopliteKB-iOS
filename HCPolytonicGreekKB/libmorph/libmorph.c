@@ -52,6 +52,13 @@ enum {
     PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI,
     DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI,
     NUM_ACCENT_CODES
+    /*
+    DIALYTIKA
+    DIALYTIKA_AND_OXIA
+    DIALYTIKA_AND_VARIA
+    DIALYTIKA_AND_PERISPOMENON
+     
+     */
 };
 
 enum {
@@ -245,7 +252,6 @@ void accentCodeToAnalysis(int accentCode, bool *smooth, bool *rough, bool *acute
 //return 0 for invalid letter
 short getPrecomposedLetter(int letterCode, bool smooth, bool rough, bool acute, bool grave, bool circumflex, bool iota_sub, bool macron)
 {
-    short l = -1;
     int accent = 0;
 
     if (!smooth && !rough && !acute && !grave && !circumflex && !iota_sub && !macron)

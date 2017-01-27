@@ -122,18 +122,18 @@ class HCDeleteButton: UIButton {
         let delHeight:CGFloat = self.bounds.size.height;
         let delWidth:CGFloat = self.bounds.size.width;
         var topPadding:CGFloat?
-        var sidePadding:CGFloat?
+        //var sidePadding:CGFloat?
         var xIconPadding:CGFloat?
         if self.device == 2
         {
             topPadding = self.bounds.size.height / 2.8;
-            sidePadding = self.bounds.size.width / 3.0;
+            //sidePadding = self.bounds.size.width / 3.0;
             xIconPadding = self.bounds.size.width / 15.5;//6.0f;
         }
         else
         {
             topPadding = self.bounds.size.height / 5.0;
-            sidePadding = self.bounds.size.width / 5.0;
+            //sidePadding = self.bounds.size.width / 5.0;
             xIconPadding = 4.0;
         }
         //NSLog(@"H: %f, W: %f", self.bounds.size.height, self.bounds.size.width);

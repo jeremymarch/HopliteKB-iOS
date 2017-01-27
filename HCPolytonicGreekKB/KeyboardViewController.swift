@@ -19,13 +19,7 @@ extension UIInputView: UIInputViewAudioFeedback {
 }
 */
 class KeyboardViewController: UIInputViewController {
-/*
-    enum UIUserInterfaceIdiom : Int {
-        case Unspecified
-        case Phone // iPhone and iPod touch style UI
-        case Pad // iPad style UI
-    }
-    */
+
     var capsLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
@@ -52,17 +46,13 @@ class KeyboardViewController: UIInputViewController {
     let buttonHeightMultiplier:CGFloat = 0.174
     let buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
-    //let buttonHeight:CGFloat = 42.0
-    
-
-    
     
     override func updateViewConstraints() {
         // Add custom view sizing constraints here
         if (self.view.frame.size.width == 0 || self.view.frame.size.height == 0) {
             return
         }
-        self.inputView!.removeConstraint(heightConstraint!)
+        //self.inputView!.removeConstraint(heightConstraint!)
         let screenSize = UIScreen.main.bounds.size
         let screenH = screenSize.height;
         let screenW = screenSize.width;
@@ -71,10 +61,10 @@ class KeyboardViewController: UIInputViewController {
         //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
         if (isLandscape) {
             heightConstraint!.constant = landscapeHeight;
-            self.inputView!.addConstraint(heightConstraint!)
+            //self.inputView!.addConstraint(heightConstraint!)
         } else {
             heightConstraint!.constant = self.portraitHeight;
-            self.inputView!.addConstraint(heightConstraint!)
+            //self.inputView!.addConstraint(heightConstraint!)
         }
         super.updateViewConstraints()
     }
@@ -190,7 +180,13 @@ class KeyboardViewController: UIInputViewController {
         
         //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
         
-        heightConstraint = NSLayoutConstraint(item: self.inputView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: portraitHeight)
+        heightConstraint = NSLayoutConstraint(item: self.inputView!,
+                                              attribute: .height,
+                                              relatedBy: .equal,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1.0,
+                                              constant: portraitHeight)
         heightConstraint!.priority = 999.0
         heightConstraint?.isActive = true
         
@@ -500,14 +496,14 @@ class KeyboardViewController: UIInputViewController {
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        var textColor: UIColor
+        var textColor1:UIColor?
         let proxy = self.textDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
-            textColor = UIColor.white
+            textColor1 = UIColor.white
         } else {
-            textColor = UIColor.black
+            textColor1 = UIColor.black
         }
-        //self.nextKeyboardButton.setTitleColor(textColor, for: [])
+        globeButton!.setTitleColor(textColor1, for: [])
     }
     
     let COMBINING_GRAVE =            0x0300
