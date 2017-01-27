@@ -20,22 +20,32 @@ extension UIInputView: UIInputViewAudioFeedback {
 */
 class KeyboardViewController: UIInputViewController {
 
-    var capsLockOn = false
+    var capsLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
-    let useAnimation = false
+    let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
     let stackView1   = UIStackView()
     let stackView2   = UIStackView()
     let stackView3   = UIStackView()
     let stackView4   = UIStackView()
+    
     var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
     var capsLockButton:UIButton? = nil
+    var periodButton:UIButton? = nil
+    
     var heightConstraint:NSLayoutConstraint?
-    let portraitHeight:CGFloat = 218.0
-    let landscapeHeight:CGFloat = 186.0
-    let buttonHeightMultiplier:CGFloat = 0.17
+    
+    let fontSize:CGFloat = 24.0
+    let smallerFontSize:CGFloat = 18.0
+    
+    let portraitHeight:CGFloat = 220.0
+    let landscapeHeight:CGFloat = 190.0
+    let buttonHeightMultiplier:CGFloat = 0.174
+    let buttonSpacing:CGFloat = 5.0
+    let widthMultiple:CGFloat = 0.0976
+    //let buttonHeight:CGFloat = 42.0
     
     
     override func updateViewConstraints() {
@@ -50,7 +60,7 @@ class KeyboardViewController: UIInputViewController {
         let screenW = screenSize.width;
         let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
         
-        NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potriaint");
+        //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
         if (isLandscape) {
             heightConstraint!.constant = landscapeHeight;
             self.inputView!.addConstraint(heightConstraint!)
@@ -62,13 +72,23 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        // Update height when rotati
+        // Update height when rotates
         updateViewConstraints()
         
         globeButton?.setNeedsDisplay() //to redraw globe icon
         capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
     }
+ 
+    /*
+     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateViewConstraints()
+        globeButton?.setNeedsDisplay() //to redraw globe icon
+        capsLockButton?.setNeedsDisplay()
+        deleteButton?.setNeedsDisplay()
+     }
+ */
     
     /*
     override func viewDidAppear(_ animated:Bool) {
@@ -87,10 +107,6 @@ class KeyboardViewController: UIInputViewController {
         self.view.translatesAutoresizingMaskIntoConstraints = true //this is needed
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
-        
-        let buttonSpacing:CGFloat = 5.0
-        let widthMultiple:CGFloat = 0.0976
-        let buttonHeight:CGFloat = 42.0
 
         //Stack View
         stackView1.axis  = UILayoutConstraintAxis.horizontal
@@ -167,13 +183,11 @@ class KeyboardViewController: UIInputViewController {
             question mark
             parentheses
         */
-        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ";","·"],
+        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
                                ["CP", "KB", "space", ".", "enter", "BK"]]
-
-        let fontSize:CGFloat = 24.0
         
         for row in keys
         {
@@ -243,7 +257,12 @@ class KeyboardViewController: UIInputViewController {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                        
+                    }
+                    else if key == ","
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     }
                     else if key == "·"
                     {
@@ -256,6 +275,18 @@ class KeyboardViewController: UIInputViewController {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                         b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
+                    }
+                    else if key == "("
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    }
+                    else if key == ")"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        //b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     }
                     
                     stackView1.addArrangedSubview(b)
@@ -374,11 +405,12 @@ class KeyboardViewController: UIInputViewController {
                     else if key == "enter"
                     {
                         b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                         stackView5.addArrangedSubview(b)
                         
                         b.setTitleColor(UIColor.white, for: [])
 
-                        b.layer.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+                        b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                         
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2)).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
@@ -386,6 +418,7 @@ class KeyboardViewController: UIInputViewController {
                     else if key == "space"
                     {
                         b.setTitleColor(UIColor.gray, for: [])
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                         //b.layer.borderColor = UIColor.gray.cgColor
                         b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
@@ -399,6 +432,8 @@ class KeyboardViewController: UIInputViewController {
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        
+                        periodButton = b
                     }
                     else if key == "BK"
                     {
@@ -431,17 +466,7 @@ class KeyboardViewController: UIInputViewController {
             }
         }
     }
-    /*
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        //updateViewConstraints()
-        globeButton?.setNeedsDisplay() //to redraw globe icon
-        capsLockButton?.setNeedsDisplay()
-        deleteButton?.setNeedsDisplay()
-        
-        
-    }
- */
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
@@ -641,6 +666,14 @@ class KeyboardViewController: UIInputViewController {
         changeCaps(stackView2)
         changeCaps(stackView3)
         changeCaps(stackView4)
+        if capsLockOn
+        {
+            periodButton?.setTitle(";", for: UIControlState())
+        }
+        else
+        {
+            periodButton?.setTitle(".", for: UIControlState())
+        }
         //changeCaps(row4)
     }
     func changeCaps(_ containerView: UIView) {

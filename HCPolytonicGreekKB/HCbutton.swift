@@ -15,6 +15,7 @@ class HCButton: UIButton {
     let bgDownColor:UIColor = .black
     let textColor:UIColor = .black
     let textDownColor:UIColor = .white
+    let blueColor:UIColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -32,7 +33,7 @@ class HCButton: UIButton {
         // set other operations after super.init, if required
         if btype == 1
         {
-                backgroundColor = .white
+            backgroundColor = .white
         }
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
@@ -45,22 +46,61 @@ class HCButton: UIButton {
     
     func touchUpInside(sender: UIButton!) {
         
-        backgroundColor = bgColor
-        setTitleColor(textColor, for: [])
-        //setNeedsDisplay()
+        if self.titleLabel?.text == "enter"
+        {
+            setTitleColor(.white, for: [])
+            backgroundColor = blueColor
+        }
+        else if self.titleLabel?.text == "space"
+        {
+            setTitleColor(.gray, for: [])
+            backgroundColor = .white
+        }
+        else
+        {
+            backgroundColor = bgColor
+            setTitleColor(textColor, for: [])
+            //setNeedsDisplay()
+        }
     }
     
     func touchUpOutside(sender: UIButton!) {
         
-        backgroundColor = bgColor
-        setTitleColor(textColor, for: [])
-        //setNeedsDisplay()
+        if self.titleLabel?.text == "enter"
+        {
+            setTitleColor(.white, for: [])
+            backgroundColor = blueColor
+        }
+        else if self.titleLabel?.text == "space"
+        {
+            setTitleColor(.gray, for: [])
+            backgroundColor = .white
+        }
+        else
+        {
+            backgroundColor = bgColor
+            setTitleColor(textColor, for: [])
+            //setNeedsDisplay()
+        }
     }
     
     func touchDown(sender: UIButton!) {
         
-        backgroundColor = bgDownColor
-        setTitleColor(textDownColor, for: [])
+        if self.titleLabel?.text == "enter"
+        {
+            setTitleColor(blueColor, for: [])
+            backgroundColor = .white
+        }
+        else if self.titleLabel?.text == "space"
+        {
+            setTitleColor(.white, for: [])
+            backgroundColor = .black
+        }
+        else
+        {
+            backgroundColor = bgDownColor
+            setTitleColor(textDownColor, for: [])
+        }
         //setNeedsDisplay()
     }
 
