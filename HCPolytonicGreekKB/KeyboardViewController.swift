@@ -40,7 +40,7 @@ class KeyboardViewController: UIInputViewController {
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
 
-    var portraitHeight:CGFloat = 220.0
+    var portraitHeight:CGFloat = 230.0
     var landscapeHeight:CGFloat = 190.0
     
     let buttonHeightMultiplier:CGFloat = 0.174
@@ -134,7 +134,7 @@ class KeyboardViewController: UIInputViewController {
         }
         else
         {
-            portraitHeight = 220.0
+            portraitHeight = 230.0
             landscapeHeight = 190.0
         }
         
@@ -176,12 +176,12 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.alignment = UIStackViewAlignment.center
         stackViewV.spacing   = buttonSpacing
         
-        stackView1.translatesAutoresizingMaskIntoConstraints = false;
-        stackView2.translatesAutoresizingMaskIntoConstraints = false;
-        stackView3.translatesAutoresizingMaskIntoConstraints = false;
-        stackView4.translatesAutoresizingMaskIntoConstraints = false;
-        stackView5.translatesAutoresizingMaskIntoConstraints = false;
-        stackViewV.translatesAutoresizingMaskIntoConstraints = false;
+        stackView1.translatesAutoresizingMaskIntoConstraints = false
+        stackView2.translatesAutoresizingMaskIntoConstraints = false
+        stackView3.translatesAutoresizingMaskIntoConstraints = false
+        stackView4.translatesAutoresizingMaskIntoConstraints = false
+        stackView5.translatesAutoresizingMaskIntoConstraints = false
+        stackViewV.translatesAutoresizingMaskIntoConstraints = false
         
         stackViewV.addArrangedSubview(stackView1)
         stackViewV.addArrangedSubview(stackView2)
@@ -432,7 +432,9 @@ class KeyboardViewController: UIInputViewController {
                         b.setTitle("", for: [])
                         
                         //b.setTitle("", for: [])
-                        b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                        //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                        b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
+                        
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
