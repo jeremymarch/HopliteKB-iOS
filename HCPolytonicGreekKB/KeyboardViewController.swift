@@ -47,6 +47,9 @@ class KeyboardViewController: UIInputViewController {
     let buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
     
+    /*
+     //best to update constraint in place rather than in updateConstraints() if possible, see:
+     //https://developer.apple.com/reference/uikit/uiviewcontroller/1621379-updateviewconstraints
     override func updateViewConstraints() {
         // Add custom view sizing constraints here
         if (self.view.frame.size.width == 0 || self.view.frame.size.height == 0) {
@@ -68,6 +71,7 @@ class KeyboardViewController: UIInputViewController {
         }
         super.updateViewConstraints()
     }
+    */
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -80,15 +84,35 @@ class KeyboardViewController: UIInputViewController {
         deleteButton?.setNeedsDisplay()
     }
  
- 
-     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        self.inputView!.setNeedsUpdateConstraints()
+        coordinator.animate(alongsideTransition: { _ in
+            
+            if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
+            {
+                //self.inputView!.removeConstraint(self.heightConstraint!)
+                let screenSize = UIScreen.main.bounds.size
+                let screenH = screenSize.height
+                let screenW = screenSize.width
+                let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
+                
+                //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
+                if (isLandscape) {
+                    self.heightConstraint!.constant = self.landscapeHeight;
+                    //self.inputView!.addConstraint(self.heightConstraint!)
+                } else {
+                    self.heightConstraint!.constant = self.portraitHeight;
+                    //self.inputView!.addConstraint(self.heightConstraint!)
+                }
+                
+                self.globeButton?.setNeedsDisplay() //to redraw globe icon
+                self.capsLockButton?.setNeedsDisplay()
+                self.deleteButton?.setNeedsDisplay()
+            }
         
-        globeButton?.setNeedsDisplay() //to redraw globe icon
-        capsLockButton?.setNeedsDisplay()
-        deleteButton?.setNeedsDisplay()
-     }
+        }, completion: nil)
+    }
  
     /*
     override func viewDidAppear(_ animated:Bool) {
@@ -221,9 +245,6 @@ class KeyboardViewController: UIInputViewController {
                     b.layer.cornerRadius = 4.0
                     //b.titleLabel?.textColor = UIColor.black
                     //b.setTitleColor(keyTextColor, for: [])
-                    
-                    //b.titleLabel!.transform = CGAffineTransform.init(scaleX: 2, y: 2)// .identity.scaledBy(x: 1.5, y: 1.5)
-                    
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
@@ -309,7 +330,6 @@ class KeyboardViewController: UIInputViewController {
                     stackView1.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                    //b.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
                 }
                 else if row == keys[1]
                 {
@@ -456,15 +476,6 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b = HCDeleteButton(devicea:2)
                         
-                        //b.layer.borderWidth = 1.0
-                        //b.layer.borderColor = UIColor.blue.cgColor
-                        //b.layer.cornerRadius = 4.0
-                        //b.titleLabel?.textColor = UIColor.black
-                        //b.setTitleColor(keyTextColor, for: [])
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        //b.layer.backgroundColor = UIColor.brown.cgColor
-                        //b.setTitle(key, for: [])
-                        
                         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
                         lpgr.minimumPressDuration = 0.5
                         lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
@@ -496,14 +507,14 @@ class KeyboardViewController: UIInputViewController {
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        var textColor1:UIColor?
+        var textColor:UIColor?
         let proxy = self.textDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
-            textColor1 = UIColor.white
+            textColor = UIColor.white
         } else {
-            textColor1 = UIColor.black
+            textColor = UIColor.black
         }
-        globeButton!.setTitleColor(textColor1, for: [])
+        globeButton!.setTitleColor(textColor, for: [])
     }
     
     let COMBINING_GRAVE =            0x0300
