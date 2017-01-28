@@ -21,6 +21,7 @@
 		3F4547AD1E2B0A6300946694 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4547AC1E2B0A6300946694 /* HCbutton.swift */; };
 		3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
 		3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
+		3FB2F91F1E3D551800861B52 /* HopliteKBLogo.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */; };
 		3FC696F61E31BDA600121658 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
 		3FE19A121E2DC8F30088E96C /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE19A111E2DC8F30088E96C /* newathu5.ttf */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		3F4547AC1E2B0A6300946694 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
 		3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
+		3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HopliteKBLogo.xcf; path = Images/HopliteKBLogo.xcf; sourceTree = "<group>"; };
 		3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
 		3FE19A111E2DC8F30088E96C /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 				3F0F5E5D1E0F819C00DE5744 /* HCPolytonicGreekKBappTests */,
 				3F0F5E681E0F819C00DE5744 /* HCPolytonicGreekKBappUITests */,
 				3F0F5E7C1E0F81D700DE5744 /* HCPolytonicGreekKB */,
+				3FB2F9191E3D548C00861B52 /* Resources */,
 				3F0F5E471E0F819C00DE5744 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -204,6 +207,14 @@
 				3F0F5E8A1E0F875900DE5744 /* HCPolytonicGreekKB-Bridging-Header.h */,
 			);
 			name = libmorph;
+			sourceTree = "<group>";
+		};
+		3FB2F9191E3D548C00861B52 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FB2F91F1E3D551800861B52 /* HopliteKBLogo.xcf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
