@@ -566,7 +566,7 @@
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jwm.HCPolytonicGreekKBapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -581,7 +581,7 @@
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jwm.HCPolytonicGreekKBapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -653,7 +653,7 @@
 				INFOPLIST_FILE = HCPolytonicGreekKB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jwm.HCPolytonicGreekKBapp.HCPolytonicGreekKB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard.hoplitekeyboardext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HCPolytonicGreekKB/HCPolytonicGreekKB-Bridging-Header.h";
@@ -670,7 +670,7 @@
 				INFOPLIST_FILE = HCPolytonicGreekKB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jwm.HCPolytonicGreekKBapp.HCPolytonicGreekKB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard.hoplitekeyboardext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HCPolytonicGreekKB/HCPolytonicGreekKB-Bridging-Header.h";

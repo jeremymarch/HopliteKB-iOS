@@ -29,6 +29,7 @@ class KeyboardViewController: UIInputViewController {
     let stackView2   = UIStackView()
     let stackView3   = UIStackView()
     let stackView4   = UIStackView()
+    var tic:Int = 0
     
     var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
@@ -495,8 +496,49 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
         }
+        
+        //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
     }
 
+    //DEMO
+    func runDemo(_ timer: Timer)
+    {
+        switch self.tic {
+        case 0:
+            let a:UIButton = stackView3.arrangedSubviews[0] as! UIButton //ALPHA
+            a.sendActions(for: .touchDown)
+        case 1:
+            let a:UIButton = stackView3.arrangedSubviews[0] as! UIButton
+            a.sendActions(for: .touchUpInside)
+        case 2:
+            let a:UIButton = stackView1.arrangedSubviews[5] as! UIButton //MACRON
+            a.sendActions(for: .touchDown)
+        case 3:
+            let a:UIButton = stackView1.arrangedSubviews[5] as! UIButton
+            a.sendActions(for: .touchUpInside)
+        case 4:
+            let a:UIButton = stackView1.arrangedSubviews[1] as! UIButton //SMOOTH
+            a.sendActions(for: .touchDown)
+        case 5:
+            let a:UIButton = stackView1.arrangedSubviews[1] as! UIButton
+            a.sendActions(for: .touchUpInside)
+        case 6:
+            let a:UIButton = stackView1.arrangedSubviews[2] as! UIButton //ACUTE
+            a.sendActions(for: .touchDown)
+        case 7:
+            let a:UIButton = stackView1.arrangedSubviews[2] as! UIButton
+            a.sendActions(for: .touchUpInside)
+        case 8:
+            let a:UIButton = stackView1.arrangedSubviews[6] as! UIButton //IOTA SUB
+            a.sendActions(for: .touchDown)
+        case 9:
+            let a:UIButton = stackView1.arrangedSubviews[6] as! UIButton
+            a.sendActions(for: .touchUpInside)
+        default: break
+        }
+        self.tic += 1
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
