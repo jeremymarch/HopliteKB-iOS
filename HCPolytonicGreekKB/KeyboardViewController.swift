@@ -18,6 +18,79 @@ extension UIInputView: UIInputViewAudioFeedback {
     }
 }
 */
+public struct HopliteConstants{
+    
+    static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+    static let enterTextColor = UIColor.white
+    static let enterBGColorDown = UIColor.white
+    static let enterTextColorDown = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+    
+    static let keyBGColor = UIColor.white
+    static let keyTextColor = UIColor.black
+    static let keyBGColorDown = UIColor.black
+    static let keyTextColorDown = UIColor.white
+    
+    static let accentBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let accentTextColor = UIColor.white
+    static let accentBGColorDown = UIColor.black
+    static let accentTextColorDown = UIColor.white
+    
+    static let punctuationBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let punctuationTextColor = UIColor.white
+    static let punctuationBGColorDown = UIColor.black
+    static let punctuationTextColorDown = UIColor.white
+    
+    //capslock, globe, backspace
+    static let otherKeyBGColor = UIColor.white
+    static let otherKeyTextColor = UIColor.black
+    static let otherKeyBGColorDown = UIColor.black
+    static let otherKeyTextColorDown = UIColor.white
+    
+    static let deleteBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteInnerColor = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+    static let deleteXColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteBGColorDown = UIColor.white
+    static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+}
+
+public struct HopliteConstants1{
+    static let constX=1;
+    
+    static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+    static let enterTextColor = UIColor.white
+    static let enterBGColorDown = UIColor.white
+    static let enterTextColorDown = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+    
+    static let keyBGColor = UIColor.white
+    static let keyTextColor = UIColor.black
+    static let keyBGColorDown = UIColor.black
+    static let keyTextColorDown = UIColor.white
+    
+    static let accentBGColor = UIColor.init(red: 0/255.0, green: 150.0/255.0, blue: 70/255.0, alpha: 1.0)
+    static let accentTextColor = UIColor.white
+    static let accentBGColorDown = UIColor.black
+    static let accentTextColorDown = UIColor.white
+    
+    static let punctuationBGColor = UIColor.orange
+    static let punctuationTextColor = UIColor.black
+    static let punctuationBGColorDown = UIColor.black
+    static let punctuationTextColorDown = UIColor.white
+    
+    //capslock, globe, backspace
+    static let otherKeyBGColor = UIColor.white
+    static let otherKeyTextColor = UIColor.black
+    static let otherKeyBGColorDown = UIColor.black
+    static let otherKeyTextColorDown = UIColor.white
+    
+    static let deleteBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteInnerColor = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+    static let deleteXColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteBGColorDown = UIColor.white
+    static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+}
+
 class KeyboardViewController: UIInputViewController {
 
     var capsLockOn:Bool = false
@@ -239,8 +312,14 @@ class KeyboardViewController: UIInputViewController {
 
                 if row == keys[0]
                 {
-                    b = HCAccentButton(buttonType:1)
-                    
+                    if key == "·" || key == ","
+                    {
+                        b = HCPunctuationButton(buttonType:1)
+                    }
+                    else
+                    {
+                        b = HCAccentButton(buttonType:1)
+                    }
                     //b.layer.borderWidth = 1.0
                     //b.layer.borderColor = UIColor.blue.cgColor
                     b.layer.cornerRadius = 4.0
@@ -468,6 +547,11 @@ class KeyboardViewController: UIInputViewController {
                     }
                     else if key == "."
                     {
+                        b = HCPunctuationButton(buttonType:1)
+                        b.layer.cornerRadius = 4.0
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        b.setTitle(key, for: [])
+                        
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
@@ -480,13 +564,13 @@ class KeyboardViewController: UIInputViewController {
                         b = HCDeleteButton(devicea:2)
                         
                         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
-                        lpgr.minimumPressDuration = 0.5
+                        lpgr.minimumPressDuration = 0.4
                         lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
                         lpgr.allowableMovement = 50.0
                         b.addGestureRecognizer(lpgr)
  
                         //need both long and normal
-                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchUpInside)
+                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
                         stackView5.addArrangedSubview(b)
                         b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.3)).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true

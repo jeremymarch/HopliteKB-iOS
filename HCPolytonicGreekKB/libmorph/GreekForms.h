@@ -10,16 +10,5 @@
 #define __morph__GreekForms__
 
 #include <stdio.h>
-#include "libmorph.h"
 
-Verb verbs[NUM_VERBS];
-Ending endings[NUM_ENDINGS];
-/*
-char *persons[];
-char *personsabrev[];
-char *numbers[];
-char *tenses[];
-char *voices[];
-char *moods[];
-*/
 #endif /* defined(__morph__GreekForms__) */

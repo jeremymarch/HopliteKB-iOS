@@ -11,10 +11,18 @@ import UIKit
 class HCButton: UIButton {
 
     var btype: Int? = nil
-    let bgColor:UIColor = .white
-    let bgDownColor:UIColor = .black
-    let textColor:UIColor = .black
-    let textDownColor:UIColor = .white
+    /*
+    var bgColor:UIColor = .white
+    var bgDownColor:UIColor = .black
+    var textColor:UIColor = .black
+    var textDownColor:UIColor = .white
+    */
+    
+    var bgColor = HopliteConstants.keyBGColor
+    var textColor = HopliteConstants.keyTextColor
+    var bgDownColor = HopliteConstants.keyBGColorDown
+    var textDownColor = HopliteConstants.keyTextColorDown
+    
     let blueColor:UIColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     /*
     // Only override draw() if you perform custom drawing.
@@ -31,10 +39,10 @@ class HCButton: UIButton {
         super.init(frame: .zero)
         
         // set other operations after super.init, if required
-        if btype == 1
-        {
-            backgroundColor = .white
-        }
+        
+        backgroundColor = bgColor
+        setTitleColor(textColor, for: [])
+        
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)

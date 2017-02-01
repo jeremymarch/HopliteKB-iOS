@@ -9,18 +9,49 @@
 #include <stdlib.h> // For random(), RAND_MAX
 #include <string.h>  //for strlen()
 #include <stdbool.h> //for bool type
-#include "libmorph.h"
 #include "GreekForms.h"
 #include "GreekUnicode.h"
+#include "libmorph.h"
+
+/*
+To use:
+ Type the letter first, then the accent
+ accents can be added (or removed) in any order
+ typing an accent again toggles it off
+ contrasting accents will replace each other, e.g. a smooth breathing replaces a rough breathing and vice versa, an acute replaces a circumflex or grave and vice versa.
+ macrons and circumflexes are considered contrasting because the circumflex in itself indicates the vowel to be long.
+ */
+
 
 #define DECOMPOSED_AUGMENT_CHAR GREEK_SMALL_LETTER_EPSILON
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript
 
-bool onlyUseCombiningDiacritics = false; //not used yet
+bool onlyUseCombiningDiacritics; //not used yet
 
 void combiningToPrecomposed(UCS2 *ucs2String, int i, int *len);
 void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
 void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
+
+void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
+{
+    int j = offset + *len - 1;
+    for ( ; j >= offset; j--)
+    {
+        ucs2[j + steps] = ucs2[j];
+    }
+    *len += steps;
+}
+
+//Moves everything over to the left, eating the first letter
+void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
+{
+    int j = offset;
+    for ( ; j < *len - 1; j++)
+    {
+        ucs2[j] = ucs2[j + steps];
+    }
+    *len -= steps;
+}
 
 #define NUM_COMBINING_ACCENTS 7
 //this is the order they will be added to a vowel
@@ -53,10 +84,10 @@ enum {
     DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI,
     NUM_ACCENT_CODES
     /*
-    DIALYTIKA
-    DIALYTIKA_AND_OXIA
-    DIALYTIKA_AND_VARIA
-    DIALYTIKA_AND_PERISPOMENON
+     DIALYTIKA
+     DIALYTIKA_AND_OXIA
+     DIALYTIKA_AND_VARIA
+     DIALYTIKA_AND_PERISPOMENON
      
      */
 };
@@ -253,7 +284,7 @@ void accentCodeToAnalysis(int accentCode, bool *smooth, bool *rough, bool *acute
 short getPrecomposedLetter(int letterCode, bool smooth, bool rough, bool acute, bool grave, bool circumflex, bool iota_sub, bool macron)
 {
     int accent = 0;
-
+    
     if (!smooth && !rough && !acute && !grave && !circumflex && !iota_sub && !macron)
         accent = NORMAL;
     else if (smooth && !rough && !acute && !grave && !circumflex && !iota_sub && !macron)
@@ -322,7 +353,7 @@ bool isCombiningDiacritic(UCS2 l)
         case COMBINING_IOTA_SUBSCRIPT:
         case COMBINING_SMOOTH_BREATHING:
         case COMBINING_ROUGH_BREATHING:
-        //case COMBINING_DIAERESIS:
+            //case COMBINING_DIAERESIS:
             return true;
     }
     
@@ -413,10 +444,10 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     }
     else if (ucs2String[i] == GREEK_SMALL_LETTER_NU && accent == SURROUNDING_PARENTHESES)
     {
+        rightShiftFromOffsetSteps(ucs2String, i, 2, len);
         ucs2String[i] = LEFT_PARENTHESIS;
         ucs2String[i+1] = GREEK_SMALL_LETTER_NU;
         ucs2String[i+2] = RIGHT_PARENTHESIS;
-        *len = 3;
         return;
     }
     
@@ -431,28 +462,59 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     bool iota_sub = false;
     bool macron = false;
     
-    if (*len > 1 && ucs2String[i+1] == COMBINING_MACRON)
+    unsigned char letterLen = 1;
+    
+    if (*len > 1 && ucs2String[i+1] == COMBINING_MACRON) // || onlyUseCombin
     {
+        letterLen++;
         for (int j = 1; j <= MAX_COMBINING && j <= (*len + 1); j++)
         {
             if (ucs2String[i + j] == COMBINING_ROUGH_BREATHING)
+            {
+                letterLen++;
                 rough = true;
+            }
             else if (ucs2String[i + j] == COMBINING_SMOOTH_BREATHING)
+            {
+                letterLen++;
                 smooth = true;
+            }
             else if (ucs2String[i + j] == COMBINING_ACUTE)
+            {
+                letterLen++;
                 acute = true;
+            }
             else if (ucs2String[i + j] == COMBINING_GRAVE)
+            {
+                letterLen++;
                 grave = true;
+            }
             else if (ucs2String[i + j] == COMBINING_CIRCUMFLEX)
+            {
+                letterLen++;
                 circumflex = true;
+            }
             else if (ucs2String[i + j] == COMBINING_MACRON)
+            {
+                //letterLen++; already counted above
                 macron = true;
+            }
             else if (ucs2String[i + j] == COMBINING_IOTA_SUBSCRIPT)
+            {
+                letterLen++;
                 iota_sub = true;
+            }
             else if (ucs2String[i + j] == COMBINING_DIAERESIS)
+            {
+                letterLen++;
                 ;//rough = true;
+            }
             else
+            {
                 break;
+            }
+            
+            
         }
         
         letterCode = ucs2ToLetterCode(ucs2String[i]);
@@ -461,7 +523,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     {
         if (!analyzePrecomposedLetter(ucs2String[i], &letterCode, &accentCode))
             return;
-    
+        
         accentCodeToAnalysis(accentCode, &smooth, &rough, &acute, &grave, &circumflex, &iota_sub);
     }
     
@@ -514,57 +576,82 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     }
     
     //4. this creates the new letter, either with combining or precomposed accents
-    
+    unsigned char newLetterLen = 1;
     if (macron || onlyUseCombiningDiacritics) //if there is a macron we use combining accents, else precomposed
     {
+        if (macron)
+            newLetterLen++;
+        if (smooth)
+            newLetterLen++;
+        if (rough)
+            newLetterLen++;
+        if (acute)
+            newLetterLen++;
+        if (grave)
+            newLetterLen++;
+        if (circumflex)
+            newLetterLen++;
+        if (iota_sub)
+            newLetterLen++;
+        
+        if (newLetterLen > letterLen)
+            rightShiftFromOffsetSteps(ucs2String, i, newLetterLen - letterLen, len);
+        else if (letterLen > newLetterLen)
+            leftShiftFromOffsetSteps(ucs2String, i, letterLen - newLetterLen, len);
+        
         ucs2String[i] = letterCodeToUCS2(letterCode);
-        *len = 1;
+        
+        unsigned char numAccents = 1;
         for (int k = 0; k < NUM_COMBINING_ACCENTS; k++)
         {
             if (combiningAccents[k] == COMBINING_MACRON && macron)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_ROUGH_BREATHING && rough)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_SMOOTH_BREATHING && smooth)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_ACUTE && acute)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_GRAVE && grave)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_CIRCUMFLEX && circumflex)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
             else if (combiningAccents[k] == COMBINING_IOTA_SUBSCRIPT && iota_sub)
             {
-                ucs2String[i + *len] = combiningAccents[k];
-                ++(*len);
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
             }
         }
     }
     else
     {
+        if (newLetterLen > letterLen)
+            rightShiftFromOffsetSteps(ucs2String, i, newLetterLen - letterLen, len);
+        else if (letterLen > newLetterLen)
+            leftShiftFromOffsetSteps(ucs2String, i, letterLen - newLetterLen, len);
+        
         short ucs2 = getPrecomposedLetter(letterCode, smooth, rough, acute, grave, circumflex, iota_sub, macron);
         if (ucs2 != 0)
         {
             ucs2String[i] = ucs2;
-            *len = 1;
         }
     }
 }
@@ -583,6 +670,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
  }
  */
 //helper function to make it easier to import into swift
+
 void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff)
 {
     accentSyllable2((UCS2*)ucs2String, i, len, accent, toggleOff);
@@ -597,122 +685,123 @@ void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool to
  
  This adds a zero byte to the end of the string. It assumes that the
  buffer "utf8" has at least four bytes of space to write to. */
-// from http://www.lemoda.net/c/ucs2-to-utf8/
-int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
-{
-    if (ucs2 < 0x80) {
-        utf8[0] = ucs2;
-        utf8[1] = '\0';
-        return 1;
-    }
-    if (ucs2 >= 0x80  && ucs2 < 0x800) {
-        utf8[0] = (ucs2 >> 6)   | 0xC0;
-        utf8[1] = (ucs2 & 0x3F) | 0x80;
-        utf8[2] = '\0';
-        return 2;
-    }
-    if (ucs2 >= 0x800 && ucs2 < 0xFFFF) {
-        if (ucs2 >= 0xD800 && ucs2 <= 0xDFFF) {
-            /* Ill-formed. */
-            return UNICODE_SURROGATE_PAIR;
-        }
-        utf8[0] = ((ucs2 >> 12)       ) | 0xE0;
-        utf8[1] = ((ucs2 >> 6 ) & 0x3F) | 0x80;
-        utf8[2] = ((ucs2      ) & 0x3F) | 0x80;
-        utf8[3] = '\0';
-        return 3;
-    }
-    if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
-        /* http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380 */
-        utf8[0] = 0xF0 | (ucs2 >> 18);
-        utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
-        utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
-        utf8[3] = 0x80 | ((ucs2 & 0x3F));
-        utf8[4] = '\0';
-        return 4;
-    }
-    return UNICODE_BAD_INPUT;
-}
-
+/*
+ // from http://www.lemoda.net/c/ucs2-to-utf8/
+ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
+ {
+ if (ucs2 < 0x80) {
+ utf8[0] = ucs2;
+ utf8[1] = '\0';
+ return 1;
+ }
+ if (ucs2 >= 0x80  && ucs2 < 0x800) {
+ utf8[0] = (ucs2 >> 6)   | 0xC0;
+ utf8[1] = (ucs2 & 0x3F) | 0x80;
+ utf8[2] = '\0';
+ return 2;
+ }
+ if (ucs2 >= 0x800 && ucs2 < 0xFFFF) {
+ if (ucs2 >= 0xD800 && ucs2 <= 0xDFFF) {
+ // Ill-formed.
+ return UNICODE_SURROGATE_PAIR;
+ }
+ utf8[0] = ((ucs2 >> 12)       ) | 0xE0;
+ utf8[1] = ((ucs2 >> 6 ) & 0x3F) | 0x80;
+ utf8[2] = ((ucs2      ) & 0x3F) | 0x80;
+ utf8[3] = '\0';
+ return 3;
+ }
+ if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
+ // http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380
+ utf8[0] = 0xF0 | (ucs2 >> 18);
+ utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
+ utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
+ utf8[3] = 0x80 | ((ucs2 & 0x3F));
+ utf8[4] = '\0';
+ return 4;
+ }
+ return UNICODE_BAD_INPUT;
+ }
+ */
 /* Convert a UTF-8 encoded character in "input" into a number. This
  function returns the unicode value of the UTF-8 character if
  successful, and -1 if not successful. "end_ptr" is set to the next
  character after the read character on success. "end_ptr" is set to
  the start of input on failure. "end_ptr" may not be null. */
-
-UCS2 utf8_to_ucs2 (const unsigned char * input, const unsigned char ** end_ptr)
-{
-    *end_ptr = input;
-    if (input[0] == 0)
-        return -1;
-    if (input[0] < 0x80) {
-        * end_ptr = input + 1;
-        return input[0];
-    }
-    if ((input[0] & 0xE0) == 0xE0) {
-        if (input[1] == 0 || input[2] == 0)
-            return -1;
-        * end_ptr = input + 3;
-        return
-        (input[0] & 0x0F)<<12 |
-        (input[1] & 0x3F)<<6  |
-        (input[2] & 0x3F);
-    }
-    if ((input[0] & 0xC0) == 0xC0) {
-        if (input[1] == 0)
-            return -1;
-        * end_ptr = input + 2;
-        return
-        (input[0] & 0x1F)<<6  |
-        (input[1] & 0x3F);
-    }
-    return -1;
-}
-
-//FIX ME, this could probably be written more efficiently.
-//only null terminate at the end and verify that it is null terminated properly
-int ucs2_to_utf8_string(UCS2 *ucs2, int len, unsigned char *utf8)
-{
-    unsigned char *utf8Temp = utf8;
-    if (len < 1)
-    {
-        utf8[0] = '\0';
-        return 1;
-    }
-    
-    for (int i = 0; i < len; i++)
-    {
-        int utf8Len;
-        utf8Len = ucs2_to_utf8(ucs2[i], utf8Temp);
-        if (utf8Len > -1)
-            utf8Temp += utf8Len;
-        else
-            return 0;
-        *utf8Temp = '\0';
-    }
-    
-    return 1;
-}
-
-void utf8_to_ucs2_string(const unsigned char *utf8, UCS2 *ucs2, int *len)
-{
-    int temp; //because UCS2 is unsigned.
-    *len = 0;
-    
-    for( int i = 0; *utf8 ; i++)
-    {
-        temp = utf8_to_ucs2 (utf8, &utf8);
-        if (temp == -1)
-        {
-            break;
-        }
-        else
-        {
-            ucs2[i] = temp;
-        }
-        (*len)++;
-    }
-}
-
+/*
+ UCS2 utf8_to_ucs2 (const unsigned char * input, const unsigned char ** end_ptr)
+ {
+ *end_ptr = input;
+ if (input[0] == 0)
+ return -1;
+ if (input[0] < 0x80) {
+ * end_ptr = input + 1;
+ return input[0];
+ }
+ if ((input[0] & 0xE0) == 0xE0) {
+ if (input[1] == 0 || input[2] == 0)
+ return -1;
+ * end_ptr = input + 3;
+ return
+ (input[0] & 0x0F)<<12 |
+ (input[1] & 0x3F)<<6  |
+ (input[2] & 0x3F);
+ }
+ if ((input[0] & 0xC0) == 0xC0) {
+ if (input[1] == 0)
+ return -1;
+ * end_ptr = input + 2;
+ return
+ (input[0] & 0x1F)<<6  |
+ (input[1] & 0x3F);
+ }
+ return -1;
+ }
+ 
+ //FIX ME, this could probably be written more efficiently.
+ //only null terminate at the end and verify that it is null terminated properly
+ int ucs2_to_utf8_string(UCS2 *ucs2, int len, unsigned char *utf8)
+ {
+ unsigned char *utf8Temp = utf8;
+ if (len < 1)
+ {
+ utf8[0] = '\0';
+ return 1;
+ }
+ 
+ for (int i = 0; i < len; i++)
+ {
+ int utf8Len;
+ utf8Len = ucs2_to_utf8(ucs2[i], utf8Temp);
+ if (utf8Len > -1)
+ utf8Temp += utf8Len;
+ else
+ return 0;
+ *utf8Temp = '\0';
+ }
+ 
+ return 1;
+ }
+ 
+ void utf8_to_ucs2_string(const unsigned char *utf8, UCS2 *ucs2, int *len)
+ {
+ int temp; //because UCS2 is unsigned.
+ *len = 0;
+ 
+ for( int i = 0; *utf8 ; i++)
+ {
+ temp = utf8_to_ucs2 (utf8, &utf8);
+ if (temp == -1)
+ {
+ break;
+ }
+ else
+ {
+ ucs2[i] = temp;
+ }
+ (*len)++;
+ }
+ }
+ */
 
 

@@ -9,10 +9,17 @@
 import UIKit
 
 class HCAccentButton: UIButton {
-    let bgColor:UIColor = .gray
-    let bgDownColor:UIColor = .black
-    let textColor:UIColor = .white
-    let textDownColor:UIColor = .white
+    /*
+    var bgColor:UIColor = .gray
+    var bgDownColor:UIColor = .black
+    var textColor:UIColor = .white
+    var textDownColor:UIColor = .white
+    */
+    var bgColor = HopliteConstants.accentBGColor
+    var textColor = HopliteConstants.accentTextColor
+    var bgDownColor = HopliteConstants.accentBGColorDown
+    var textDownColor = HopliteConstants.accentTextColorDown
+    
     var btype: Int? = nil
     
     required init(buttonType: Int = 0) {
@@ -22,14 +29,13 @@ class HCAccentButton: UIButton {
         super.init(frame: .zero)
         
         // set other operations after super.init, if required
-
+        
         backgroundColor = bgColor
         setTitleColor(textColor, for: [])
         
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
-
     }
     
     required init?(coder aDecoder: NSCoder) {
