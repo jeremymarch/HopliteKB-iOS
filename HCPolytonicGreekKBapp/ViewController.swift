@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         }
         
         
-        //to include keyboard in app
+        //to include keyboard in container app
         /*
         let k = KeyboardViewController()
         k.view.autoresizingMask = [.flexibleWidth, .flexibleHeight] //this works to set height

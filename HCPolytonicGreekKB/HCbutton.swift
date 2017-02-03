@@ -23,14 +23,16 @@ class HCButton: UIButton {
     var bgDownColor = HopliteConstants.keyBGColorDown
     var textDownColor = HopliteConstants.keyTextColorDown
     
+    var buttonDown:Bool = false
+    let buttonTail:CGFloat = 4
+    let buttonDownWidthFactor:CGFloat = 1.3
+    let buttonDownHeightFactor:CGFloat = 2.26
+    let hPadding:CGFloat = 3;
+    let vPadding:CGFloat = 8;
+    let topMargin:CGFloat = 4;
+    let buttonDownAddHeight:CGFloat = 62;
+    
     let blueColor:UIColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     required init(buttonType: Int = 0) {
         // set myValue before super.init is called
@@ -53,6 +55,7 @@ class HCButton: UIButton {
     }
     
     func touchUpInside(sender: UIButton!) {
+        buttonDown = false
         
         if self.titleLabel?.text == "enter"
         {
@@ -66,14 +69,24 @@ class HCButton: UIButton {
         }
         else
         {
+            let width = self.frame.size.width / buttonDownWidthFactor
+            let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+            let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
+            let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
+            
+            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+            self.frame = buttonFrame
+            
+            self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+            
             backgroundColor = bgColor
             setTitleColor(textColor, for: [])
-            //setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     
     func touchUpOutside(sender: UIButton!) {
-        
+        buttonDown = false
         if self.titleLabel?.text == "enter"
         {
             setTitleColor(.white, for: [])
@@ -86,14 +99,24 @@ class HCButton: UIButton {
         }
         else
         {
+            let width = self.frame.size.width / buttonDownWidthFactor
+            let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+            let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
+            let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
+            
+            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+            self.frame = buttonFrame
+            
+            self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+            
             backgroundColor = bgColor
             setTitleColor(textColor, for: [])
-            //setNeedsDisplay()
+            setNeedsDisplay()
         }
     }
     
     func touchDown(sender: UIButton!) {
-        
+        buttonDown = true
         if self.titleLabel?.text == "enter"
         {
             setTitleColor(blueColor, for: [])
@@ -106,10 +129,33 @@ class HCButton: UIButton {
         }
         else
         {
+            let width = self.frame.size.width * buttonDownWidthFactor
+            let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
+            let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
+            let y = self.frame.origin.y - height + self.frame.size.height + buttonTail
+            
+            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+            self.frame = buttonFrame
+            
+            self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
+            
             backgroundColor = bgDownColor
             setTitleColor(textDownColor, for: [])
+            //self.superview?.bringSubview(toFront: self)
+            setNeedsDisplay()
+            
         }
         //setNeedsDisplay()
     }
+    
+    /*
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+        let ctx = UIGraphicsGetCurrentContext()
+     }
+ */
+    
 
 }
