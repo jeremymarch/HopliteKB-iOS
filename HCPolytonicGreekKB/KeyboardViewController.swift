@@ -418,8 +418,8 @@ class KeyboardViewController: UIInputViewController {
                     
                     //b.layer.borderWidth = 1.0
                     //b.layer.borderColor = UIColor.blue.cgColor
-                    b.layer.cornerRadius = 4.0
-                    b.titleLabel?.textColor = UIColor.black
+                    //b.layer.cornerRadius = 4.0
+                    //b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
@@ -436,8 +436,8 @@ class KeyboardViewController: UIInputViewController {
                     
                     //b.layer.borderWidth = 1.0
                     //b.layer.borderColor = UIColor.blue.cgColor
-                    b.layer.cornerRadius = 4.0
-                    b.titleLabel?.textColor = UIColor.black
+                    //b.layer.cornerRadius = 4.0
+                    //b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
@@ -454,8 +454,8 @@ class KeyboardViewController: UIInputViewController {
                     
                     //b.layer.borderWidth = 1.0
                     //b.layer.borderColor = UIColor.blue.cgColor
-                    b.layer.cornerRadius = 4.0
-                    b.titleLabel?.textColor = UIColor.black
+                    //b.layer.cornerRadius = 4.0
+                    //b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
