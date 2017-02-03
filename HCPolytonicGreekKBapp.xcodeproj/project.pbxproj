@@ -22,6 +22,15 @@
 		3F4A66311E3FB802002109FA /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A66301E3FB802002109FA /* HCPunctuationButton.swift */; };
 		3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
 		3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
+		3F85D1501E43FB5500E5DAA4 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */; };
+		3F85D1511E43FBAF00E5DAA4 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
+		3F85D1521E43FBB400E5DAA4 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4547AC1E2B0A6300946694 /* HCbutton.swift */; };
+		3F85D1531E43FBB800E5DAA4 /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A66301E3FB802002109FA /* HCPunctuationButton.swift */; };
+		3F85D1541E43FBBC00E5DAA4 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
+		3F85D1551E43FBC100E5DAA4 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F40D7BF1E30026100CD6290 /* HCGlobeButton.swift */; };
+		3F85D1561E43FBC500E5DAA4 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
+		3F85D15A1E43FCA200E5DAA4 /* HCPolytonicGreek.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */; };
+		3F85D15B1E43FD1E00E5DAA4 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E8E1E0F875A00DE5744 /* accent.c */; };
 		3FB2F91F1E3D551800861B52 /* HopliteKBLogo.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */; };
 		3FC696F61E31BDA600121658 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
 		3FE19A121E2DC8F30088E96C /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE19A111E2DC8F30088E96C /* newathu5.ttf */; };
@@ -92,6 +101,9 @@
 		3F4A66301E3FB802002109FA /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPunctuationButton.swift; sourceTree = "<group>"; };
 		3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
+		3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKBapp-Bridging-Header.h"; sourceTree = "<group>"; };
+		3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HCPolytonicGreek.c; sourceTree = "<group>"; };
+		3F85D1591E43FCA200E5DAA4 /* HCPolytonicGreek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCPolytonicGreek.h; sourceTree = "<group>"; };
 		3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HopliteKBLogo.xcf; path = Images/HopliteKBLogo.xcf; sourceTree = "<group>"; };
 		3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
 		3FE19A111E2DC8F30088E96C /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
@@ -162,6 +174,9 @@
 				3F0F5E501E0F819C00DE5744 /* Assets.xcassets */,
 				3F0F5E521E0F819C00DE5744 /* LaunchScreen.storyboard */,
 				3F0F5E551E0F819C00DE5744 /* Info.plist */,
+				3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */,
+				3F85D1591E43FCA200E5DAA4 /* HCPolytonicGreek.h */,
+				3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */,
 			);
 			path = HCPolytonicGreekKBapp;
 			sourceTree = "<group>";
@@ -308,6 +323,7 @@
 					3F0F5E451E0F819C00DE5744 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					3F0F5E591E0F819C00DE5744 = {
@@ -392,7 +408,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F85D1521E43FBB400E5DAA4 /* HCbutton.swift in Sources */,
+				3F85D15A1E43FCA200E5DAA4 /* HCPolytonicGreek.c in Sources */,
+				3F85D1511E43FBAF00E5DAA4 /* HCAccentButton.swift in Sources */,
+				3F85D1541E43FBBC00E5DAA4 /* HCDeleteButton.swift in Sources */,
 				3F0F5E4C1E0F819C00DE5744 /* ViewController.swift in Sources */,
+				3F85D1531E43FBB800E5DAA4 /* HCPunctuationButton.swift in Sources */,
+				3F85D1501E43FB5500E5DAA4 /* KeyboardViewController.swift in Sources */,
+				3F85D15B1E43FD1E00E5DAA4 /* accent.c in Sources */,
+				3F85D1551E43FBC100E5DAA4 /* HCGlobeButton.swift in Sources */,
+				3F85D1561E43FBC500E5DAA4 /* HCCapsLockButton.swift in Sources */,
 				3F0F5E4A1E0F819C00DE5744 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,12 +591,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HCPolytonicGreekKBapp/HCPolytonicGreekKBapp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -581,12 +609,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplitekeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HCPolytonicGreekKBapp/HCPolytonicGreekKBapp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -201,6 +201,7 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("keyboard did load111")
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             portraitHeight = 300.0
@@ -288,7 +289,7 @@ class KeyboardViewController: UIInputViewController {
         heightConstraint!.priority = 999.0
         heightConstraint?.isActive = true
         
-        self.inputView!.addConstraint(heightConstraint!)
+        //self.inputView!.addConstraint(heightConstraint!)
         
         /*
             punctuation:
