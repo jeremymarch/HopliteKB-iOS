@@ -132,6 +132,7 @@ class HCButton: UIButton {
     
     func touchDown(sender: UIButton!) {
         buttonDown = true
+        //self.superview!.bringSubview(toFront: self)
         if self.titleLabel?.text == "enter"
         {
             setTitleColor(blueColor, for: [])
@@ -162,7 +163,6 @@ class HCButton: UIButton {
             {
                 setTitleColor(textDownColor, for: [])
             }
-            
             setNeedsDisplay()
         }
     }

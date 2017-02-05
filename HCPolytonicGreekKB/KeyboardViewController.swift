@@ -7,7 +7,7 @@
 //
 
 import UIKit
-/*
+
 //http://norbertlindenberg.com/2014/12/developing-keyboards-for-ios/
 extension UIInputView: UIInputViewAudioFeedback {
     
@@ -17,7 +17,7 @@ extension UIInputView: UIInputViewAudioFeedback {
         UIDevice.current.playInputClick()
     }
 }
-*/
+
 let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
 let green = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
 let darkBlue = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
@@ -99,6 +99,7 @@ public struct HopliteConstants1{
 
 class KeyboardViewController: UIInputViewController {
 
+    let playClick:Bool = true
     var capsLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
@@ -223,7 +224,7 @@ class KeyboardViewController: UIInputViewController {
                 let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
                 
                 //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
-                if (isLandscape) {
+                if (isLandscape) {4
                     self.heightConstraint!.constant = self.landscapeHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 } else {
@@ -859,15 +860,9 @@ class KeyboardViewController: UIInputViewController {
         
         (textDocumentProxy as UIKeyInput).deleteBackward() //seems to include any combining chars
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
-        
-        if useAnimation
+        if playClick
         {
-            UIView.animate(withDuration: 0.2, animations: {
-                button.transform = CGAffineTransform.identity.scaledBy(x: 2.0, y: 2.0)
-            }, completion: {(_) -> Void in
-                button.transform =
-                    CGAffineTransform.identity.scaledBy(x: 1, y: 1)
-            })
+            UIDevice.current.playInputClick()
         }
     }
 /*
@@ -880,21 +875,19 @@ class KeyboardViewController: UIInputViewController {
         
         let string = button.titleLabel!.text
         (textDocumentProxy as UIKeyInput).insertText("\(string!)")
-        UIDevice.current.playInputClick()
         
-        if useAnimation
+        if playClick
         {
-            UIView.animate(withDuration: 0.2, animations: {
-                button.transform = CGAffineTransform.identity.scaledBy(x: 2.0, y: 2.0)
-            }, completion: {(_) -> Void in
-                button.transform =
-                    CGAffineTransform.identity.scaledBy(x: 1, y: 1)
-            })
+            UIDevice.current.playInputClick()
         }
     }
     
     func backSpacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
+        if playClick
+        {
+            UIDevice.current.playInputClick()
+        }
     }
     
     func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
@@ -920,6 +913,10 @@ class KeyboardViewController: UIInputViewController {
     
     func spacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(" ")
+        if playClick
+        {
+            UIDevice.current.playInputClick()
+        }
     }
     func didDoubleTapSapce(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(". ")
@@ -927,6 +924,10 @@ class KeyboardViewController: UIInputViewController {
     
     func returnPressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText("\n")
+        if playClick
+        {
+            UIDevice.current.playInputClick()
+        }
     }
     
     func capsPressed(_ button: UIButton) {
@@ -943,6 +944,10 @@ class KeyboardViewController: UIInputViewController {
             periodButton?.setTitle(".", for: UIControlState())
         }
         //changeCaps(row4)
+        if playClick
+        {
+            UIDevice.current.playInputClick()
+        }
     }
     func changeCaps(_ containerView: UIView) {
         for view in containerView.subviews {
@@ -978,5 +983,9 @@ class KeyboardViewController: UIInputViewController {
  
     func nextKeyboardPressed(_ button: UIButton) {
         advanceToNextInputMode()
+        if playClick
+        {
+            UIDevice.current.playInputClick()
+        }
     }
 }
