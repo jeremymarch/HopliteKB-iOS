@@ -25,9 +25,11 @@ class HCButton: UIButton {
     
     let buttonRadius:CGFloat = 4.0
     
+    let fontSize:CGFloat = 24.0
+    let downFontSize:CGFloat = 36.0
     var buttonDown:Bool = false
     let buttonTail:CGFloat = 4
-    let buttonDownWidthFactor:CGFloat = 1.3
+    let buttonDownWidthFactor:CGFloat = 1.46
     let buttonDownHeightFactor:CGFloat = 2.26
     let hPadding:CGFloat = 3;
     let vPadding:CGFloat = 8;
@@ -45,11 +47,18 @@ class HCButton: UIButton {
         // set other operations after super.init, if required
         
         //backgroundColor = bgColor
-        //setTitleColor(textColor, for: [])
+        setTitleColor(textColor, for: [])
+        backgroundColor = UIColor.clear
+        self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
         
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
+        
+        //these don't work, maybe this:
+        //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
+        //self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+        //self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,6 +80,8 @@ class HCButton: UIButton {
         }
         else
         {
+            if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
+            {
             let width = self.frame.size.width / buttonDownWidthFactor
             let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
             let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
@@ -78,9 +89,9 @@ class HCButton: UIButton {
             
             let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
             self.frame = buttonFrame
-            
+            self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
             self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            
+            }
             setTitleColor(textColor, for: [])
             setNeedsDisplay()
         }
@@ -100,6 +111,8 @@ class HCButton: UIButton {
         }
         else
         {
+            if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
+            {
             let width = self.frame.size.width / buttonDownWidthFactor
             let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
             let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
@@ -109,8 +122,10 @@ class HCButton: UIButton {
             self.frame = buttonFrame
             
             self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            
+            self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+            }
             setTitleColor(textColor, for: [])
+            
             setNeedsDisplay()
         }
     }
@@ -129,43 +144,69 @@ class HCButton: UIButton {
         }
         else
         {
-            let width = self.frame.size.width * buttonDownWidthFactor
-            let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
-            let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
-            let y = self.frame.origin.y - height + self.frame.size.height + buttonTail
-            
-            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
-            self.frame = buttonFrame
-            
-            self.titleEdgeInsets = UIEdgeInsetsMake(-56, 0, 0, 0);
-            setTitleColor(textDownColor, for: [])
+            if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
+            {
+                let width = self.frame.size.width * buttonDownWidthFactor
+                let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
+                let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
+                let y = self.frame.origin.y - height + self.frame.size.height + buttonTail
+                
+                let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+                self.frame = buttonFrame
+                
+                self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
+                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
+                setTitleColor(textColor, for: [])
+            }
+            else
+            {
+                setTitleColor(textDownColor, for: [])
+            }
             
             setNeedsDisplay()
-            
         }
     }
         
      // Only override draw() if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
      override func draw(_ rect: CGRect) {
-
+        //NSLog("drawdraw: \(rect.size.width), \(rect.size.height)")
+        
+        let depressedPhoneButton:Bool = (buttonDown && !(rect.size.width > rect.size.height * 1.5)) && UIDevice.current.userInterfaceIdiom == .phone
+        
         let ctx = UIGraphicsGetCurrentContext()
         
-        let outerRect:CGRect = self.bounds //CGRectInset(self.bounds, outerSideMargin, outerTopMargin);
+        let outerRect:CGRect = self.bounds//.insetBy(dx: 4.0, dy: 4.0);
      
         var outerPath:CGPath
-        if buttonDown
+        if depressedPhoneButton
         {
             outerPath = createDepressedButtonForRect(rect: outerRect, radius: buttonRadius + 2);
         }
         else
         {
-            outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
+            if UIDevice.current.userInterfaceIdiom == .pad
+            {
+                outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: HopliteConstants.ipadRadius).cgPath
+            }
+            else
+            {
+                outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: HopliteConstants.normalRadius).cgPath
+        
+            }
         }
+        ctx?.saveGState()
+        ctx?.addPath(outerPath)
+        ctx?.clip()
+        ctx?.restoreGState()
 
         ctx?.saveGState()
         ctx?.addPath(outerPath)
-        if buttonDown
+        if depressedPhoneButton
+        {
+            ctx?.setFillColor(bgColor.cgColor)
+        }
+        else if buttonDown
         {
             ctx?.setFillColor(bgDownColor.cgColor)
         }
@@ -176,12 +217,7 @@ class HCButton: UIButton {
         ctx?.fillPath()
         ctx?.restoreGState()
         
-        ctx?.saveGState()
-        ctx?.addPath(outerPath)
-        ctx?.clip()
-        ctx?.restoreGState()
-        /*
-        if buttonDown
+        if depressedPhoneButton
         {
             ctx?.saveGState()
             ctx?.addPath(outerPath)
@@ -189,7 +225,6 @@ class HCButton: UIButton {
             ctx?.strokePath()
             ctx?.restoreGState()
         }
-         */
     }
  
     func createDepressedButtonForRect(rect:CGRect, radius:CGFloat ) -> CGMutablePath

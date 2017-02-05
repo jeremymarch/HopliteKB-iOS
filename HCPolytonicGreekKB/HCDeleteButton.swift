@@ -63,7 +63,16 @@ class HCDeleteButton: UIButton {
         NSLog("Draw")
         let context = UIGraphicsGetCurrentContext()
         
-        let buttonRadius:CGFloat = 4.0
+        let buttonRadius:CGFloat
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            buttonRadius = HopliteConstants.ipadRadius
+        }
+        else
+        {
+            buttonRadius = HopliteConstants.normalRadius
+        }
+        
         let outerSideMargin:CGFloat = 0.0//2.75
         let outerTopMargin:CGFloat = 0.0//5.0
         
@@ -120,7 +129,7 @@ class HCDeleteButton: UIButton {
         
         let path:CGMutablePath = CGMutablePath()
         
-        let iconWidth = delHeight * 0.75
+        let iconWidth = delHeight * 0.65
         let iconPointWidth = iconWidth / 3
         let iconBodyWidth = iconWidth - iconPointWidth
         let delSidePadding = (delWidth - iconWidth) / 2

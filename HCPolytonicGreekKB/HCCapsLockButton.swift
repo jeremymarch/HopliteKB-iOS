@@ -13,6 +13,11 @@ class HCCapsLockButton: UIButton {
     var buttonPressed:Bool = false
     var capsLockOn:Bool = false
     
+    var lineColor1:UIColor           = HopliteConstants.otherTextColor
+    var bgColor1:UIColor        = HopliteConstants.otherBGColor
+    var lineColorDown:UIColor            = HopliteConstants.otherTextColorDown
+    var bgColorDown:UIColor       = HopliteConstants.otherBGColorDown
+    
     required init() {
         super.init(frame: .zero)
         
@@ -52,11 +57,20 @@ class HCCapsLockButton: UIButton {
         // Drawing code
         
         let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
-        let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
+        let buttonRadius:CGFloat
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            buttonRadius = HopliteConstants.ipadRadius
+        }
+        else
+        {
+            buttonRadius = HopliteConstants.normalRadius
+        }
+        let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: buttonRadius).cgPath
         
         let ctx = UIGraphicsGetCurrentContext()
         ctx!.addPath(outerPath)
-        ctx!.setFillColor(UIColor.white.cgColor)
+        ctx!.setFillColor(bgColor1.cgColor)
         ctx?.fillPath()
         
         
@@ -85,11 +99,14 @@ class HCCapsLockButton: UIButton {
         
         if capsLockOn
         {
-            ctx!.setFillColor(UIColor.black.cgColor)
+            ctx!.setFillColor(lineColor1.cgColor)
             ctx!.fillPath()
+            ctx!.setLineWidth(1.5)
+            ctx!.strokePath()
         }
         else
         {
+            ctx!.setStrokeColor(lineColor1.cgColor)
             ctx!.setLineWidth(1.5)
             ctx!.strokePath()
         }

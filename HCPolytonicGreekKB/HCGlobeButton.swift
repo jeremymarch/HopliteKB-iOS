@@ -10,6 +10,11 @@ import UIKit
 
 class HCGlobeButton: UIButton {
     
+    var lineColor1:UIColor           = HopliteConstants.otherTextColor
+    var bgColor1:UIColor        = HopliteConstants.otherBGColor
+    var lineColorDown:UIColor            = HopliteConstants.otherTextColorDown
+    var bgColorDown:UIColor       = HopliteConstants.otherBGColorDown
+    
     var buttonPressed:Bool = false
     
     required init() {
@@ -55,18 +60,26 @@ class HCGlobeButton: UIButton {
         var bgColor:CGColor?
         if buttonPressed
         {
-            lineColor = UIColor.white.cgColor
-            bgColor = UIColor.black.cgColor
+            lineColor = lineColorDown.cgColor
+            bgColor = bgColorDown.cgColor
         }
         else
         {
-            lineColor = UIColor.black.cgColor
-            bgColor = UIColor.white.cgColor
+            lineColor = lineColor1.cgColor
+            bgColor = bgColor1.cgColor
         }
         
         // Draw background
         let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
-        let outerPath:CGPath = UIBezierPath(roundedRect: outerRect, cornerRadius: 4.0).cgPath
+        let outerPath:CGPath
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: HopliteConstants.ipadRadius ).cgPath
+        }
+        else
+        {
+            outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: HopliteConstants.normalRadius).cgPath
+        }
         ctx!.addPath(outerPath)
         ctx!.setFillColor(bgColor!)
         ctx?.fillPath()

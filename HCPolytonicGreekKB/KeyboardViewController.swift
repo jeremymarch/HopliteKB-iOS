@@ -18,6 +18,10 @@ extension UIInputView: UIInputViewAudioFeedback {
     }
 }
 */
+let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
+let green = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
+let darkBlue = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
+
 public struct HopliteConstants{
     
     static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
@@ -30,21 +34,15 @@ public struct HopliteConstants{
     static let keyBGColorDown = UIColor.black
     static let keyTextColorDown = UIColor.white
     
-    static let accentBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    static let accentTextColor = UIColor.white
+    static let accentBGColor = orange//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let accentTextColor = UIColor.black
     static let accentBGColorDown = UIColor.black
     static let accentTextColorDown = UIColor.white
     
-    static let punctuationBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let punctuationBGColor = darkBlue// green//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let punctuationTextColor = UIColor.white
-    static let punctuationBGColorDown = UIColor.black
-    static let punctuationTextColorDown = UIColor.white
-    
-    //capslock, globe, backspace
-    static let otherKeyBGColor = UIColor.white
-    static let otherKeyTextColor = UIColor.black
-    static let otherKeyBGColorDown = UIColor.black
-    static let otherKeyTextColorDown = UIColor.white
+    static let punctuationBGColorDown = green
+    static let punctuationTextColorDown = UIColor.black
     
     static let deleteBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let deleteInnerColor = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
@@ -52,6 +50,14 @@ public struct HopliteConstants{
     static let deleteBGColorDown = UIColor.white
     static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+
+    //capslock, globe, backspace
+    static let otherBGColor = UIColor.lightGray
+    static let otherTextColor = UIColor.black
+    static let otherBGColorDown = UIColor.black
+    static let otherTextColorDown = UIColor.white
+    static let normalRadius:CGFloat = 4.0
+    static let ipadRadius:CGFloat = 6.0
 }
 
 public struct HopliteConstants1{
@@ -114,12 +120,15 @@ class KeyboardViewController: UIInputViewController {
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
 
-    var portraitHeight:CGFloat = 230.0
+    var portraitHeight:CGFloat = 240.0
     var landscapeHeight:CGFloat = 190.0
     
     let buttonHeightMultiplier:CGFloat = 0.174
     let buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
+    
+    var currentButton:UIButton?
+    //let widthMultiple2:CGFloat = 1/10
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
@@ -146,7 +155,38 @@ class KeyboardViewController: UIInputViewController {
         super.updateViewConstraints()
     }
     */
-    
+    /*
+     //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
+    func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
+    {
+        let point:CGPoint  = gestureRecognizer.location(in: self.view)
+        let draggedView = self.view.hitTest(point, with: nil)! as! UIButton
+        
+        if gestureRecognizer.state == .changed
+        {
+            if draggedView is UIButton && self.currentButton == nil {
+                self.currentButton = draggedView
+                NSLog("Enter: \(self.currentButton?.tag)")
+                
+                // send enter event to your button
+                self.currentButton?.sendActions(for: .touchDragEnter)
+            }
+            
+            if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
+            {
+                NSLog("Out: \(self.currentButton?.tag)")
+                
+                // send exit event to your button
+                self.currentButton?.sendActions(for: .touchDragExit)
+                self.currentButton = nil;
+            }
+        }
+        else if (gestureRecognizer.state == .ended)
+        {
+            self.currentButton = nil
+        }
+    }
+    */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         // Update height when rotates
@@ -156,6 +196,17 @@ class KeyboardViewController: UIInputViewController {
         globeButton?.setNeedsDisplay() //to redraw globe icon
         capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
+        
+        //these fix a problem where buttons are not initially drawn correctly?
+        stackView2.arrangedSubviews.forEach {view in
+            view.setNeedsDisplay()
+        }
+        stackView3.arrangedSubviews.forEach {view in
+            view.setNeedsDisplay()
+        }
+        stackView4.arrangedSubviews.forEach {view in
+            view.setNeedsDisplay()
+        }
     }
  
     //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
@@ -198,18 +249,19 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     */
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("keyboard did load111")
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            portraitHeight = 300.0
-            landscapeHeight = 260.0
+            portraitHeight = 350.0
+            landscapeHeight = 310.0
         }
         else
         {
-            portraitHeight = 230.0
+            portraitHeight = 240.0
             landscapeHeight = 190.0
         }
         
@@ -302,8 +354,8 @@ class KeyboardViewController: UIInputViewController {
         let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
                                 ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς"],
-                               ["CP", "KB", "space", ".", "enter", "BK"]]
+                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς", "BK" ],
+                               ["CP", "KB", "space", ".", "enter"]]
         
         for row in keys
         {
@@ -323,7 +375,14 @@ class KeyboardViewController: UIInputViewController {
                     }
                     //b.layer.borderWidth = 1.0
                     //b.layer.borderColor = UIColor.blue.cgColor
-                    b.layer.cornerRadius = 4.0
+                    if UIDevice.current.userInterfaceIdiom == .pad
+                    {
+                        b.layer.cornerRadius = HopliteConstants.ipadRadius
+                    }
+                    else
+                    {
+                        b.layer.cornerRadius = HopliteConstants.normalRadius
+                    }
                     //b.titleLabel?.textColor = UIColor.black
                     //b.setTitleColor(keyTextColor, for: [])
                     //b.layer.backgroundColor = UIColor.brown.cgColor
@@ -368,7 +427,7 @@ class KeyboardViewController: UIInputViewController {
                     else if key == "ͺ"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(-24, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
                         b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     }
                     else if key == ";"
@@ -420,12 +479,13 @@ class KeyboardViewController: UIInputViewController {
                     //b.layer.borderColor = UIColor.blue.cgColor
                     //b.layer.cornerRadius = 4.0
                     //b.titleLabel?.textColor = UIColor.black
-                    b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    //b.setTitleColor(keyTextColor, for: [])
+                    //b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
                     
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     stackView2.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
@@ -450,6 +510,26 @@ class KeyboardViewController: UIInputViewController {
                 }
                 else if row == keys[3]
                 {
+                    if key == "BK"
+                    {
+                        b = HCDeleteButton(devicea:2)
+                        
+                        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
+                        lpgr.minimumPressDuration = 0.4
+                        lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
+                        lpgr.allowableMovement = 50.0
+                        b.addGestureRecognizer(lpgr)
+                        
+                        //need both long and normal
+                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
+                        stackView4.addArrangedSubview(b)
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1)).isActive = true
+                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        
+                        deleteButton = b
+                    }
+                    else
+                    {
                     b = HCButton(buttonType:1)
                     
                     //b.layer.borderWidth = 1.0
@@ -465,6 +545,7 @@ class KeyboardViewController: UIInputViewController {
                     stackView4.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                    }
                 }
                 else if row == keys[4]
                 {
@@ -485,7 +566,14 @@ class KeyboardViewController: UIInputViewController {
                         
                         //b.layer.borderWidth = 1.0
                         //b.layer.borderColor = UIColor.blue.cgColor
-                        b.layer.cornerRadius = 4.0
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
                         b.titleLabel?.textColor = UIColor.black
                         b.setTitleColor(keyTextColor, for: [])
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
@@ -505,7 +593,14 @@ class KeyboardViewController: UIInputViewController {
                         
                         //b.layer.borderWidth = 1.0
                         //b.layer.borderColor = UIColor.blue.cgColor
-                        b.layer.cornerRadius = 4.0
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
                         b.titleLabel?.textColor = UIColor.black
                         b.setTitleColor(keyTextColor, for: [])
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
@@ -524,32 +619,59 @@ class KeyboardViewController: UIInputViewController {
                     }
                     else if key == "enter"
                     {
+                        b = HCEnterButton()
+                        
                         b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                         stackView5.addArrangedSubview(b)
-                        
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
+                        b.setTitle(key, for: [])
                         b.setTitleColor(UIColor.white, for: [])
 
                         b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                         
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2)).isActive = true
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "space"
                     {
+                        b = HCSpaceButton()
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
                         b.setTitleColor(UIColor.gray, for: [])
+                        b.setTitle(key, for: [])
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                         //b.layer.borderColor = UIColor.gray.cgColor
                         b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
+                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 3)).isActive = true
                         b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "."
                     {
                         b = HCPunctuationButton(buttonType:1)
-                        b.layer.cornerRadius = 4.0
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         b.setTitle(key, for: [])
                         
@@ -560,29 +682,13 @@ class KeyboardViewController: UIInputViewController {
                         
                         periodButton = b
                     }
-                    else if key == "BK"
-                    {
-                        b = HCDeleteButton(devicea:2)
-                        
-                        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
-                        lpgr.minimumPressDuration = 0.4
-                        lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
-                        lpgr.allowableMovement = 50.0
-                        b.addGestureRecognizer(lpgr)
- 
-                        //need both long and normal
-                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
-                        stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1.3)).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                        
-                        deleteButton = b
-                    }
+
                 }
             }
         }
         
         //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
+        
     }
 
     //DEMO
@@ -764,9 +870,14 @@ class KeyboardViewController: UIInputViewController {
             })
         }
     }
-    
+/*
+    func keyPressedDown(button: UIButton) {
+        //button.superview!.bringSubview(toFront: button)
+    }
+    */
     func keyPressed(button: UIButton) {
         //NSLog("key pressed")
+        
         let string = button.titleLabel!.text
         (textDocumentProxy as UIKeyInput).insertText("\(string!)")
         UIDevice.current.playInputClick()
@@ -846,6 +957,10 @@ class KeyboardViewController: UIInputViewController {
                 else if buttonTitle == "ϝ"
                 {
                     button.setTitle("ς", for: UIControlState())
+                }
+                else if buttonTitle == nil || buttonTitle == ""
+                {
+                    //delete button
                 }
                 else
                 {
