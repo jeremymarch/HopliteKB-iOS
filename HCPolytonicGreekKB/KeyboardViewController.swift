@@ -125,7 +125,7 @@ class KeyboardViewController: UIInputViewController {
     var landscapeHeight:CGFloat = 190.0
     
     let buttonHeightMultiplier:CGFloat = 0.174
-    let buttonSpacing:CGFloat = 5.0
+    var buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
     
     var currentButton:UIButton?
@@ -264,6 +264,12 @@ class KeyboardViewController: UIInputViewController {
         {
             portraitHeight = 240.0
             landscapeHeight = 190.0
+        }
+        
+        //for iphone 5s and narrower
+        if UIScreen.main.nativeBounds.width < 641
+        {
+            buttonSpacing = 4.0
         }
         
         //NSLog("kb view did load")

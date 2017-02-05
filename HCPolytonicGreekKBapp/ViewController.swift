@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var textView:UITextView?
+    @IBOutlet var installInstructions:UILabel?
+    @IBOutlet var titleLabel:UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +23,22 @@ class ViewController: UIViewController {
             item.leadingBarButtonGroups = []
             item.trailingBarButtonGroups = []
         }
+        NSLog("bounds: \(UIScreen.main.nativeBounds.width )")
         
-        
+        //for iphone 5s and narrower
+        if UIScreen.main.nativeBounds.width < 641
+        {
+            titleLabel?.font = UIFont(name: (titleLabel?.font.fontName)!, size: 20.0)
+            installInstructions?.font = UIFont(name: (installInstructions?.font.fontName)!, size: 14.0)
+        }
+ 
         //to include keyboard in container app
         /*
+         ************plan:
+        set a variable to change after instantiating the keyboard vc, but before loading it to 
+         say whether it is an app extension or local to the app.  
+         use that variable to change how text is sent from keyboard.
+         
         let k = KeyboardViewController()
         k.view.autoresizingMask = [.flexibleWidth, .flexibleHeight] //this works to set height
         textView!.inputView = k.view
