@@ -51,9 +51,9 @@ class HCButton: UIButton {
         backgroundColor = UIColor.clear
         self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
         
-        self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
-        self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
-        self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
+        self.addTarget(self, action: #selector(self.touchUpInside(sender:)), for: .touchUpInside)
+        self.addTarget(self, action: #selector(self.touchUpOutside(sender:)), for: .touchUpOutside)
+        self.addTarget(self, action: #selector(self.touchDown(sender:)), for: .touchDown)
         
         //these don't work, maybe this:
         //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works

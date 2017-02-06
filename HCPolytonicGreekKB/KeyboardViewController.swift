@@ -129,6 +129,8 @@ class KeyboardViewController: UIInputViewController {
     let widthMultiple:CGFloat = 0.0976
     
     var currentButton:UIButton?
+    var appExt:Bool = true
+    var targetTextInput:UITextInput? = nil
     //let widthMultiple2:CGFloat = 1/10
     
     /*
@@ -250,11 +252,32 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     */
+    
+    // Editing just began, store a reference to the object that just became the firstResponder
+    func editingDidBegin(notification:NSNotification)
+    {
+        NSLog("editing did begin")
+        if notification.object is UITextInput
+        {
+            self.targetTextInput = (notification.object as! UITextInput)
+        }
+        else
+        {
+            self.targetTextInput = nil
+        }
+    }
+    
+    // Editing just ended.
+    func editingDidEnd(notification:NSNotification)
+    {
+        NSLog("editing did end")
+        self.targetTextInput = nil
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("keyboard did load111")
+        NSLog("keyboard did load112")
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             portraitHeight = 350.0
@@ -270,6 +293,21 @@ class KeyboardViewController: UIInputViewController {
         if UIScreen.main.nativeBounds.width < 641
         {
             buttonSpacing = 4.0
+        }
+        
+        if appExt == false
+        {
+            NSLog("Not app extension")
+            // Keep track of the textView/Field that we are editing
+            // Register to receive notification
+            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidBegin), name: .UITextFieldTextDidBeginEditing, object: nil)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidBegin), name: .UITextViewTextDidBeginEditing, object: nil)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidEnd), name: .UITextFieldTextDidEndEditing, object: nil)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidEnd), name: .UITextViewTextDidEndEditing, object: nil)
+            
         }
         
         //NSLog("kb view did load")
@@ -338,7 +376,7 @@ class KeyboardViewController: UIInputViewController {
         
         //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
         
-        heightConstraint = NSLayoutConstraint(item: self.inputView!,
+        heightConstraint = NSLayoutConstraint(item: self.view!,
                                               attribute: .height,
                                               relatedBy: .equal,
                                               toItem: nil,
@@ -482,17 +520,11 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b = HCButton(buttonType:1)
                     
-                    //b.layer.borderWidth = 1.0
-                    //b.layer.borderColor = UIColor.blue.cgColor
-                    //b.layer.cornerRadius = 4.0
-                    //b.titleLabel?.textColor = UIColor.black
-                    //b.setTitleColor(keyTextColor, for: [])
-                    //b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
-                    
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    
                     //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
+                    
                     stackView2.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
@@ -501,16 +533,9 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b = HCButton(buttonType:1)
                     
-                    //b.layer.borderWidth = 1.0
-                    //b.layer.borderColor = UIColor.blue.cgColor
-                    //b.layer.cornerRadius = 4.0
-                    //b.titleLabel?.textColor = UIColor.black
-                    b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
-                    
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    
                     stackView3.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
@@ -539,16 +564,9 @@ class KeyboardViewController: UIInputViewController {
                     {
                     b = HCButton(buttonType:1)
                     
-                    //b.layer.borderWidth = 1.0
-                    //b.layer.borderColor = UIColor.blue.cgColor
-                    //b.layer.cornerRadius = 4.0
-                    //b.titleLabel?.textColor = UIColor.black
-                    b.setTitleColor(keyTextColor, for: [])
-                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
-                    
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                        
                     stackView4.addArrangedSubview(b)
                     b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                     b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
@@ -877,11 +895,41 @@ class KeyboardViewController: UIInputViewController {
     }
     */
     func keyPressed(button: UIButton) {
-        //NSLog("key pressed")
+        NSLog("key pressed")
         
         let string = button.titleLabel!.text
-        (textDocumentProxy as UIKeyInput).insertText("\(string!)")
         
+        //if appExt == false
+        //{
+            NSLog("here0")
+            (textDocumentProxy as UIKeyInput).insertText("\(string!)")
+    /*
+    }
+        else
+        {
+            NSLog("here1")
+            if self.targetTextInput == nil
+            {
+                return
+            }
+            NSLog("here2")
+            if string == nil || (string?.characters.count)! < 1
+            {
+                return
+            }
+            NSLog("here3")
+            let selectedTextRange:UITextRange = self.targetTextInput!.selectedTextRange!
+            
+            if selectedTextRange == nil
+            {
+                return;
+            }
+            NSLog("here4")
+            //[self textInput:self.targetTextInput replaceTextAtTextRange:selectedTextRange withString:[numberPressed lowercaseString]];
+            self.targetTextInput?.replace(selectedTextRange, withText: string!)
+            NSLog("here5")
+        }
+        */
         if playClick
         {
             UIDevice.current.playInputClick()

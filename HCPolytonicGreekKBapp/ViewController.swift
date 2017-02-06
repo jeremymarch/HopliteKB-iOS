@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet var textView:UITextView?
     @IBOutlet var installInstructions:UILabel?
     @IBOutlet var titleLabel:UILabel?
-    
+    var kb:KeyboardViewController? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,16 +33,15 @@ class ViewController: UIViewController {
         }
  
         //to include keyboard in container app
-        /*
-         ************plan:
-        set a variable to change after instantiating the keyboard vc, but before loading it to 
-         say whether it is an app extension or local to the app.  
-         use that variable to change how text is sent from keyboard.
-         
-        let k = KeyboardViewController()
-        k.view.autoresizingMask = [.flexibleWidth, .flexibleHeight] //this works to set height
-        textView!.inputView = k.view
-        */
+        kb = KeyboardViewController()
+        kb?.appExt = false
+        kb?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
+        kb?.view.autoresizingMask = [] //this is needed too???
+        textView!.inputView = kb?.view
+ 
+        
+        //kb?.view.updateConstraints() //heightAnchor.constraint(equalToConstant: (kb?.portraitHeight)!)
+        
         //this works to set height
         //k.view.frame = CGRect(x:0 , y:0, width:self.view.frame.width, height:k.portraitHeight)
         
