@@ -130,8 +130,6 @@ class KeyboardViewController: UIInputViewController {
     
     var currentButton:UIButton?
     var appExt:Bool = true //maybe not needed?
-    var targetTextInput:UITextInput? = nil
-    //let widthMultiple2:CGFloat = 1/10
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:

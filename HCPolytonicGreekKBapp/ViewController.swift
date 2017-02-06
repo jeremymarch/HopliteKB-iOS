@@ -33,35 +33,35 @@ class ViewController: UIViewController {
         }
  
         //to include keyboard in container app
-        kb = KeyboardViewController()
-        kb?.appExt = false
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false //not needed?
         kb?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
         kb?.view.autoresizingMask = [] //this is needed too???
         textView!.inputView = kb?.view
- 
  
         //kb?.view.updateConstraints() //heightAnchor.constraint(equalToConstant: (kb?.portraitHeight)!)
         
         //this works to set height
         //k.view.frame = CGRect(x:0 , y:0, width:self.view.frame.width, height:k.portraitHeight)
         
-        /* 
+        /*
         //these do not work to set height
-         let heightConstraint = NSLayoutConstraint(item: k.view,
+         let heightConstraint = NSLayoutConstraint(item: kb?.view!,
          attribute: .height,
          relatedBy: .equal,
          toItem: nil,
          attribute: .notAnAttribute,
          multiplier: 1.0,
-         constant: k.portraitHeight)
+         constant: (kb?.portraitHeight)!)
          heightConstraint.priority = 999.0
          heightConstraint.isActive = true
          
-         //self.inputView!.addConstraint(heightConstraint)
+         self.inputView!.addConstraint(heightConstraint)
+        */
         //these don't work
         //k.view.heightAnchor.constraint(equalToConstant: k.portraitHeight)
         //k.view.widthAnchor.constraint(equalToConstant: self.view.frame.width)
-        */
+        
         
  
     }
