@@ -129,7 +129,7 @@ class KeyboardViewController: UIInputViewController {
     let widthMultiple:CGFloat = 0.0976
     
     var currentButton:UIButton?
-    var appExt:Bool = true
+    var appExt:Bool = true //maybe not needed?
     var targetTextInput:UITextInput? = nil
     //let widthMultiple2:CGFloat = 1/10
     
@@ -253,28 +253,6 @@ class KeyboardViewController: UIInputViewController {
     }
     */
     
-    // Editing just began, store a reference to the object that just became the firstResponder
-    func editingDidBegin(notification:NSNotification)
-    {
-        NSLog("editing did begin")
-        if notification.object is UITextInput
-        {
-            self.targetTextInput = (notification.object as! UITextInput)
-        }
-        else
-        {
-            self.targetTextInput = nil
-        }
-    }
-    
-    // Editing just ended.
-    func editingDidEnd(notification:NSNotification)
-    {
-        NSLog("editing did end")
-        self.targetTextInput = nil
-    }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("keyboard did load112")
@@ -294,22 +272,7 @@ class KeyboardViewController: UIInputViewController {
         {
             buttonSpacing = 4.0
         }
-        
-        if appExt == false
-        {
-            NSLog("Not app extension")
-            // Keep track of the textView/Field that we are editing
-            // Register to receive notification
-            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidBegin), name: .UITextFieldTextDidBeginEditing, object: nil)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidBegin), name: .UITextViewTextDidBeginEditing, object: nil)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidEnd), name: .UITextFieldTextDidEndEditing, object: nil)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.editingDidEnd), name: .UITextViewTextDidEndEditing, object: nil)
-            
-        }
-        
+
         //NSLog("kb view did load")
         self.view.translatesAutoresizingMaskIntoConstraints = true //this is needed
         self.view.isUserInteractionEnabled = true
@@ -418,8 +381,7 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b = HCAccentButton(buttonType:1)
                     }
-                    //b.layer.borderWidth = 1.0
-                    //b.layer.borderColor = UIColor.blue.cgColor
+
                     if UIDevice.current.userInterfaceIdiom == .pad
                     {
                         b.layer.cornerRadius = HopliteConstants.ipadRadius
@@ -428,9 +390,7 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b.layer.cornerRadius = HopliteConstants.normalRadius
                     }
-                    //b.titleLabel?.textColor = UIColor.black
-                    //b.setTitleColor(keyTextColor, for: [])
-                    //b.layer.backgroundColor = UIColor.brown.cgColor
+
                     b.setTitle(key, for: [])
                     
                     if key == "´"
@@ -576,21 +536,17 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b = HCButton(buttonType:1)
                     
-                    //b.layer.borderWidth = 1.0
-                    //b.layer.borderColor = UIColor.blue.cgColor
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    //b.layer.backgroundColor = UIColor.brown.cgColor
+
                     b.setTitle(key, for: [])
                     
                     if key == "CP"
                     {
                         b = HCCapsLockButton()
                         
-                        //b.layer.borderWidth = 1.0
-                        //b.layer.borderColor = UIColor.blue.cgColor
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
                             b.layer.cornerRadius = HopliteConstants.ipadRadius
@@ -616,8 +572,6 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b = HCGlobeButton()
                         
-                        //b.layer.borderWidth = 1.0
-                        //b.layer.borderColor = UIColor.blue.cgColor
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
                             b.layer.cornerRadius = HopliteConstants.ipadRadius
@@ -629,10 +583,9 @@ class KeyboardViewController: UIInputViewController {
                         b.titleLabel?.textColor = UIColor.black
                         b.setTitleColor(keyTextColor, for: [])
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        //b.layer.backgroundColor = UIColor.brown.cgColor
+
                         b.setTitle("", for: [])
                         
-                        //b.setTitle("", for: [])
                         //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
                         b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
                         
@@ -679,7 +632,7 @@ class KeyboardViewController: UIInputViewController {
                         b.setTitleColor(UIColor.gray, for: [])
                         b.setTitle(key, for: [])
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
-                        //b.layer.borderColor = UIColor.gray.cgColor
+
                         b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                         stackView5.addArrangedSubview(b)
@@ -713,7 +666,6 @@ class KeyboardViewController: UIInputViewController {
         }
         
         //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
-        
     }
 
     //DEMO
@@ -899,37 +851,8 @@ class KeyboardViewController: UIInputViewController {
         
         let string = button.titleLabel!.text
         
-        //if appExt == false
-        //{
-            NSLog("here0")
-            (textDocumentProxy as UIKeyInput).insertText("\(string!)")
-    /*
-    }
-        else
-        {
-            NSLog("here1")
-            if self.targetTextInput == nil
-            {
-                return
-            }
-            NSLog("here2")
-            if string == nil || (string?.characters.count)! < 1
-            {
-                return
-            }
-            NSLog("here3")
-            let selectedTextRange:UITextRange = self.targetTextInput!.selectedTextRange!
-            
-            if selectedTextRange == nil
-            {
-                return;
-            }
-            NSLog("here4")
-            //[self textInput:self.targetTextInput replaceTextAtTextRange:selectedTextRange withString:[numberPressed lowercaseString]];
-            self.targetTextInput?.replace(selectedTextRange, withText: string!)
-            NSLog("here5")
-        }
-        */
+        (textDocumentProxy as UIKeyInput).insertText("\(string!)")
+
         if playClick
         {
             UIDevice.current.playInputClick()

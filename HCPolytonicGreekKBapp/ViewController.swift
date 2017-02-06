@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         kb?.view.autoresizingMask = [] //this is needed too???
         textView!.inputView = kb?.view
  
-        
+ 
         //kb?.view.updateConstraints() //heightAnchor.constraint(equalToConstant: (kb?.portraitHeight)!)
         
         //this works to set height
