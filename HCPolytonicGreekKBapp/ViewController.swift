@@ -13,6 +13,13 @@ class ViewController: UIViewController {
     @IBOutlet var installInstructions:UILabel?
     @IBOutlet var titleLabel:UILabel?
     var kb:KeyboardViewController? = nil
+    
+    let embedInContainerApp:Bool = true
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,13 +39,16 @@ class ViewController: UIViewController {
             installInstructions?.font = UIFont(name: (installInstructions?.font.fontName)!, size: 14.0)
         }
  
-        //to include keyboard in container app
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb?.appExt = false //not needed?
-        kb?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
-        kb?.view.autoresizingMask = [] //this is needed too???
-        textView!.inputView = kb?.view
- 
+        if embedInContainerApp
+        {
+            textView!.inputView = nil
+            //to include keyboard in container app
+            kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+            kb?.appExt = false
+            //?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
+            kb?.view.autoresizingMask = [.flexibleRightMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleTopMargin] //this is needed too???
+            textView!.inputView = kb?.view
+        }
         //kb?.view.updateConstraints() //heightAnchor.constraint(equalToConstant: (kb?.portraitHeight)!)
         
         //this works to set height

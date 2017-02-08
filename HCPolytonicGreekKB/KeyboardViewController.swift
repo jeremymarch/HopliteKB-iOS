@@ -109,6 +109,7 @@ class KeyboardViewController: UIInputViewController {
     let stackView2   = UIStackView()
     let stackView3   = UIStackView()
     let stackView4   = UIStackView()
+    let stackViewV   = UIStackView()
     var tic:Int = 0
     
     var deleteButton:UIButton? = nil
@@ -129,7 +130,9 @@ class KeyboardViewController: UIInputViewController {
     let widthMultiple:CGFloat = 0.0976
     
     var currentButton:UIButton?
-    var appExt:Bool = true //maybe not needed?
+    var appExt:Bool = true
+    var buttons: Array<UIButton> = []
+    var bCount:Int = 0
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
@@ -213,6 +216,7 @@ class KeyboardViewController: UIInputViewController {
     //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        NSLog("rotate")
         coordinator.animate(alongsideTransition: { _ in
             
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
@@ -224,11 +228,16 @@ class KeyboardViewController: UIInputViewController {
                 let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
                 
                 //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
-                if (isLandscape) {4
-                    self.heightConstraint!.constant = self.landscapeHeight;
+                if isLandscape
+                {
+                    NSLog("landscape")
+                    self.heightConstraint?.constant = self.landscapeHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
-                } else {
-                    self.heightConstraint!.constant = self.portraitHeight;
+                }
+                else
+                {
+                    NSLog("portrait")
+                    self.heightConstraint?.constant = self.portraitHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
                 
@@ -240,20 +249,54 @@ class KeyboardViewController: UIInputViewController {
         }, completion: nil)
     }
  
-    /*
+    
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
     
-        for gesture:UIGestureRecognizer in (self.view.window?.gestureRecognizers!)!
-        {
-            gesture.delaysTouchesBegan = false
+        //let f = self.view.frame
+        //self.view.frame = CGRect(x:f.origin.x , y:f.origin.y, width: f.size.width, height: 300.0)
+        //self.view!.removeConstraints(self.view!.constraints)
+        //self.view!.heightAnchor.constraint(equalToConstant: 260.0).isActive = true
+        
+        heightConstraint = NSLayoutConstraint(item: self.view!,
+                                              attribute: .height,
+                                              relatedBy: .equal,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1.0,
+                                              constant: portraitHeight)
+        heightConstraint!.priority = 999.0
+        heightConstraint?.isActive = true
+        self.view!.addConstraint(heightConstraint!)
+        
+        
+        stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
+        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
+        
+        buttons.forEach { b in
+            if b.titleLabel?.text == "enter" || b.titleLabel?.text == "space"
+            {
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 3).isActive = true
+                b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+
+            }
+            else
+            {
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+        
+            }
         }
     }
-    */
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("keyboard did load112")
+        //self.view.autoresizingMask = [.flexibleRightMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleTopMargin]//UIViewAutoresizing(rawValue: 0)
+        //self.view!.autoresizesSubviews = false
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             portraitHeight = 350.0
@@ -272,7 +315,8 @@ class KeyboardViewController: UIInputViewController {
         }
 
         //NSLog("kb view did load")
-        self.view.translatesAutoresizingMaskIntoConstraints = true //this is needed
+        self.view.translatesAutoresizingMaskIntoConstraints = appExt //this must be true for app extension
+
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
 
@@ -303,11 +347,10 @@ class KeyboardViewController: UIInputViewController {
         stackView5.alignment = UIStackViewAlignment.center
         stackView5.spacing   = buttonSpacing
         
-        let stackViewV  = UIStackView()
         stackViewV.axis  = UILayoutConstraintAxis.vertical
         stackViewV.distribution  = UIStackViewDistribution.equalSpacing
         stackViewV.alignment = UIStackViewAlignment.center
-        stackViewV.spacing   = buttonSpacing
+        stackViewV.spacing   = 0//buttonSpacing //fixes broken constraints when embeded
         
         stackView1.translatesAutoresizingMaskIntoConstraints = false
         stackView2.translatesAutoresizingMaskIntoConstraints = false
@@ -316,19 +359,21 @@ class KeyboardViewController: UIInputViewController {
         stackView5.translatesAutoresizingMaskIntoConstraints = false
         stackViewV.translatesAutoresizingMaskIntoConstraints = false
         
+        self.view.addSubview(stackViewV)
+        
         stackViewV.addArrangedSubview(stackView1)
         stackViewV.addArrangedSubview(stackView2)
         stackViewV.addArrangedSubview(stackView3)
         stackViewV.addArrangedSubview(stackView4)
         stackViewV.addArrangedSubview(stackView5)
         
-        self.view.addSubview(stackViewV)
         
+        /*
         stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
         stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
-        
+        */
         
         //herehere
         //set whole keyboard height
@@ -336,19 +381,20 @@ class KeyboardViewController: UIInputViewController {
         //self.view.heightAnchor.constraint(equalToConstant: <#T##CGFloat#>)
         
         //self.inputView?.heightAnchor.constraint(equalToConstant: 236.0).isActive = true
-        
-        heightConstraint = NSLayoutConstraint(item: self.view!,
+        if false //appExt
+        {
+            heightConstraint = NSLayoutConstraint(item: self.view!,
                                               attribute: .height,
                                               relatedBy: .equal,
                                               toItem: nil,
                                               attribute: .notAnAttribute,
                                               multiplier: 1.0,
                                               constant: portraitHeight)
-        heightConstraint!.priority = 999.0
-        heightConstraint?.isActive = true
+            heightConstraint!.priority = 999.0
+            heightConstraint?.isActive = true
         
-        //self.inputView!.addConstraint(heightConstraint!)
-        
+            self.view!.addConstraint(heightConstraint!)
+        }
         /*
             punctuation:
             period
@@ -374,10 +420,12 @@ class KeyboardViewController: UIInputViewController {
                     if key == "·" || key == ","
                     {
                         b = HCPunctuationButton(buttonType:1)
+                        buttons.append(b)
                     }
                     else
                     {
                         b = HCAccentButton(buttonType:1)
+                        buttons.append(b)
                     }
 
                     if UIDevice.current.userInterfaceIdiom == .pad
@@ -471,12 +519,13 @@ class KeyboardViewController: UIInputViewController {
                     }
                     
                     stackView1.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                    //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[1]
                 {
                     b = HCButton(buttonType:1)
+                    buttons.append(b)
                     
                     b.setTitle(key, for: [])
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
@@ -484,25 +533,27 @@ class KeyboardViewController: UIInputViewController {
                     //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     
                     stackView2.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                    //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[2]
                 {
                     b = HCButton(buttonType:1)
+                    buttons.append(b)
                     
                     b.setTitle(key, for: [])
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     
                     stackView3.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                    //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                    //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 }
                 else if row == keys[3]
                 {
                     if key == "BK"
                     {
                         b = HCDeleteButton(devicea:2)
+                        buttons.append(b)
                         
                         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
                         lpgr.minimumPressDuration = 0.4
@@ -513,26 +564,29 @@ class KeyboardViewController: UIInputViewController {
                         //need both long and normal
                         b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
                         stackView4.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 1)).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         deleteButton = b
                     }
                     else
                     {
-                    b = HCButton(buttonType:1)
+                        b = HCButton(buttonType:1)
+                        buttons.append(b)
                     
-                    b.setTitle(key, for: [])
-                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                        b.setTitle(key, for: [])
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                         
-                    stackView4.addArrangedSubview(b)
-                    b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                    b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        stackView4.addArrangedSubview(b)
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                 }
                 else if row == keys[4]
                 {
+                    /*
                     b = HCButton(buttonType:1)
+                    buttons.append(b)
                     
                     b.layer.cornerRadius = 4.0
                     b.titleLabel?.textColor = UIColor.black
@@ -540,10 +594,11 @@ class KeyboardViewController: UIInputViewController {
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
 
                     b.setTitle(key, for: [])
-                    
+                    */
                     if key == "CP"
                     {
                         b = HCCapsLockButton()
+                        buttons.append(b)
                         
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
@@ -561,14 +616,15 @@ class KeyboardViewController: UIInputViewController {
                         
                         b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         capsLockButton = b
                     }
                     else if key == "KB"
                     {
                         b = HCGlobeButton()
+                        buttons.append(b)
                         
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
@@ -588,14 +644,15 @@ class KeyboardViewController: UIInputViewController {
                         b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
                         
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         globeButton = b
                     }
                     else if key == "enter"
                     {
                         b = HCEnterButton()
+                        buttons.append(b)
                         
                         b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
@@ -613,12 +670,13 @@ class KeyboardViewController: UIInputViewController {
 
                         b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                         
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 2.5)).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "space"
                     {
                         b = HCSpaceButton()
+                        buttons.append(b)
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
                             b.layer.cornerRadius = HopliteConstants.ipadRadius
@@ -634,12 +692,13 @@ class KeyboardViewController: UIInputViewController {
                         b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                         //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 3)).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: (widthMultiple * 3)).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                     }
                     else if key == "."
                     {
                         b = HCPunctuationButton(buttonType:1)
+                        buttons.append(b)
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {
                             b.layer.cornerRadius = HopliteConstants.ipadRadius
@@ -653,8 +712,8 @@ class KeyboardViewController: UIInputViewController {
                         
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                         stackView5.addArrangedSubview(b)
-                        b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
-                        b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                        //b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
+                        //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                         
                         periodButton = b
                     }

@@ -62,9 +62,8 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="e84-Nt-1Jc"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="top" secondItem="J2S-dV-QPl" secondAttribute="bottom" constant="14" id="gaz-5Z-KKu"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="h0C-u8-h4J"/>
-                            <constraint firstItem="cP2-lr-tdn" firstAttribute="top" secondItem="J2S-dV-QPl" secondAttribute="bottom" constant="8" id="huN-uB-qOy"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mC3-G1-433"/>
-                            <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="ofF-lE-IGU"/>
+                            <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="ofF-lE-IGU"/>
                         </constraints>
                     </view>
                     <connections>
