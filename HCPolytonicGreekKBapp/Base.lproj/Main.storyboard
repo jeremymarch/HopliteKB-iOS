@@ -41,9 +41,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-Vb-mRZ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-Vb-mRZ">
                                 <rect key="frame" x="16" y="166" width="343" height="177"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="177" id="d9n-B4-G0v"/>
+                                </constraints>
                                 <string key="text">To install keyboard on iOS device:
 1) Open the Settings app
 2) Select General -&gt; Keyboard -&gt; Keyboards
@@ -58,12 +60,15 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="5hN-as-7vA"/>
+                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="4" id="IhJ-un-Vg0"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="big-MX-jYZ"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="e84-Nt-1Jc"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="top" secondItem="J2S-dV-QPl" secondAttribute="bottom" constant="14" id="gaz-5Z-KKu"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="h0C-u8-h4J"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mC3-G1-433"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="ofF-lE-IGU"/>
+                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="p0e-UY-ewO"/>
                         </constraints>
                     </view>
                     <connections>

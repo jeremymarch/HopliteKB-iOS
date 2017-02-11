@@ -344,16 +344,19 @@ class KeyboardViewController: UIInputViewController {
         }
         else
         {
-            portraitHeight = 250.0
-            landscapeHeight = 196.0
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
+            {
+                buttonSpacing = 4.0
+                portraitHeight = 236.0
+                landscapeHeight = 186.0
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 250.0
+                landscapeHeight = 196.0
+            }
         }
-        
-        //for iphone 5s and narrower
-        if UIScreen.main.nativeBounds.width < 641
-        {
-            buttonSpacing = 4.0
-        }
-        
         
         //let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
         //recognizer.delegate = self
