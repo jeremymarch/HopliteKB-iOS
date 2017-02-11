@@ -122,8 +122,8 @@ class KeyboardViewController: UIInputViewController {
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
 
-    var portraitHeight:CGFloat = 240.0
-    var landscapeHeight:CGFloat = 190.0
+    var portraitHeight:CGFloat = 250.0
+    var landscapeHeight:CGFloat = 196.0
     
     let buttonHeightMultiplier:CGFloat = 0.174
     var buttonSpacing:CGFloat = 5.0
@@ -330,7 +330,7 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("keyboard did load112")
+        //NSLog("keyboard did load112")
 /*
         self.inputView?.autoresizingMask = UIViewAutoresizing(rawValue: 0)
         self.inputView?.autoresizingMask = []//UIViewAutoresizing(rawValue: 0)
@@ -339,13 +339,13 @@ class KeyboardViewController: UIInputViewController {
         */
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            portraitHeight = 350.0
-            landscapeHeight = 310.0
+            portraitHeight = 380.0
+            landscapeHeight = 360.0
         }
         else
         {
-            portraitHeight = 240.0
-            landscapeHeight = 190.0
+            portraitHeight = 250.0
+            landscapeHeight = 196.0
         }
         
         //for iphone 5s and narrower
@@ -364,11 +364,11 @@ class KeyboardViewController: UIInputViewController {
         self.inputView?.translatesAutoresizingMaskIntoConstraints = appExt //this must be true for app extension
         if appExt == false
         {
-            if #available(iOS 9.0, *)
-            {
+            //if #available(iOS 9.0, *) //9.0 is already minimum for this right now
+            //{
                 //http://stackoverflow.com/questions/26120043/unable-to-change-uiinputview-height
                 self.inputView?.allowsSelfSizing = true
-            }
+            //}
         }
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
