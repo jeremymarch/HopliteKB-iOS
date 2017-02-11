@@ -41,14 +41,18 @@ class ViewController: UIViewController {
  
         if embedInContainerApp
         {
-            textView!.inputView = nil
+            //textView!.inputView = nil
             //to include keyboard in container app
             kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
             kb?.appExt = false
             //?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
-            kb?.view.autoresizingMask = [.flexibleRightMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleTopMargin] //this is needed too???
+            kb?.inputView?.autoresizingMask = [] //this is needed too???
             textView!.inputView = kb?.view
         }
+        
+        let a:String = "Try it: \u{03B1}\u{0304}\u{0313}\u{0301}\u{0345}"
+        textView?.text = a
+        
         //kb?.view.updateConstraints() //heightAnchor.constraint(equalToConstant: (kb?.portraitHeight)!)
         
         //this works to set height
