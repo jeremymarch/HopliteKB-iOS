@@ -602,8 +602,16 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     }
     else if (accent == DIAERESIS)
     {
-        if (letterCode != IOTA && letterCode != UPSILON)
+        if (letterCode != IOTA && letterCode != UPSILON && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
             return;
+        
+        if (letterCode == IOTA_CAP || letterCode == UPSILON_CAP)
+        {
+            acute = false;
+            grave = false;
+            circumflex = false;
+            macron = false;
+        }
         diaeresis = (toggleOff) ? !diaeresis : true;
         smooth = false;
         rough = false;
