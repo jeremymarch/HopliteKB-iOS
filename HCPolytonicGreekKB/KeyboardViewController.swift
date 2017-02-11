@@ -362,7 +362,14 @@ class KeyboardViewController: UIInputViewController {
         
         //NSLog("kb view did load")
         self.inputView?.translatesAutoresizingMaskIntoConstraints = appExt //this must be true for app extension
-
+        if appExt == false
+        {
+            if #available(iOS 9.0, *)
+            {
+                //http://stackoverflow.com/questions/26120043/unable-to-change-uiinputview-height
+                self.inputView?.allowsSelfSizing = true
+            }
+        }
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
 
