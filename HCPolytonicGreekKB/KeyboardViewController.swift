@@ -293,6 +293,12 @@ class KeyboardViewController: UIInputViewController {
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
                 
             }
+            else if b.tag == 17 //delete
+            {
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.36).isActive = true
+                b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                
+            }
             else
             {
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
@@ -459,9 +465,9 @@ class KeyboardViewController: UIInputViewController {
             parentheses
         */
         let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
-                                ["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "ς", "BK" ],
+                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
                                ["CP", "KB", "space", ".", "enter"]]
         
         for row in keys
@@ -615,6 +621,7 @@ class KeyboardViewController: UIInputViewController {
                         lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
                         lpgr.allowableMovement = 50.0
                         b.addGestureRecognizer(lpgr)
+                        b.tag = 17
                         
                         //need both long and normal
                         b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
