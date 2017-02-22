@@ -11,7 +11,7 @@
 
 #define COMBINING_GRAVE                 0x0300
 #define COMBINING_ACUTE                 0x0301
-#define COMBINING_CIRCUMFLEX            0x0302
+#define COMBINING_CIRCUMFLEX            0x0342//0x0302
 #define COMBINING_MACRON                0x0304
 #define COMBINING_DIAERESIS             0x0308
 #define COMBINING_SMOOTH_BREATHING      0x0313

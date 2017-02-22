@@ -23,6 +23,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
+        if defaults != nil
+        {
+            defaults?.setValue(UnicodeMode.PreComposedNoPUA.rawValue, forKey: "UnicodeAccents")
+            defaults?.synchronize()
+        }
+        
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
         {
@@ -45,8 +52,7 @@ class ViewController: UIViewController {
             //to include keyboard in container app
             kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
             kb?.appExt = false
-            //?.view.translatesAutoresizingMaskIntoConstraints = false //this is needed.
-            kb?.inputView?.autoresizingMask = [] //this is needed too???
+            
             textView!.inputView = kb?.view
         }
         

@@ -107,6 +107,8 @@
 		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
 		3F77E1B81E4558FF005E2133 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
 		3F77E1BA1E455917005E2133 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSpaceButton.swift; sourceTree = "<group>"; };
+		3F8003DD1E5D8E75003B2F80 /* HCPolytonicGreekKBapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKBapp.entitlements; sourceTree = "<group>"; };
+		3F8003DE1E5D8E9C003B2F80 /* HCPolytonicGreekKB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKB.entitlements; sourceTree = "<group>"; };
 		3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKBapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HCPolytonicGreek.c; sourceTree = "<group>"; };
 		3F85D1591E43FCA200E5DAA4 /* HCPolytonicGreek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCPolytonicGreek.h; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		3F0F5E481E0F819C00DE5744 /* HCPolytonicGreekKBapp */ = {
 			isa = PBXGroup;
 			children = (
+				3F8003DD1E5D8E75003B2F80 /* HCPolytonicGreekKBapp.entitlements */,
 				3FE19A111E2DC8F30088E96C /* newathu5.ttf */,
 				3F0F5E491E0F819C00DE5744 /* AppDelegate.swift */,
 				3F0F5E4B1E0F819C00DE5744 /* ViewController.swift */,
@@ -208,6 +211,7 @@
 		3F0F5E7C1E0F81D700DE5744 /* HCPolytonicGreekKB */ = {
 			isa = PBXGroup;
 			children = (
+				3F8003DE1E5D8E9C003B2F80 /* HCPolytonicGreekKB.entitlements */,
 				3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */,
 				3F4547AC1E2B0A6300946694 /* HCbutton.swift */,
 				3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */,
@@ -333,6 +337,11 @@
 						DevelopmentTeam = EFHC4XFZ38;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					3F0F5E591E0F819C00DE5744 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -351,6 +360,11 @@
 						DevelopmentTeam = EFHC4XFZ38;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -604,6 +618,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HCPolytonicGreekKBapp/HCPolytonicGreekKBapp.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -622,6 +637,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HCPolytonicGreekKBapp/HCPolytonicGreekKBapp.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKBapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -695,6 +711,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HCPolytonicGreekKB/HCPolytonicGreekKB.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -712,6 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HCPolytonicGreekKB/HCPolytonicGreekKB.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = HCPolytonicGreekKB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

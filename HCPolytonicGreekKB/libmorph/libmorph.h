@@ -263,7 +263,7 @@ bool accentWord(UCS2 *ucs2String, int *len, int syllableToAccent, int accent);
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accent, bool toggleOff);
 void accentSyllableUtf8(char *utf8, int accent, bool toggleOff);
 
-void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff);
+void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff, int unicodeMode);
 
 bool isVowel(UCS2 l);
 bool isLong(UCS2 l);

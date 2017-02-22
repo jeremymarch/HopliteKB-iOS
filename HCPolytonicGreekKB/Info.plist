@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>11</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -31,7 +31,7 @@
 			<key>PrimaryLanguage</key>
 			<string>el-GR</string>
 			<key>RequestsOpenAccess</key>
-			<false/>
+			<true/>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.keyboard-service</string>
