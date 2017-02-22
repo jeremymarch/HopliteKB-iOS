@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet var textView:UITextView?
     @IBOutlet var installInstructions:UILabel?
     @IBOutlet var titleLabel:UILabel?
+    @IBOutlet var settingsButton:UIButton?
+    
     var kb:KeyboardViewController? = nil
     
     let embedInContainerApp:Bool = true
@@ -22,13 +24,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
         if defaults != nil
         {
-            defaults?.setValue(UnicodeMode.PreComposedNoPUA.rawValue, forKey: "UnicodeAccents")
-            defaults?.synchronize()
+            //defaults?.setValue(UnicodeMode.PreComposedNoPUA.rawValue, forKey: "UnicodeAccents")
+            //defaults?.synchronize()
         }
+        */
+        settingsButton?.addTarget(self, action: #selector(showSettings(button:)), for: .touchUpInside)
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -84,6 +88,19 @@ class ViewController: UIViewController {
         
         
  
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    func showSettings(button: UIButton) {
+    
+    //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
+        self.navigationController?.performSegue(withIdentifier: "showSettings", sender: self) //:@"showSettingsTableSegue" sender:self];
+    
+    //[self.navigationController pushViewController:dvc animated:YES];
     }
     
     override func didReceiveMemoryWarning() {
