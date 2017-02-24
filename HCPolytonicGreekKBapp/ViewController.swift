@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet var installInstructions:UILabel?
     @IBOutlet var titleLabel:UILabel?
     @IBOutlet var settingsButton:UIButton?
+    @IBOutlet var installButton:UIButton?
+    @IBOutlet var featuresButton:UIButton?
     
     var kb:KeyboardViewController? = nil
     
@@ -33,6 +35,8 @@ class ViewController: UIViewController {
         }
         */
         settingsButton?.addTarget(self, action: #selector(showSettings(button:)), for: .touchUpInside)
+        installButton?.addTarget(self, action: #selector(showInstall(button:)), for: .touchUpInside)
+        featuresButton?.addTarget(self, action: #selector(showFeatures(button:)), for: .touchUpInside)
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -94,12 +98,29 @@ class ViewController: UIViewController {
         //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+
+    func showFeatures(button: UIButton) {
+        
+        //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
+        self.navigationController?.performSegue(withIdentifier: "showFeatures", sender: self)
+        textView?.resignFirstResponder()
+        //[self.navigationController pushViewController:dvc animated:YES];
+    }
+    
+    func showInstall(button: UIButton) {
+        
+        //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
+        self.navigationController?.performSegue(withIdentifier: "showInstall", sender: self)
+        textView?.resignFirstResponder()
+        //[self.navigationController pushViewController:dvc animated:YES];
+    }
     
     func showSettings(button: UIButton) {
     
     //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
-        self.navigationController?.performSegue(withIdentifier: "showSettings", sender: self) //:@"showSettingsTableSegue" sender:self];
-    
+        self.navigationController?.performSegue(withIdentifier: "showSettings", sender: self)
+        textView?.resignFirstResponder()
+        
     //[self.navigationController pushViewController:dvc animated:YES];
     }
     

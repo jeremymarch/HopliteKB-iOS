@@ -25,6 +25,8 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="gVn-PK-uRc"/>
                         <segue destination="VRu-fB-vxt" kind="show" identifier="showSettings" id="TVh-go-vD1"/>
+                        <segue destination="DWz-Xl-lY2" kind="show" identifier="showInstall" id="W6v-tC-kz2"/>
+                        <segue destination="QnE-R8-yS3" kind="show" identifier="showFeatures" id="Ll3-jz-hZT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mir-kv-fgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -58,46 +60,66 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-Vb-mRZ">
-                                <rect key="frame" x="16" y="166" width="343" height="177"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-ib-NY5">
+                                <rect key="frame" x="17" y="176" width="341" height="52"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="177" id="d9n-B4-G0v"/>
+                                    <constraint firstAttribute="height" constant="52" id="RhK-Dt-tcy"/>
                                 </constraints>
-                                <string key="text">To install keyboard on iOS device:
-1) Open the Settings app
-2) Select General -&gt; Keyboard -&gt; Keyboards
-3) Add New Keyboard...
-4) Select "Hoplite Greek Keyboard"
-
-For best results, install a polytonic Greek font such as New Athena Unicode.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-ib-NY5">
-                                <rect key="frame" x="16" y="351" width="99" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Settings">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5t-Ct-vNv">
+                                <rect key="frame" x="16" y="236" width="343" height="52"/>
+                                <color key="backgroundColor" red="0.75066790803108807" green="0.75066790803108807" blue="0.75066790803108807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="9Ma-1Q-a9b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Installation">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOb-4f-DdO">
+                                <rect key="frame" x="15" y="296" width="343" height="52"/>
+                                <color key="backgroundColor" red="0.75066790800000005" green="0.75066790800000005" blue="0.75066790800000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="V8a-VQ-r1a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Features">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="5hN-as-7vA"/>
-                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="4" id="IhJ-un-Vg0"/>
+                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="1Pq-Qq-JVO"/>
+                            <constraint firstItem="DOb-4f-DdO" firstAttribute="top" secondItem="w5t-Ct-vNv" secondAttribute="bottom" constant="8" id="EW1-Ev-quh"/>
+                            <constraint firstItem="xZc-ib-NY5" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="8" id="FXg-BZ-aBp"/>
+                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="H2Z-Ff-JRA"/>
+                            <constraint firstItem="xZc-ib-NY5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="O6D-lD-JyG"/>
+                            <constraint firstItem="xZc-ib-NY5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="Qpo-HZ-1JK"/>
+                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="top" secondItem="xZc-ib-NY5" secondAttribute="bottom" constant="8" id="ToH-ec-JgH"/>
+                            <constraint firstItem="DOb-4f-DdO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="X3n-vW-dMR"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="big-MX-jYZ"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="e84-Nt-1Jc"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="top" secondItem="J2S-dV-QPl" secondAttribute="bottom" constant="14" id="gaz-5Z-KKu"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="h0C-u8-h4J"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mC3-G1-433"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="ofF-lE-IGU"/>
-                            <constraint firstItem="NLQ-Vb-mRZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="p0e-UY-ewO"/>
+                            <constraint firstItem="DOb-4f-DdO" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="qdR-Jx-aOS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="caf-JU-Iz1"/>
                     <connections>
-                        <outlet property="installInstructions" destination="NLQ-Vb-mRZ" id="1gf-5I-PT7"/>
+                        <outlet property="featuresButton" destination="DOb-4f-DdO" id="QT0-n2-2LR"/>
+                        <outlet property="installButton" destination="w5t-Ct-vNv" id="OtN-Qe-zsX"/>
                         <outlet property="settingsButton" destination="xZc-ib-NY5" id="q8j-ZF-E6X"/>
                         <outlet property="textView" destination="cP2-lr-tdn" id="zOU-j4-Tv0"/>
                         <outlet property="titleLabel" destination="J2S-dV-QPl" id="WrL-Oy-lfc"/>
@@ -105,7 +127,7 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-772" y="113"/>
+            <point key="canvasLocation" x="-772" y="112.89355322338831"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="wxe-fZ-aE9">
@@ -133,7 +155,90 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMX-Zi-zab" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="65" y="113"/>
+            <point key="canvasLocation" x="-1607" y="989"/>
+        </scene>
+        <!--Install View Controller-->
+        <scene sceneID="gDe-Uy-1Ln">
+            <objects>
+                <viewController id="DWz-Xl-lY2" customClass="InstallViewController" customModule="HCPolytonicGreekKBapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Yg-9K-a8p"/>
+                        <viewControllerLayoutGuide type="bottom" id="5VB-Jb-1hv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XQ7-hM-QeJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zv7-yN-GIq">
+                                <rect key="frame" x="16" y="72" width="343" height="220"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="218" id="wRx-uD-Qmy" userLabel="height = 200"/>
+                                </constraints>
+                                <string key="text">INSTALLATION
+
+To install keyboard on iOS device:
+1) Open the Settings app
+2) Select General -&gt; Keyboard -&gt; Keyboards
+3) Add New Keyboard...
+4) Select "Hoplite Greek Keyboard"
+
+For best results, install a polytonic Greek font such as New Athena Unicode.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zv7-yN-GIq" firstAttribute="leading" secondItem="XQ7-hM-QeJ" secondAttribute="leadingMargin" constant="-4" id="4Md-30-jwu"/>
+                            <constraint firstItem="Zv7-yN-GIq" firstAttribute="top" secondItem="3Yg-9K-a8p" secondAttribute="bottom" constant="8" id="G6w-D0-N5D"/>
+                            <constraint firstItem="Zv7-yN-GIq" firstAttribute="trailing" secondItem="XQ7-hM-QeJ" secondAttribute="trailingMargin" constant="-4" id="cgX-WT-0Xd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vm8-eI-sTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-772" y="988"/>
+        </scene>
+        <!--Install View Controller-->
+        <scene sceneID="r8l-lk-Axb">
+            <objects>
+                <viewController id="QnE-R8-yS3" customClass="InstallViewController" customModule="HCPolytonicGreekKBapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6BG-D8-WJK"/>
+                        <viewControllerLayoutGuide type="bottom" id="jT1-eF-tsq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eQY-ig-Ogm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGz-0T-cdZ">
+                                <rect key="frame" x="16" y="72" width="329" height="236"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="218" id="oQx-9k-4cp"/>
+                                </constraints>
+                                <mutableString key="text">FEATURES  * Type the letter first then add diacritics.
+* Diacritics can be added in any order.
+* Pressing the diacritic again will toggle it on or off.
+* Contrasting diacritics replace each other: accents, breathings.
+* Redundant diacritics replace each other: circumflex/macron. * Press caps lock to use the diaeresis key.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cGz-0T-cdZ" firstAttribute="top" secondItem="6BG-D8-WJK" secondAttribute="bottom" constant="8" id="jy9-xq-P5L"/>
+                            <constraint firstItem="cGz-0T-cdZ" firstAttribute="leading" secondItem="eQY-ig-Ogm" secondAttribute="leadingMargin" constant="-4" id="wea-oq-aye"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cGz-0T-cdZ" secondAttribute="trailing" constant="-4" id="ycI-Se-tFX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qO2-g1-xKU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104.8" y="995.35232383808102"/>
         </scene>
     </scenes>
 </document>
