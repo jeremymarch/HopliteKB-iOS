@@ -37,6 +37,24 @@ class ViewController: UIViewController {
         settingsButton?.addTarget(self, action: #selector(showSettings(button:)), for: .touchUpInside)
         installButton?.addTarget(self, action: #selector(showInstall(button:)), for: .touchUpInside)
         featuresButton?.addTarget(self, action: #selector(showFeatures(button:)), for: .touchUpInside)
+        /*
+        let tc:UIColor = UIColor.black
+        let bc:UIColor = UIColor.gray
+        let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
+        
+        settingsButton?.setTitleColor(tc, for: .normal)
+        installButton?.setTitleColor(tc, for: .normal)
+        featuresButton?.setTitleColor(tc, for: .normal)
+        
+        settingsButton?.backgroundColor = bc
+        installButton?.backgroundColor = bc
+        featuresButton?.backgroundColor = bc
+        */
+        let cr:CGFloat = 6.0
+        settingsButton?.layer.cornerRadius = cr
+        installButton?.layer.cornerRadius = cr
+        featuresButton?.layer.cornerRadius = cr
+        textView?.layer.cornerRadius = cr
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)

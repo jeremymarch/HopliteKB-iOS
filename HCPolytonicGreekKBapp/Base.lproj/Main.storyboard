@@ -53,6 +53,11 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="36"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hoplite Polytonic Greek Keyboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2S-dV-QPl">
                                 <rect key="frame" x="20" y="20" width="339" height="30"/>
@@ -60,21 +65,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-ib-NY5">
-                                <rect key="frame" x="17" y="176" width="341" height="52"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="RhK-Dt-tcy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Settings">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5t-Ct-vNv">
-                                <rect key="frame" x="16" y="236" width="343" height="52"/>
-                                <color key="backgroundColor" red="0.75066790803108807" green="0.75066790803108807" blue="0.75066790803108807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="15" y="286" width="343" height="52"/>
+                                <color key="backgroundColor" red="0.41349166631698608" green="0.62279891967773438" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="9Ma-1Q-a9b"/>
                                 </constraints>
@@ -83,37 +76,64 @@
                                 <state key="normal" title="Installation">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOb-4f-DdO">
-                                <rect key="frame" x="15" y="296" width="343" height="52"/>
-                                <color key="backgroundColor" red="0.75066790800000005" green="0.75066790800000005" blue="0.75066790800000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="16" y="166" width="343" height="52"/>
+                                <color key="backgroundColor" red="0.41349166631698608" green="0.62279891967773438" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="V8a-VQ-r1a"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Features">
+                                <state key="normal" title="About">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-ib-NY5">
+                                <rect key="frame" x="15" y="226" width="341" height="52"/>
+                                <color key="backgroundColor" red="0.4134916663" green="0.62279891970000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="RhK-Dt-tcy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="1Pq-Qq-JVO"/>
-                            <constraint firstItem="DOb-4f-DdO" firstAttribute="top" secondItem="w5t-Ct-vNv" secondAttribute="bottom" constant="8" id="EW1-Ev-quh"/>
-                            <constraint firstItem="xZc-ib-NY5" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="8" id="FXg-BZ-aBp"/>
+                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="1Pq-Qq-JVO"/>
+                            <constraint firstItem="xZc-ib-NY5" firstAttribute="top" secondItem="DOb-4f-DdO" secondAttribute="bottom" constant="8" id="G4q-O8-72O"/>
                             <constraint firstItem="w5t-Ct-vNv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="H2Z-Ff-JRA"/>
                             <constraint firstItem="xZc-ib-NY5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="O6D-lD-JyG"/>
-                            <constraint firstItem="xZc-ib-NY5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="Qpo-HZ-1JK"/>
-                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="top" secondItem="xZc-ib-NY5" secondAttribute="bottom" constant="8" id="ToH-ec-JgH"/>
+                            <constraint firstItem="xZc-ib-NY5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="Qpo-HZ-1JK"/>
+                            <constraint firstItem="w5t-Ct-vNv" firstAttribute="top" secondItem="xZc-ib-NY5" secondAttribute="bottom" constant="8" id="WWs-n0-Pwa"/>
                             <constraint firstItem="DOb-4f-DdO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="X3n-vW-dMR"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="big-MX-jYZ"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="e84-Nt-1Jc"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="top" secondItem="J2S-dV-QPl" secondAttribute="bottom" constant="14" id="gaz-5Z-KKu"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="h0C-u8-h4J"/>
+                            <constraint firstItem="DOb-4f-DdO" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="8" id="l2z-t2-xHH"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mC3-G1-433"/>
-                            <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="ofF-lE-IGU"/>
-                            <constraint firstItem="DOb-4f-DdO" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="qdR-Jx-aOS"/>
+                            <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="ofF-lE-IGU"/>
+                            <constraint firstItem="DOb-4f-DdO" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="qdR-Jx-aOS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="caf-JU-Iz1"/>
@@ -171,9 +191,6 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zv7-yN-GIq">
                                 <rect key="frame" x="16" y="72" width="343" height="220"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="218" id="wRx-uD-Qmy" userLabel="height = 200"/>
-                                </constraints>
                                 <string key="text">INSTALLATION
 
 To install keyboard on iOS device:
@@ -195,15 +212,18 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                             <constraint firstItem="Zv7-yN-GIq" firstAttribute="trailing" secondItem="XQ7-hM-QeJ" secondAttribute="trailingMargin" constant="-4" id="cgX-WT-0Xd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="Zv7-yN-GIq" id="5hu-zI-XAH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vm8-eI-sTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-772" y="988"/>
         </scene>
-        <!--Install View Controller-->
+        <!--About View Controller-->
         <scene sceneID="r8l-lk-Axb">
             <objects>
-                <viewController id="QnE-R8-yS3" customClass="InstallViewController" customModule="HCPolytonicGreekKBapp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QnE-R8-yS3" customClass="AboutViewController" customModule="HCPolytonicGreekKBapp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6BG-D8-WJK"/>
                         <viewControllerLayoutGuide type="bottom" id="jT1-eF-tsq"/>
@@ -213,16 +233,13 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGz-0T-cdZ">
-                                <rect key="frame" x="16" y="72" width="329" height="236"/>
+                                <rect key="frame" x="16" y="72" width="343" height="575"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="218" id="oQx-9k-4cp"/>
-                                </constraints>
-                                <mutableString key="text">FEATURES  * Type the letter first then add diacritics.
-* Diacritics can be added in any order.
-* Pressing the diacritic again will toggle it on or off.
-* Contrasting diacritics replace each other: accents, breathings.
-* Redundant diacritics replace each other: circumflex/macron. * Press caps lock to use the diaeresis key.</mutableString>
+                                <mutableString key="text">USE: • Type the letter first, then add diacritics.
+• Diacritics can be added in any order.
+• Pressing the diacritic again will toggle it on or off.
+• Contrasting diacritics replace each other: accents, breathings.
+• Redundant diacritics replace each other: circumflex/macron. • Press caps lock to use the diaeresis key.  SETTINGS: • Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist. • Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode. • Combining only uses only combining diacritics.  This is only supported by certain fonts.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -235,6 +252,9 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                             <constraint firstAttribute="trailingMargin" secondItem="cGz-0T-cdZ" secondAttribute="trailing" constant="-4" id="ycI-Se-tFX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="cGz-0T-cdZ" id="pYM-3x-uds"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qO2-g1-xKU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -188,6 +188,8 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        loadDefaults()
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
         {
@@ -339,8 +341,8 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func loadDefaults()
+    {
         let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
         if defaults != nil
         {
@@ -359,6 +361,17 @@ class KeyboardViewController: UIInputViewController {
                 unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
             }
         }
+        else
+        {
+            unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
+        }
+        NSLog("Set unicode mode: \(unicodeMode)")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadDefaults()
         
         self.inputView?.autoresizingMask = [] //this is needed too???
         
@@ -892,7 +905,7 @@ class KeyboardViewController: UIInputViewController {
             j += 1
         }
         var len16:Int32 = Int32(lenToSend)
-        NSLog("len: \(len16), umode: \(unicodeMode)")
+        NSLog("len: \(len16), accent pressed, umode: \(unicodeMode)")
         
         accentSyllable16(&buffer16, 0, &len16, Int32(accent), true, unicodeMode)
         

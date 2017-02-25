@@ -9,9 +9,11 @@
 import UIKit
 
 class InstallViewController: UIViewController {
-
+@IBOutlet var label:UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        label?.sizeToFit()
+        
 
         // Do any additional setup after loading the view.
     }
