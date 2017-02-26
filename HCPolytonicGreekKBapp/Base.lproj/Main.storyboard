@@ -27,6 +27,7 @@
                         <segue destination="VRu-fB-vxt" kind="show" identifier="showSettings" id="TVh-go-vD1"/>
                         <segue destination="DWz-Xl-lY2" kind="show" identifier="showInstall" id="W6v-tC-kz2"/>
                         <segue destination="QnE-R8-yS3" kind="show" identifier="showFeatures" id="Ll3-jz-hZT"/>
+                        <segue destination="OlU-XY-FaI" kind="show" identifier="showTesting" id="SKd-Vy-E3U"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mir-kv-fgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -66,7 +67,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5t-Ct-vNv">
-                                <rect key="frame" x="15" y="286" width="343" height="52"/>
+                                <rect key="frame" x="15" y="286" width="344" height="52"/>
                                 <color key="backgroundColor" red="0.41349166631698608" green="0.62279891967773438" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="9Ma-1Q-a9b"/>
@@ -100,7 +101,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-ib-NY5">
-                                <rect key="frame" x="15" y="226" width="341" height="52"/>
+                                <rect key="frame" x="15" y="226" width="344" height="52"/>
                                 <color key="backgroundColor" red="0.4134916663" green="0.62279891970000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="RhK-Dt-tcy"/>
@@ -116,6 +117,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkU-ps-B5x">
+                                <rect key="frame" x="15" y="346" width="344" height="52"/>
+                                <color key="backgroundColor" red="0.4134916663" green="0.62279891970000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="52" id="YQ7-mq-75X"/>
+                                    <constraint firstAttribute="height" constant="52" id="xyO-JV-1WK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Testing">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -123,7 +142,9 @@
                             <constraint firstItem="xZc-ib-NY5" firstAttribute="top" secondItem="DOb-4f-DdO" secondAttribute="bottom" constant="8" id="G4q-O8-72O"/>
                             <constraint firstItem="w5t-Ct-vNv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="H2Z-Ff-JRA"/>
                             <constraint firstItem="xZc-ib-NY5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="O6D-lD-JyG"/>
+                            <constraint firstItem="kkU-ps-B5x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="QQ4-xQ-4wW"/>
                             <constraint firstItem="xZc-ib-NY5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="Qpo-HZ-1JK"/>
+                            <constraint firstItem="kkU-ps-B5x" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="Sch-cH-IVr"/>
                             <constraint firstItem="w5t-Ct-vNv" firstAttribute="top" secondItem="xZc-ib-NY5" secondAttribute="bottom" constant="8" id="WWs-n0-Pwa"/>
                             <constraint firstItem="DOb-4f-DdO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="X3n-vW-dMR"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="big-MX-jYZ"/>
@@ -132,6 +153,7 @@
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="h0C-u8-h4J"/>
                             <constraint firstItem="DOb-4f-DdO" firstAttribute="top" secondItem="cP2-lr-tdn" secondAttribute="bottom" constant="8" id="l2z-t2-xHH"/>
                             <constraint firstItem="J2S-dV-QPl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mC3-G1-433"/>
+                            <constraint firstItem="kkU-ps-B5x" firstAttribute="top" secondItem="w5t-Ct-vNv" secondAttribute="bottom" constant="8" id="obN-Rd-Smt"/>
                             <constraint firstItem="cP2-lr-tdn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="ofF-lE-IGU"/>
                             <constraint firstItem="DOb-4f-DdO" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="4" id="qdR-Jx-aOS"/>
                         </constraints>
@@ -141,6 +163,7 @@
                         <outlet property="featuresButton" destination="DOb-4f-DdO" id="QT0-n2-2LR"/>
                         <outlet property="installButton" destination="w5t-Ct-vNv" id="OtN-Qe-zsX"/>
                         <outlet property="settingsButton" destination="xZc-ib-NY5" id="q8j-ZF-E6X"/>
+                        <outlet property="testingButton" destination="kkU-ps-B5x" id="wRe-sw-HYr"/>
                         <outlet property="textView" destination="cP2-lr-tdn" id="zOU-j4-Tv0"/>
                         <outlet property="titleLabel" destination="J2S-dV-QPl" id="WrL-Oy-lfc"/>
                     </connections>
@@ -235,11 +258,11 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGz-0T-cdZ">
                                 <rect key="frame" x="16" y="72" width="343" height="575"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">USE: • Type the letter first, then add diacritics.
+                                <string key="text">USE: • Type the letter first, then add diacritics.
 • Diacritics can be added in any order.
 • Pressing the diacritic again will toggle it on or off.
 • Contrasting diacritics replace each other: accents, breathings.
-• Redundant diacritics replace each other: circumflex/macron. • Press caps lock to use the diaeresis key.  SETTINGS: • Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist. • Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode. • Combining only uses only combining diacritics.  This is only supported by certain fonts.</mutableString>
+• Redundant diacritics replace each other: circumflex/macron. • Press caps lock to use the diaeresis key.  SETTINGS: • Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist. • Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode. • Combining only uses only combining diacritics.  This is only supported by certain fonts.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -259,6 +282,70 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qO2-g1-xKU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="104.8" y="995.35232383808102"/>
+        </scene>
+        <!--Testing View Controller-->
+        <scene sceneID="mcH-vs-erb">
+            <objects>
+                <viewController id="OlU-XY-FaI" customClass="TestingViewController" customModule="HCPolytonicGreekKBapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Po1-1m-hPv"/>
+                        <viewControllerLayoutGuide type="bottom" id="NIm-M3-La8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gjK-Ou-7WD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqQ-au-ccd">
+                                <rect key="frame" x="16" y="72" width="343" height="120"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="rrX-fB-G4T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="36"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Unicode Code Points:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVC-hl-EAS">
+                                <rect key="frame" x="16" y="324" width="343" height="98"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-MF-6MS">
+                                <rect key="frame" x="16" y="200" width="343" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FqQ-au-ccd" firstAttribute="leading" secondItem="gjK-Ou-7WD" secondAttribute="leadingMargin" constant="-4" id="0aB-Hb-9vn"/>
+                            <constraint firstItem="FVC-hl-EAS" firstAttribute="leading" secondItem="gjK-Ou-7WD" secondAttribute="leadingMargin" constant="-4" id="5JW-Yb-mp5"/>
+                            <constraint firstItem="mZf-MF-6MS" firstAttribute="top" secondItem="FqQ-au-ccd" secondAttribute="bottom" constant="8" id="AC7-00-MHS"/>
+                            <constraint firstItem="FVC-hl-EAS" firstAttribute="trailing" secondItem="gjK-Ou-7WD" secondAttribute="trailingMargin" constant="4" id="XQW-Ri-n6Z"/>
+                            <constraint firstItem="FVC-hl-EAS" firstAttribute="top" secondItem="mZf-MF-6MS" secondAttribute="bottom" constant="8" id="cMZ-72-dlD"/>
+                            <constraint firstItem="mZf-MF-6MS" firstAttribute="leading" secondItem="gjK-Ou-7WD" secondAttribute="leadingMargin" constant="-4" id="h7b-jT-iLI"/>
+                            <constraint firstItem="FqQ-au-ccd" firstAttribute="trailing" secondItem="gjK-Ou-7WD" secondAttribute="trailingMargin" constant="4" id="jhG-CR-Umg"/>
+                            <constraint firstItem="FqQ-au-ccd" firstAttribute="top" secondItem="Po1-1m-hPv" secondAttribute="bottom" constant="8" id="r0N-lS-gLu"/>
+                            <constraint firstItem="mZf-MF-6MS" firstAttribute="trailing" secondItem="gjK-Ou-7WD" secondAttribute="trailingMargin" constant="4" id="smh-wv-2EC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="HexLabel" destination="FVC-hl-EAS" id="70C-4Z-MDo"/>
+                        <outlet property="modeLabel" destination="mZf-MF-6MS" id="a7U-km-nuk"/>
+                        <outlet property="textView" destination="FqQ-au-ccd" id="VhQ-Y1-ub6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wGh-8c-pOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893.60000000000002" y="994.45277361319347"/>
         </scene>
     </scenes>
 </document>

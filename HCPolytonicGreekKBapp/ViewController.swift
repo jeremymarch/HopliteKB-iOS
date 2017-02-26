@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var settingsButton:UIButton?
     @IBOutlet var installButton:UIButton?
     @IBOutlet var featuresButton:UIButton?
+    @IBOutlet var testingButton:UIButton?
     
     var kb:KeyboardViewController? = nil
     
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
         settingsButton?.addTarget(self, action: #selector(showSettings(button:)), for: .touchUpInside)
         installButton?.addTarget(self, action: #selector(showInstall(button:)), for: .touchUpInside)
         featuresButton?.addTarget(self, action: #selector(showFeatures(button:)), for: .touchUpInside)
+        testingButton?.addTarget(self, action: #selector(showTesting(button:)), for: .touchUpInside)
         /*
         let tc:UIColor = UIColor.black
         let bc:UIColor = UIColor.gray
@@ -49,13 +51,13 @@ class ViewController: UIViewController {
         settingsButton?.backgroundColor = bc
         installButton?.backgroundColor = bc
         featuresButton?.backgroundColor = bc
-        */
+ 
         let cr:CGFloat = 6.0
         settingsButton?.layer.cornerRadius = cr
         installButton?.layer.cornerRadius = cr
         featuresButton?.layer.cornerRadius = cr
         textView?.layer.cornerRadius = cr
-        
+        */
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
         {
@@ -117,6 +119,14 @@ class ViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
+    func showTesting(button: UIButton) {
+        
+        //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
+        self.navigationController?.performSegue(withIdentifier: "showTesting", sender: self)
+        textView?.resignFirstResponder()
+        //[self.navigationController pushViewController:dvc animated:YES];
+    }
+    
     func showFeatures(button: UIButton) {
         
         //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];

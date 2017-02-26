@@ -23,6 +23,7 @@
 		3F4AB7B61E5E4FA300A06962 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4AB7B51E5E4FA300A06962 /* SettingsTableViewController.swift */; };
 		3F4AB7B81E5F632E00A06962 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4AB7B71E5F632E00A06962 /* InstallViewController.swift */; };
 		3F638C9F1E5FF7A700116B12 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F638C9E1E5FF7A700116B12 /* AboutViewController.swift */; };
+		3F6D82B51E632F3200E5318A /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D82B41E632F3200E5318A /* TestingViewController.swift */; };
 		3F75BDF01E2B17F00093F18E /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */; };
 		3F75BDF21E2B1F2D0093F18E /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
 		3F77E1B91E4558FF005E2133 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77E1B81E4558FF005E2133 /* HCEnterButton.swift */; };
@@ -109,6 +110,7 @@
 		3F4AB7B51E5E4FA300A06962 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3F4AB7B71E5F632E00A06962 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		3F638C9E1E5FF7A700116B12 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		3F6D82B41E632F3200E5318A /* TestingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
 		3F75BDEF1E2B17F00093F18E /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
 		3F77E1B81E4558FF005E2133 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				3F4AB7B51E5E4FA300A06962 /* SettingsTableViewController.swift */,
 				3F4AB7B71E5F632E00A06962 /* InstallViewController.swift */,
 				3F638C9E1E5FF7A700116B12 /* AboutViewController.swift */,
+				3F6D82B41E632F3200E5318A /* TestingViewController.swift */,
 			);
 			path = HCPolytonicGreekKBapp;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				3F77E1BD1E455A6B005E2133 /* HCSpaceButton.swift in Sources */,
 				3F85D15B1E43FD1E00E5DAA4 /* accent.c in Sources */,
 				3F85D1551E43FBC100E5DAA4 /* HCGlobeButton.swift in Sources */,
+				3F6D82B51E632F3200E5318A /* TestingViewController.swift in Sources */,
 				3F85D1561E43FBC500E5DAA4 /* HCCapsLockButton.swift in Sources */,
 				3F0F5E4A1E0F819C00DE5744 /* AppDelegate.swift in Sources */,
 				3F638C9F1E5FF7A700116B12 /* AboutViewController.swift in Sources */,
