@@ -136,7 +136,7 @@ class HCButton: UIButton {
      */
     func touchDown(sender: UIButton!) {
         buttonDown = true
-        //self.superview!.bringSubview(toFront: self)
+        //sender.superview!.bringSubview(toFront: sender)
         if self.titleLabel?.text == "enter"
         {
             setTitleColor(blueColor, for: [])

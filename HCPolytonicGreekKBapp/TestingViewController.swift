@@ -54,11 +54,7 @@ class TestingViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
-        //print(textView.text); //the textView parameter is the textView where text was changed
-        
-        let s = textView.text
-        var ns:String = ""
-        
+        /*
         let COMBINING_GRAVE =            0x0300
         let COMBINING_ACUTE =            0x0301
         let COMBINING_CIRCUMFLEX =       0x0342//0x0302
@@ -76,14 +72,10 @@ class TestingViewController: UIViewController, UITextViewDelegate {
         let COMMA =                      0x002C
         
         let combiningChars = [COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
+        */
         
-        for a in (s?.unicodeScalars)!
-        {
-            //NSLog(String(a.value, radix:16))
-            //ns = ns + String(a.value, radix:16) + " "
-            ns = ns + String(format: "%04X ", a.value)
-        }
-        HexLabel?.text = "Unicode Code Points:\n" + ns
+        let s = textView.text
+        HexLabel?.text = "Unicode Code Points:\n" + textToCodePoints(text: s!, separator: " - ")
         HexLabel?.sizeToFit()
         
         /*
@@ -93,6 +85,26 @@ class TestingViewController: UIViewController, UITextViewDelegate {
         */
     }
 
+    func textToCodePoints(text:String, separator:String) -> String
+    {
+        var ns:String = ""
+        for a in (text.unicodeScalars)
+        {
+            //NSLog(String(a.value, radix:16))
+            //ns = ns + String(a.value, radix:16) + " "
+            ns = ns + String(format: "%04X", a.value) + separator
+        }
+        let endIndex = ns.index(ns.endIndex, offsetBy: -separator.characters.count, limitedBy: ns.startIndex)
+        if endIndex != nil
+        {
+            return ns.substring(to: endIndex!)
+        }
+        else
+        {
+            return ns
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

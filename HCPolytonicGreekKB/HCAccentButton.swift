@@ -57,7 +57,6 @@ class HCAccentButton: UIButton {
     }
     
     func touchDown(sender: UIButton!) {
-        
         backgroundColor = bgDownColor
         setTitleColor(textDownColor, for: [])
         setNeedsDisplay()

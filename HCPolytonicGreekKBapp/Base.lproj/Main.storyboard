@@ -18,7 +18,7 @@
         <scene sceneID="zhL-Vq-syE">
             <objects>
                 <navigationController id="E5h-Qo-BoL" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="whT-SK-8gu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="whT-SK-8gu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -185,7 +185,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sjY-ij-ggb" id="aLY-hy-kx0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -299,7 +299,7 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                                 <rect key="frame" x="16" y="72" width="343" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="rrX-fB-G4T"/>
+                                    <constraint firstAttribute="height" constant="160" id="rrX-fB-G4T"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="36"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

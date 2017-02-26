@@ -15,15 +15,6 @@
 
 #define ALLOW_PRIVATE_USE_AREA 1
 
-/*
-To use:
- Type the letter first, then the accent
- accents can be added (or removed) in any order
- typing an accent again toggles it off
- contrasting accents will replace each other, e.g. a smooth breathing replaces a rough breathing and vice versa, an acute replaces a circumflex or grave and vice versa.
- macrons and circumflexes are considered contrasting because the circumflex in itself indicates the vowel to be long.
- */
-
 #define DECOMPOSED_AUGMENT_CHAR GREEK_SMALL_LETTER_EPSILON
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
@@ -802,8 +793,16 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
     //Use both, if macron use combining
     //Use only combining acc
     
+    //fallback if macron + one more diacritic
+    bool precomposingFallbackToComposing = false;
+    if (unicode_mode == PRECOMPOSED_AND_COMBINING_MODE && macron)
+    {
+        if (smooth || rough ||acute || grave || circumflex || iota_sub || diaeresis)
+            precomposingFallbackToComposing = true;
+    }
+    
     unsigned char newLetterLen = 1;
-    if (unicode_mode == ONLY_COMBINING_MODE || (unicode_mode == PRECOMPOSED_AND_COMBINING_MODE && macron))// || diaeresis if there is a macron we use combining accents, else precomposed
+    if (unicode_mode == ONLY_COMBINING_MODE || precomposingFallbackToComposing)// || diaeresis if there is a macron we use combining accents, else precomposed
     {
         if (macron)
             newLetterLen++;
@@ -889,7 +888,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
         if (unicode_mode == PUA_MODE && iota_sub && macron)
         {
             ucs2String[i+1] = COMBINING_IOTA_SUBSCRIPT;
-            iota_sub = false;
+            iota_sub = false; //so we don't get two iota subscripts
         }
         
         unsigned short ucs2 = getPrecomposedLetter(letterCode, smooth, rough, acute, grave, circumflex, iota_sub, macron, diaeresis);
