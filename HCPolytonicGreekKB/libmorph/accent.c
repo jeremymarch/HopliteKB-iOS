@@ -21,6 +21,18 @@
 //bool onlyUseCombiningDiacritics; //not used yet
 
 enum {
+    _MACRON     = 1 << 0,
+    _SMOOTH     = 1 << 1,
+    _ROUGH      = 1 << 2,
+    _ACUTE      = 1 << 3,
+    _GRAVE      = 1 << 4,
+    _CIRCUMFLEX = 1 << 5,
+    _IOTA_SUB   = 1 << 6,
+    _DIAERESIS  = 1 << 7,
+    _BREVE      = 1 << 8
+};
+
+enum {
     PRECOMPOSED_AND_COMBINING_MODE = 0,
     PUA_MODE,
     ONLY_COMBINING_MODE
@@ -57,7 +69,7 @@ void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
 
 #define NUM_COMBINING_ACCENTS 8
 //this is the order they will be added to a vowel
-unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       , COMBINING_IOTA_SUBSCRIPT };
+unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        , COMBINING_IOTA_SUBSCRIPT };
 
 enum {
     NORMAL,
@@ -90,7 +102,6 @@ enum {
     DIALYTIKA_AND_PERISPOMENON,
     MACRON_PRECOMPOSED,
 #ifdef ALLOW_PRIVATE_USE_AREA
-    /*start private use area*/
     MACRON_AND_SMOOTH,
     MACRON_AND_SMOOTH_AND_ACUTE,
     MACRON_AND_SMOOTH_AND_GRAVE,
@@ -99,7 +110,6 @@ enum {
     MACRON_AND_ROUGH_AND_GRAVE,
     MACRON_AND_ACUTE,
     MACRON_AND_GRAVE,
-    /*end private use area */
 #endif
     NUM_ACCENT_CODES
 };
@@ -397,7 +407,6 @@ void accentCodeToAnalysis(int accentCode, bool *smooth, bool *rough, bool *acute
         *macron = true;
     }
 #ifdef ALLOW_PRIVATE_USE_AREA
-    /* if private use area */
     else if (accentCode == MACRON_AND_SMOOTH)
     {
         *macron = true;
@@ -442,8 +451,294 @@ void accentCodeToAnalysis(int accentCode, bool *smooth, bool *rough, bool *acute
         *macron = true;
         *grave = true;
     }
-    /* end private use area */
 #endif
+}
+
+//for testing
+//http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
+const char *byte_to_binary(int x)
+{
+    static char b[9];
+    b[0] = '\0';
+    
+    int z;
+    for (z = 128; z > 0; z >>= 1)
+    {
+        strcat(b, ((x & z) == z) ? "1" : "0");
+    }
+    
+    return b;
+}
+
+char boolsToFlag(bool smooth, bool rough, bool acute, bool grave, bool circumflex, bool iota_sub, bool macron, bool diaeresis)
+{
+    char flags = 0;
+    if (smooth)
+        flags |= _SMOOTH;
+    if (rough)
+        flags |= _ROUGH;
+    if (acute)
+        flags |= _ACUTE;
+    if (grave)
+        flags |= _GRAVE;
+    if (circumflex)
+        flags |= _CIRCUMFLEX;
+    if (iota_sub)
+        flags |= _IOTA_SUB;
+    if (macron)
+        flags |= _MACRON;
+    if (diaeresis)
+        flags |= _DIAERESIS;
+    
+    return flags;
+}
+
+//return 0 for invalid letter
+unsigned short getPrecomposedLetter3(int letterCode, bool smooth, bool rough, bool acute, bool grave, bool circumflex, bool iota_sub, bool macron, bool diaeresis)
+{
+    int flags = boolsToFlag(smooth, rough, acute, grave, circumflex, iota_sub, macron, diaeresis);
+    
+    fprintf(stderr, "flags: %s\n", byte_to_binary(flags));
+    
+    int accent = 0;
+    
+    switch (flags)
+    {
+        case 0:
+            accent = NORMAL;
+            break;
+        case (_SMOOTH):
+            accent = PSILI;
+            break;
+        case (_ROUGH):
+            accent = DASIA;
+            break;
+        case (_ACUTE):
+            accent = OXIA;
+            break;
+        case (_SMOOTH | _ACUTE):
+            accent = PSILI_AND_OXIA;
+            break;
+        case (_ROUGH | _ACUTE):
+            accent = DASIA_AND_OXIA;
+            break;
+        case  (_GRAVE):
+            accent = VARIA;
+            break;
+        case (_SMOOTH | _GRAVE):
+            accent = PSILI_AND_VARIA;
+            break;
+        case (_ROUGH | _GRAVE):
+            accent = DASIA_AND_VARIA;
+            break;
+        case (_CIRCUMFLEX):
+            accent = PERISPOMENI;
+            break;
+        case (_SMOOTH | _CIRCUMFLEX):
+            accent = PSILI_AND_PERISPOMENI;
+            break;
+        case (_ROUGH | _CIRCUMFLEX):
+            accent = DASIA_AND_PERISPOMENI;
+            break;
+        case (_IOTA_SUB):
+            accent = YPOGEGRAMMENI;
+            break;
+        case (_SMOOTH | _IOTA_SUB):
+            accent = PSILI_AND_YPOGEGRAMMENI;
+            break;
+        case (_ROUGH | _IOTA_SUB):
+            accent = DASIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_ACUTE | _IOTA_SUB):
+            accent = OXIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_SMOOTH | _ACUTE | _IOTA_SUB):
+            accent = PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_ROUGH | _ACUTE | _IOTA_SUB):
+            accent = DASIA_AND_OXIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_GRAVE | _IOTA_SUB):
+            accent = VARIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_SMOOTH | _GRAVE | _IOTA_SUB):
+            accent = PSILI_AND_VARIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_ROUGH | _GRAVE | _IOTA_SUB):
+            accent = DASIA_AND_VARIA_AND_YPOGEGRAMMENI;
+            break;
+        case (_CIRCUMFLEX | _IOTA_SUB):
+            accent = PERISPOMENI_AND_YPOGEGRAMMENI;
+            break;
+        case (_SMOOTH | _CIRCUMFLEX | _IOTA_SUB):
+            accent = PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+            break;
+        case (_ROUGH | _CIRCUMFLEX | _IOTA_SUB):
+            accent = DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+            break;
+        case (_DIAERESIS):
+            accent = DIALYTIKA;
+            break;
+        case (_ACUTE | _DIAERESIS):
+            accent = DIALYTIKA_AND_OXIA;
+            break;
+        case (_GRAVE | _DIAERESIS):
+            accent = DIALYTIKA_AND_VARIA;
+            break;
+        case (_CIRCUMFLEX | _DIAERESIS):
+            accent = DIALYTIKA_AND_PERISPOMENON;
+            break;
+        case (_MACRON):
+            accent = MACRON_PRECOMPOSED;
+            break;
+#ifdef ALLOW_PRIVATE_USE_AREA
+        case (_MACRON | _SMOOTH):
+            accent = MACRON_AND_SMOOTH;
+            break;
+        case (_MACRON | _SMOOTH | _ACUTE):
+            accent = MACRON_AND_SMOOTH_AND_ACUTE;
+            break;
+        case (_MACRON | _SMOOTH | _GRAVE):
+            accent = MACRON_AND_SMOOTH_AND_GRAVE;
+            break;
+        case (_MACRON | _ROUGH):
+            accent = MACRON_AND_ROUGH;
+            break;
+        case (_MACRON | _ROUGH | _ACUTE):
+            accent = MACRON_AND_ROUGH_AND_ACUTE;
+            break;
+        case (_MACRON | _ROUGH | _GRAVE):
+            accent = MACRON_AND_ROUGH_AND_GRAVE;
+            break;
+        case (_MACRON | _ACUTE):
+            accent = MACRON_AND_ACUTE;
+            break;
+        case (_MACRON | _GRAVE):
+            accent = MACRON_AND_GRAVE;
+            break;
+#endif
+        default:
+            return 0; //or set accent = 0 if none of these?
+            break;
+    }
+    if (letterCode > -1)
+        return letters[letterCode][accent];
+    else
+        return 0;
+}
+/*
+//return 0 for invalid letter
+unsigned short getPrecomposedLetter2(int letterCode, bool smooth, bool rough, bool acute, bool grave, bool circumflex, bool iota_sub, bool macron, bool diaeresis)
+{
+    int test = 0;
+    int flags = 0;
+    if (smooth)
+        flags |= _SMOOTH;
+    if (rough)
+        flags |= _ROUGH;
+    if (acute)
+        flags |= _ACUTE;
+    if (grave)
+        flags |= _GRAVE;
+    if (circumflex)
+        flags |= _CIRCUMFLEX;
+    if (iota_sub)
+        flags |= _IOTA_SUB;
+    if (macron)
+        flags |= _MACRON;
+    if (diaeresis)
+        flags |= _DIAERESIS;
+    
+    fprintf(stderr, "flags: %s\n", byte_to_binary(flags));
+    
+    int accent = 0;
+    
+    if (flags == 0)
+    {
+        fprintf(stderr, "yes\n");
+        accent = NORMAL;
+    }
+    else if (flags == (_SMOOTH))
+        accent = PSILI;
+    else if (flags == (_ROUGH))
+        accent = DASIA;
+    else if (flags == (_ACUTE))
+        accent = OXIA;
+    else if (flags == (_SMOOTH | _ACUTE))
+        accent = PSILI_AND_OXIA;
+    else if (flags == (_ROUGH | _ACUTE))
+        accent = DASIA_AND_OXIA;
+    else if (flags == (_GRAVE))
+        accent = VARIA;
+    else if (flags == (_SMOOTH | _GRAVE))
+        accent = PSILI_AND_VARIA;
+    else if (flags == (_ROUGH | _GRAVE))
+        accent = DASIA_AND_VARIA;
+    else if (flags == (_CIRCUMFLEX))
+        accent = PERISPOMENI;
+    else if (flags == (_SMOOTH | _CIRCUMFLEX))
+        accent = PSILI_AND_PERISPOMENI;
+    else if (flags == (_ROUGH | _CIRCUMFLEX))
+        accent = DASIA_AND_PERISPOMENI;
+    else if (flags == (_IOTA_SUB))
+        accent = YPOGEGRAMMENI;
+    else if (flags == (_SMOOTH | _IOTA_SUB))
+        accent = PSILI_AND_YPOGEGRAMMENI;
+    else if (flags == (_ROUGH | _IOTA_SUB))
+        accent = DASIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_ACUTE | _IOTA_SUB))
+        accent = OXIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_SMOOTH | _ACUTE | _IOTA_SUB))
+        accent = PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_ROUGH | _ACUTE | _IOTA_SUB))
+        accent = DASIA_AND_OXIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_GRAVE | _IOTA_SUB))
+        accent = VARIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_SMOOTH | _GRAVE | _IOTA_SUB))
+        accent = PSILI_AND_VARIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_ROUGH | _GRAVE | _IOTA_SUB))
+        accent = DASIA_AND_VARIA_AND_YPOGEGRAMMENI;
+    else if (flags == (_CIRCUMFLEX | _IOTA_SUB))
+        accent = PERISPOMENI_AND_YPOGEGRAMMENI;
+    else if (flags == (_SMOOTH | _CIRCUMFLEX | _IOTA_SUB))
+        accent = PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+    else if (flags == (_ROUGH | _CIRCUMFLEX | _IOTA_SUB))
+        accent = DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+    else if (flags == (_DIAERESIS))
+        accent = DIALYTIKA;
+    else if (flags == (_ACUTE | _DIAERESIS))
+        accent = DIALYTIKA_AND_OXIA;
+    else if (flags == (_GRAVE | _DIAERESIS))
+        accent = DIALYTIKA_AND_VARIA;
+    else if (flags == (_CIRCUMFLEX | _DIAERESIS))
+        accent = DIALYTIKA_AND_PERISPOMENON;
+    else if (flags == (_MACRON))
+        accent = MACRON_PRECOMPOSED;
+#ifdef ALLOW_PRIVATE_USE_AREA
+    else if (flags == (_MACRON | _SMOOTH))
+        accent = MACRON_AND_SMOOTH;
+    else if (flags == (_MACRON | _SMOOTH | _ACUTE))
+        accent = MACRON_AND_SMOOTH_AND_ACUTE;
+    else if (flags == (_MACRON | _SMOOTH | _GRAVE))
+        accent = MACRON_AND_SMOOTH_AND_GRAVE;
+    else if (flags == (_MACRON | _ROUGH))
+        accent = MACRON_AND_ROUGH;
+    else if (flags == (_MACRON | _ROUGH | _ACUTE))
+        accent = MACRON_AND_ROUGH_AND_ACUTE;
+    else if (flags == (_MACRON | _ROUGH | _GRAVE))
+        accent = MACRON_AND_ROUGH_AND_GRAVE;
+    else if (flags == (_MACRON | _ACUTE))
+        accent = MACRON_AND_ACUTE;
+    else if (flags == (_MACRON | _GRAVE))
+        accent = MACRON_AND_GRAVE;
+#endif
+    else
+        return 0; //or set accent = 0 if none of these?
+    
+    if (letterCode > -1)
+        return letters[letterCode][accent];
+    else
+        return 0;
 }
 
 //return 0 for invalid letter
@@ -510,7 +805,6 @@ unsigned short getPrecomposedLetter(int letterCode, bool smooth, bool rough, boo
     else if (!smooth && !rough && !acute && !grave && !circumflex && !iota_sub && macron && !diaeresis)
         accent = MACRON_PRECOMPOSED;
 #ifdef ALLOW_PRIVATE_USE_AREA
-    /* if private use area */
     else if (smooth && !rough && !acute && !grave && !circumflex && !iota_sub && macron && !diaeresis)
         accent = MACRON_AND_SMOOTH;
     else if (smooth && !rough && acute && !grave && !circumflex && !iota_sub && macron && !diaeresis)
@@ -527,7 +821,6 @@ unsigned short getPrecomposedLetter(int letterCode, bool smooth, bool rough, boo
         accent = MACRON_AND_ACUTE;
     else if (!smooth && !rough && !acute && grave && !circumflex && !iota_sub && macron && !diaeresis)
         accent = MACRON_AND_GRAVE;
-    /* end private use area */
 #endif
     else
         return 0; //or set accent = 0 if none of these?
@@ -537,7 +830,7 @@ unsigned short getPrecomposedLetter(int letterCode, bool smooth, bool rough, boo
     else
         return 0;
 }
-
+*/
 bool isCombiningDiacritic(UCS2 l)
 {
     switch (l)
@@ -891,7 +1184,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accent, bool toggleO
             iota_sub = false; //so we don't get two iota subscripts
         }
         
-        unsigned short ucs2 = getPrecomposedLetter(letterCode, smooth, rough, acute, grave, circumflex, iota_sub, macron, diaeresis);
+        unsigned short ucs2 = getPrecomposedLetter3(letterCode, smooth, rough, acute, grave, circumflex, iota_sub, macron, diaeresis);
         if (ucs2 != 0)
         {
             ucs2String[i] = ucs2;

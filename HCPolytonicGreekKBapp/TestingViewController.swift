@@ -49,8 +49,6 @@ class TestingViewController: UIViewController, UITextViewDelegate {
  
         }
         modeLabel?.sizeToFit()
-
-        // Do any additional setup after loading the view.
     }
     
     func textViewDidChange(_ textView: UITextView) { //Handle the text changes here

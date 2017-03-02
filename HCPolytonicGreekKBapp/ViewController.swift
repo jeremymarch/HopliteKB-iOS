@@ -6,6 +6,9 @@
 //  Copyright © 2016 Jeremy March. All rights reserved.
 //
 
+//see http://norbertlindenberg.com/2015/06/installing-fonts-on-ios/
+// to try to install custom font
+
 import UIKit
 
 class ViewController: UIViewController {

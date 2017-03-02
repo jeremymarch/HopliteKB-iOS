@@ -299,7 +299,7 @@ For best results, install a polytonic Greek font such as New Athena Unicode.</st
                                 <rect key="frame" x="16" y="72" width="343" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="rrX-fB-G4T"/>
+                                    <constraint firstAttribute="height" constant="140" id="rrX-fB-G4T"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="36"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
