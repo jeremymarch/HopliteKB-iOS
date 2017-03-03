@@ -389,131 +389,131 @@ const char *byte_to_binary(int x)
 }
 */
 //return 0 for invalid letter
-unsigned short getPrecomposedLetter(int letterCode, int diacriticMask)
+unsigned short getPrecomposedLetter(int letterIndex, int diacriticMask)
 {
-    int accent = 0;
+    int accentIndex = 0;
     
     switch (diacriticMask)
     {
         case 0:
-            accent = NORMAL;
+            accentIndex = NORMAL;
             break;
         case (_SMOOTH):
-            accent = PSILI;
+            accentIndex = PSILI;
             break;
         case (_ROUGH):
-            accent = DASIA;
+            accentIndex = DASIA;
             break;
         case (_ACUTE):
-            accent = OXIA;
+            accentIndex = OXIA;
             break;
         case (_SMOOTH | _ACUTE):
-            accent = PSILI_AND_OXIA;
+            accentIndex = PSILI_AND_OXIA;
             break;
         case (_ROUGH | _ACUTE):
-            accent = DASIA_AND_OXIA;
+            accentIndex = DASIA_AND_OXIA;
             break;
         case  (_GRAVE):
-            accent = VARIA;
+            accentIndex = VARIA;
             break;
         case (_SMOOTH | _GRAVE):
-            accent = PSILI_AND_VARIA;
+            accentIndex = PSILI_AND_VARIA;
             break;
         case (_ROUGH | _GRAVE):
-            accent = DASIA_AND_VARIA;
+            accentIndex = DASIA_AND_VARIA;
             break;
         case (_CIRCUMFLEX):
-            accent = PERISPOMENI;
+            accentIndex = PERISPOMENI;
             break;
         case (_SMOOTH | _CIRCUMFLEX):
-            accent = PSILI_AND_PERISPOMENI;
+            accentIndex = PSILI_AND_PERISPOMENI;
             break;
         case (_ROUGH | _CIRCUMFLEX):
-            accent = DASIA_AND_PERISPOMENI;
+            accentIndex = DASIA_AND_PERISPOMENI;
             break;
         case (_IOTA_SUB):
-            accent = YPOGEGRAMMENI;
+            accentIndex = YPOGEGRAMMENI;
             break;
         case (_SMOOTH | _IOTA_SUB):
-            accent = PSILI_AND_YPOGEGRAMMENI;
+            accentIndex = PSILI_AND_YPOGEGRAMMENI;
             break;
         case (_ROUGH | _IOTA_SUB):
-            accent = DASIA_AND_YPOGEGRAMMENI;
+            accentIndex = DASIA_AND_YPOGEGRAMMENI;
             break;
         case (_ACUTE | _IOTA_SUB):
-            accent = OXIA_AND_YPOGEGRAMMENI;
+            accentIndex = OXIA_AND_YPOGEGRAMMENI;
             break;
         case (_SMOOTH | _ACUTE | _IOTA_SUB):
-            accent = PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
+            accentIndex = PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
             break;
         case (_ROUGH | _ACUTE | _IOTA_SUB):
-            accent = DASIA_AND_OXIA_AND_YPOGEGRAMMENI;
+            accentIndex = DASIA_AND_OXIA_AND_YPOGEGRAMMENI;
             break;
         case (_GRAVE | _IOTA_SUB):
-            accent = VARIA_AND_YPOGEGRAMMENI;
+            accentIndex = VARIA_AND_YPOGEGRAMMENI;
             break;
         case (_SMOOTH | _GRAVE | _IOTA_SUB):
-            accent = PSILI_AND_VARIA_AND_YPOGEGRAMMENI;
+            accentIndex = PSILI_AND_VARIA_AND_YPOGEGRAMMENI;
             break;
         case (_ROUGH | _GRAVE | _IOTA_SUB):
-            accent = DASIA_AND_VARIA_AND_YPOGEGRAMMENI;
+            accentIndex = DASIA_AND_VARIA_AND_YPOGEGRAMMENI;
             break;
         case (_CIRCUMFLEX | _IOTA_SUB):
-            accent = PERISPOMENI_AND_YPOGEGRAMMENI;
+            accentIndex = PERISPOMENI_AND_YPOGEGRAMMENI;
             break;
         case (_SMOOTH | _CIRCUMFLEX | _IOTA_SUB):
-            accent = PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+            accentIndex = PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
             break;
         case (_ROUGH | _CIRCUMFLEX | _IOTA_SUB):
-            accent = DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+            accentIndex = DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
             break;
         case (_DIAERESIS):
-            accent = DIALYTIKA;
+            accentIndex = DIALYTIKA;
             break;
         case (_ACUTE | _DIAERESIS):
-            accent = DIALYTIKA_AND_OXIA;
+            accentIndex = DIALYTIKA_AND_OXIA;
             break;
         case (_GRAVE | _DIAERESIS):
-            accent = DIALYTIKA_AND_VARIA;
+            accentIndex = DIALYTIKA_AND_VARIA;
             break;
         case (_CIRCUMFLEX | _DIAERESIS):
-            accent = DIALYTIKA_AND_PERISPOMENON;
+            accentIndex = DIALYTIKA_AND_PERISPOMENON;
             break;
         case (_MACRON):
-            accent = MACRON_PRECOMPOSED;
+            accentIndex = MACRON_PRECOMPOSED;
             break;
 #ifdef ALLOW_PRIVATE_USE_AREA
         case (_MACRON | _SMOOTH):
-            accent = MACRON_AND_SMOOTH;
+            accentIndex = MACRON_AND_SMOOTH;
             break;
         case (_MACRON | _SMOOTH | _ACUTE):
-            accent = MACRON_AND_SMOOTH_AND_ACUTE;
+            accentIndex = MACRON_AND_SMOOTH_AND_ACUTE;
             break;
         case (_MACRON | _SMOOTH | _GRAVE):
-            accent = MACRON_AND_SMOOTH_AND_GRAVE;
+            accentIndex = MACRON_AND_SMOOTH_AND_GRAVE;
             break;
         case (_MACRON | _ROUGH):
-            accent = MACRON_AND_ROUGH;
+            accentIndex = MACRON_AND_ROUGH;
             break;
         case (_MACRON | _ROUGH | _ACUTE):
-            accent = MACRON_AND_ROUGH_AND_ACUTE;
+            accentIndex = MACRON_AND_ROUGH_AND_ACUTE;
             break;
         case (_MACRON | _ROUGH | _GRAVE):
-            accent = MACRON_AND_ROUGH_AND_GRAVE;
+            accentIndex = MACRON_AND_ROUGH_AND_GRAVE;
             break;
         case (_MACRON | _ACUTE):
-            accent = MACRON_AND_ACUTE;
+            accentIndex = MACRON_AND_ACUTE;
             break;
         case (_MACRON | _GRAVE):
-            accent = MACRON_AND_GRAVE;
+            accentIndex = MACRON_AND_GRAVE;
             break;
 #endif
         default:
             return 0; //or set accent = 0 if none of these?
             break;
     }
-    if (letterCode > -1)
-        return letters[letterCode][accent];
+    if (letterIndex > -1)
+        return letters[letterIndex][accentIndex];
     else
         return 0;
 }
@@ -592,6 +592,173 @@ int letterCodeToUCS2(UCS2 l)
         return 0;
 }
 
+bool isLegalDiacriticForLetter(int letterCode, int accentToAdd)
+{
+    switch (accentToAdd)
+    {
+        case CIRCUMFLEX:
+            if (letterCode != ALPHA && letterCode != ETA && letterCode != IOTA && letterCode != UPSILON && letterCode != OMEGA)
+                return false;
+            break;
+        case MACRON:
+            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON)
+                return false;
+            break;
+        case IOTA_SUBSCRIPT:
+            if (letterCode != ALPHA && letterCode != ETA && letterCode != OMEGA && letterCode != ALPHA_CAP && letterCode != ETA_CAP && letterCode != OMEGA_CAP)
+                return false;
+            break;
+        case DIAERESIS:
+            if (letterCode != IOTA && letterCode != UPSILON && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
+                return false;
+            break;
+    }
+    return true;
+}
+
+//adjusts diacritics based on one being added
+int updateDiacritics(int letterCode, int accentToAdd, int accentBitMask, bool toggleOff)
+{
+    //keep in order of enum so compiler can optimize switch
+    switch (accentToAdd)
+    {
+        case ACUTE:
+            if (toggleOff && (accentBitMask & _ACUTE) == _ACUTE)
+                accentBitMask &= ~_ACUTE;
+            else
+                accentBitMask |= _ACUTE;
+            accentBitMask &= ~(_GRAVE | _CIRCUMFLEX); //turn off...
+            break;
+        case CIRCUMFLEX:
+            if (toggleOff && (accentBitMask & _CIRCUMFLEX) == _CIRCUMFLEX)
+                accentBitMask &= ~_CIRCUMFLEX;
+            else
+                accentBitMask |= _CIRCUMFLEX;
+            accentBitMask &= ~(_ACUTE | _GRAVE | _MACRON); //turn off
+            break;
+        case GRAVE:
+            if (toggleOff && (accentBitMask & _GRAVE) == _GRAVE)
+                accentBitMask &= ~_GRAVE;
+            else
+                accentBitMask |= _GRAVE;
+            accentBitMask &= ~(_ACUTE | _CIRCUMFLEX);
+            break;
+        case MACRON:
+            if (toggleOff && (accentBitMask & _MACRON) == _MACRON)
+                accentBitMask &= ~_MACRON;
+            else
+                accentBitMask |= _MACRON;
+            accentBitMask &= ~_CIRCUMFLEX;
+            break;
+        case ROUGH_BREATHING:
+            if (toggleOff && (accentBitMask & _ROUGH) == _ROUGH)
+                accentBitMask &= ~_ROUGH;
+            else
+                accentBitMask |= _ROUGH;
+            accentBitMask &= ~(_SMOOTH | _DIAERESIS);
+            break;
+        case SMOOTH_BREATHING:
+            if (toggleOff && (accentBitMask & _SMOOTH) == _SMOOTH)
+                accentBitMask &= ~_SMOOTH;
+            else
+                accentBitMask |= _SMOOTH;
+            accentBitMask &= ~(_ROUGH | _DIAERESIS);
+            break;
+        case IOTA_SUBSCRIPT:
+            if (toggleOff && (accentBitMask & _IOTA_SUB) == _IOTA_SUB)
+                accentBitMask &= ~_IOTA_SUB;
+            else
+                accentBitMask |= _IOTA_SUB;
+            break;
+        case DIAERESIS:
+            if (letterCode == IOTA_CAP || letterCode == UPSILON_CAP)
+            {
+                accentBitMask &= ~(_ACUTE | _GRAVE | _CIRCUMFLEX | _MACRON);
+            }
+            
+            if (toggleOff && (accentBitMask & _DIAERESIS) == _DIAERESIS)
+                accentBitMask &= ~_DIAERESIS;
+            else
+                accentBitMask |= _DIAERESIS;
+            accentBitMask &= ~(_SMOOTH | _ROUGH);
+            break;
+    }
+    return accentBitMask;
+}
+
+//returns the letterCode and diacriticMask for this letter
+//return number of characters or -1, if not valid or unknown
+int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accentBitMask)
+{
+    unsigned char letterLen = 1;
+    int precomposedIndex = 0;
+    
+    //this needs some fixing
+    if (len > 1 )
+    {
+        for (int j = 1; j <= MAX_COMBINING && i + j < len; j++)
+        {
+            if (ucs2String[i + j] == COMBINING_ROUGH_BREATHING)
+            {
+                letterLen++;
+                *accentBitMask |= _ROUGH;
+            }
+            else if (ucs2String[i + j] == COMBINING_SMOOTH_BREATHING)
+            {
+                letterLen++;
+                *accentBitMask |= _SMOOTH;
+            }
+            else if (ucs2String[i + j] == COMBINING_ACUTE)
+            {
+                letterLen++;
+                *accentBitMask |= _ACUTE;
+            }
+            else if (ucs2String[i + j] == COMBINING_GRAVE)
+            {
+                letterLen++;
+                *accentBitMask |= _GRAVE;
+            }
+            else if (ucs2String[i + j] == COMBINING_CIRCUMFLEX)
+            {
+                letterLen++;
+                *accentBitMask |= _CIRCUMFLEX;
+            }
+            else if (ucs2String[i + j] == COMBINING_MACRON)
+            {
+                letterLen++;
+                *accentBitMask |= _MACRON;
+            }
+            else if (ucs2String[i + j] == COMBINING_IOTA_SUBSCRIPT)
+            {
+                letterLen++;
+                *accentBitMask |= _IOTA_SUB;
+            }
+            else if (ucs2String[i + j] == COMBINING_DIAERESIS)
+            {
+                letterLen++;
+                *accentBitMask |= _DIAERESIS;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    
+    if (!analyzePrecomposedLetter(ucs2String[i], letterCode, &precomposedIndex))
+        return -1;
+    
+    *accentBitMask = precomposedIndexToBitMask(precomposedIndex, *accentBitMask);
+    
+    return letterLen;
+}
+
+void makeLetter(UCS2 *ucs2String, int i, int *len, int letterCode, int diacriticMask, int unicodeMode)
+{
+    
+}
+
+//there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
     unicode_mode = unicodeMode;
@@ -631,145 +798,18 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool to
     
     //2. now analyze what is currently there
     int letterCode = 0;
-    int precomposedIndex = 0;
     int accentBitMask = 0;
 
-    unsigned char letterLen = 1;
-    
-    //this needs some fixing
-    if (*len > 1 )
-    {
-        for (int j = 1; j <= MAX_COMBINING && i + j < *len; j++)
-        {
-            if (ucs2String[i + j] == COMBINING_ROUGH_BREATHING)
-            {
-                letterLen++;
-                accentBitMask |= _ROUGH;
-            }
-            else if (ucs2String[i + j] == COMBINING_SMOOTH_BREATHING)
-            {
-                letterLen++;
-                accentBitMask |= _SMOOTH;
-            }
-            else if (ucs2String[i + j] == COMBINING_ACUTE)
-            {
-                letterLen++;
-                accentBitMask |= _ACUTE;
-            }
-            else if (ucs2String[i + j] == COMBINING_GRAVE)
-            {
-                letterLen++;
-                accentBitMask |= _GRAVE;
-            }
-            else if (ucs2String[i + j] == COMBINING_CIRCUMFLEX)
-            {
-                letterLen++;
-                accentBitMask |= _CIRCUMFLEX;
-            }
-            else if (ucs2String[i + j] == COMBINING_MACRON)
-            {
-                letterLen++;
-                accentBitMask |= _MACRON;
-            }
-            else if (ucs2String[i + j] == COMBINING_IOTA_SUBSCRIPT)
-            {
-                letterLen++;
-                accentBitMask |= _IOTA_SUB;
-            }
-            else if (ucs2String[i + j] == COMBINING_DIAERESIS)
-            {
-                letterLen++;
-                accentBitMask |= _DIAERESIS;
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-
-    if (!analyzePrecomposedLetter(ucs2String[i], &letterCode, &precomposedIndex))
+    unsigned char letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
+    if (letterLen < 1)
         return;
     
-    accentBitMask = precomposedIndexToBitMask(precomposedIndex, accentBitMask);
+    //2.5: return if this diacritic isn't legal for the letter it's being added to
+    if (!isLegalDiacriticForLetter(letterCode, accentToAdd))
+        return;
     
     //3. this changes old letter analysis to the one we want
-    //keep in order of enum so compiler can optimize switch
-    switch (accentToAdd)
-    {
-        case ACUTE:
-            if (toggleOff && (accentBitMask & _ACUTE) == _ACUTE)
-                accentBitMask &= ~_ACUTE;
-            else
-                accentBitMask |= _ACUTE;
-            accentBitMask &= ~(_GRAVE | _CIRCUMFLEX); //turn off...
-            break;
-        case CIRCUMFLEX:
-            if (letterCode != ALPHA && letterCode != ETA && letterCode != IOTA && letterCode != UPSILON && letterCode != OMEGA)
-                return;
-            
-            if (toggleOff && (accentBitMask & _CIRCUMFLEX) == _CIRCUMFLEX)
-                accentBitMask &= ~_CIRCUMFLEX;
-            else
-                accentBitMask |= _CIRCUMFLEX;
-            accentBitMask &= ~(_ACUTE | _GRAVE | _MACRON); //turn off
-            break;
-        case GRAVE:
-            if (toggleOff && (accentBitMask & _GRAVE) == _GRAVE)
-                accentBitMask &= ~_GRAVE;
-            else
-                accentBitMask |= _GRAVE;
-            accentBitMask &= ~(_ACUTE | _CIRCUMFLEX);
-            break;
-        case MACRON:
-            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON)
-                return;
-            
-            if (toggleOff && (accentBitMask & _MACRON) == _MACRON)
-                accentBitMask &= ~_MACRON;
-            else
-                accentBitMask |= _MACRON;
-            accentBitMask &= ~_CIRCUMFLEX;
-            break;
-        case ROUGH_BREATHING:
-            if (toggleOff && (accentBitMask & _ROUGH) == _ROUGH)
-                accentBitMask &= ~_ROUGH;
-            else
-                accentBitMask |= _ROUGH;
-            accentBitMask &= ~(_SMOOTH | _DIAERESIS);
-            break;
-        case SMOOTH_BREATHING:
-            if (toggleOff && (accentBitMask & _SMOOTH) == _SMOOTH)
-                accentBitMask &= ~_SMOOTH;
-            else
-                accentBitMask |= _SMOOTH;
-            accentBitMask &= ~(_ROUGH | _DIAERESIS);
-            break;
-        case IOTA_SUBSCRIPT:
-            if (letterCode != ALPHA && letterCode != ETA && letterCode != OMEGA && letterCode != ALPHA_CAP && letterCode != ETA_CAP && letterCode != OMEGA_CAP)
-                return;
-            
-            if (toggleOff && (accentBitMask & _IOTA_SUB) == _IOTA_SUB)
-                accentBitMask &= ~_IOTA_SUB;
-            else
-                accentBitMask |= _IOTA_SUB;
-            break;
-        case DIAERESIS:
-            if (letterCode != IOTA && letterCode != UPSILON && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
-                return;
-            
-            if (letterCode == IOTA_CAP || letterCode == UPSILON_CAP)
-            {
-                accentBitMask &= ~(_ACUTE | _GRAVE | _CIRCUMFLEX | _MACRON);
-            }
-            
-            if (toggleOff && (accentBitMask & _DIAERESIS) == _DIAERESIS)
-                accentBitMask &= ~_DIAERESIS;
-            else
-                accentBitMask |= _DIAERESIS;
-            accentBitMask &= ~(_SMOOTH | _ROUGH);
-            break;
-    }
+    accentBitMask = updateDiacritics(letterCode, accentToAdd, accentBitMask, toggleOff);
     
     //4. this creates the new letter, either with combining or precomposed accents
     //Use PUA, - almost all precomposing except alpha macron, breathing, accent, iota_sub, if iota_sub use combining
@@ -811,7 +851,7 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool to
         else if (letterLen > newLetterLen)
             leftShiftFromOffsetSteps(ucs2String, i, letterLen - newLetterLen, len);
         
-        ucs2String[i] = letterCodeToUCS2(letterCode);
+        ucs2String[i] = letterCodeToUCS2(letterCode); //set base letter
         
         unsigned char numAccents = 1;
         //loop so that order is determined by combiningAccents array
