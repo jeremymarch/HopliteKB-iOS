@@ -1,6 +1,5 @@
 //
-//  libmorph.c
-//  morph
+//  accent.c
 //
 //  Created by Jeremy on 4/15/15.
 //  Copyright (c) 2015 Jeremy March. All rights reserved.
@@ -13,67 +12,9 @@
 
 #define ALLOW_PRIVATE_USE_AREA 1
 
-#define DECOMPOSED_AUGMENT_CHAR GREEK_SMALL_LETTER_EPSILON
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
-enum {
-    NO_ACCENT = 0,
-    ACUTE,
-    CIRCUMFLEX,
-    GRAVE,
-    MACRON,
-    ROUGH_BREATHING,
-    SMOOTH_BREATHING,
-    IOTA_SUBSCRIPT,
-    SURROUNDING_PARENTHESES,
-    DIAERESIS
-};
-
-//diacriticMask bit flags
-enum {
-    _MACRON     = 1 << 0,
-    _SMOOTH     = 1 << 1,
-    _ROUGH      = 1 << 2,
-    _ACUTE      = 1 << 3,
-    _GRAVE      = 1 << 4,
-    _CIRCUMFLEX = 1 << 5,
-    _IOTA_SUB   = 1 << 6,
-    _DIAERESIS  = 1 << 7//,
-    //_BREVE      = 1 << 8
-};
-
-enum {
-    PRECOMPOSED_MODE            = 0,
-    PRECOMPOSED_WITH_PUA_MODE,
-    COMBINING_ONLY_MODE
-};
-
-char unicode_mode = PRECOMPOSED_MODE;
-
-void combiningToPrecomposed(UCS2 *ucs2String, int i, int *len);
-void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
-void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len);
-
-void rightShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
-{
-    int j = offset + *len - 1;
-    for ( ; j >= offset; j--)
-    {
-        ucs2[j + steps] = ucs2[j];
-    }
-    *len += steps;
-}
-
-//Moves everything over to the left, eating the first letter
-void leftShiftFromOffsetSteps(UCS2 *ucs2, int offset, int steps, int *len)
-{
-    int j = offset;
-    for ( ; j < *len - 1; j++)
-    {
-        ucs2[j] = ucs2[j + steps];
-    }
-    *len -= steps;
-}
+char unicode_mode = PRECOMPOSED_MODE; //set default
 
 #define NUM_COMBINING_ACCENTS 8
 //this is the order they will be added to a vowel

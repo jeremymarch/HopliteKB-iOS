@@ -10,8 +10,40 @@
 #define accent_h
 
 #include <stdbool.h> //for bool type
+#include "utilities.h"
 
-typedef unsigned short UCS2;
+
+enum {
+    NO_ACCENT = 0,
+    ACUTE,
+    CIRCUMFLEX,
+    GRAVE,
+    MACRON,
+    ROUGH_BREATHING,
+    SMOOTH_BREATHING,
+    IOTA_SUBSCRIPT,
+    SURROUNDING_PARENTHESES,
+    DIAERESIS
+};
+
+//diacriticMask bit flags
+enum {
+    _MACRON     = 1 << 0,
+    _SMOOTH     = 1 << 1,
+    _ROUGH      = 1 << 2,
+    _ACUTE      = 1 << 3,
+    _GRAVE      = 1 << 4,
+    _CIRCUMFLEX = 1 << 5,
+    _IOTA_SUB   = 1 << 6,
+    _DIAERESIS  = 1 << 7//,
+    //_BREVE      = 1 << 8
+};
+
+enum {
+    PRECOMPOSED_MODE            = 0,
+    PRECOMPOSED_WITH_PUA_MODE,
+    COMBINING_ONLY_MODE
+};
 
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
 

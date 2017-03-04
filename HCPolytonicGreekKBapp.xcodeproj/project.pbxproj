@@ -40,6 +40,8 @@
 		3F85D15B1E43FD1E00E5DAA4 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E8E1E0F875A00DE5744 /* accent.c */; };
 		3FB2F91F1E3D551800861B52 /* HopliteKBLogo.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */; };
 		3FC696F61E31BDA600121658 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
+		3FCC01401E6B8891006E310C /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FCC013E1E6B8891006E310C /* utilities.c */; };
+		3FCC01411E6B8926006E310C /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FCC013E1E6B8891006E310C /* utilities.c */; };
 		3FE19A121E2DC8F30088E96C /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE19A111E2DC8F30088E96C /* newathu5.ttf */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +120,8 @@
 		3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKBapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HopliteKBLogo.xcf; path = Images/HopliteKBLogo.xcf; sourceTree = "<group>"; };
 		3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
+		3FCC013E1E6B8891006E310C /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utilities.c; path = libmorph/utilities.c; sourceTree = "<group>"; };
+		3FCC013F1E6B8891006E310C /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = libmorph/utilities.h; sourceTree = "<group>"; };
 		3FE19A111E2DC8F30088E96C /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +244,8 @@
 				3F1DE3301E6B828A00E4A524 /* accent.h */,
 				3F0F5E8E1E0F875A00DE5744 /* accent.c */,
 				3F0F5E8A1E0F875900DE5744 /* HCPolytonicGreekKB-Bridging-Header.h */,
+				3FCC013E1E6B8891006E310C /* utilities.c */,
+				3FCC013F1E6B8891006E310C /* utilities.h */,
 			);
 			name = libmorph;
 			sourceTree = "<group>";
@@ -451,6 +457,7 @@
 				3F0F5E4A1E0F819C00DE5744 /* AppDelegate.swift in Sources */,
 				3F638C9F1E5FF7A700116B12 /* AboutViewController.swift in Sources */,
 				3F77E1BC1E455A67005E2133 /* HCEnterButton.swift in Sources */,
+				3FCC01411E6B8926006E310C /* utilities.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +490,7 @@
 				3F4A66311E3FB802002109FA /* HCPunctuationButton.swift in Sources */,
 				3FC696F61E31BDA600121658 /* HCCapsLockButton.swift in Sources */,
 				3F4547AD1E2B0A6300946694 /* HCbutton.swift in Sources */,
+				3FCC01401E6B8891006E310C /* utilities.c in Sources */,
 				3F77E1BB1E455917005E2133 /* HCSpaceButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
