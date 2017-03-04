@@ -879,11 +879,12 @@ class KeyboardViewController: UIInputViewController {
         
         let combiningChars = [COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
         
+        // 1. make a buffer for the C string
         let bufferSize16 = 5
-        var buffer16 = [UInt16](repeating: 0, count: bufferSize16) // Buffer for C string
+        var buffer16 = [UInt16](repeating: 0, count: bufferSize16)
         
+        // 2. figure out how many characters to send
         var lenToSend = 1
-        
         let maxCombiningChars = 5
         for a in (context!.unicodeScalars).reversed()
         {
@@ -897,6 +898,7 @@ class KeyboardViewController: UIInputViewController {
             }
         }
         
+        // 3. fill the buffer
         let suf = context!.unicodeScalars.suffix(lenToSend)
         var j = 0
         for i in (1...lenToSend).reversed()
