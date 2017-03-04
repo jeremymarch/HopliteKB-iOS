@@ -12,6 +12,7 @@ class AboutViewController: UIViewController {
     @IBOutlet var label:UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         label?.sizeToFit()
         
         let s = "USE: \n• Type the letter first, then add diacritics.\n• Diacritics can be added in any order.\n• Pressing the diacritic again will toggle it on or off.\n• Contrasting diacritics replace each other.\n• Press caps lock to see the diaeresis key.\n\nSETTINGS: \n• Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist.\n• Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode.\n• Combining Only uses only combining diacritics.  This is only supported by certain fonts."
@@ -46,6 +47,7 @@ class AboutViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 
     /*

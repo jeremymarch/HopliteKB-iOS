@@ -262,7 +262,7 @@ bool isDeponent(VerbFormC *vf, UCS2 *stem, int stemLen);
 bool accentWord(UCS2 *ucs2String, int *len, int syllableToAccent, int accent);
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accent, bool toggleOff);
 void accentSyllableUtf8(char *utf8, int accent, bool toggleOff);
-
+//void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
 void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff, int unicodeMode);
 
 bool isVowel(UCS2 l);

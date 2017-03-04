@@ -913,7 +913,7 @@ class KeyboardViewController: UIInputViewController {
         
         let newLetter = String(utf16CodeUnits: buffer16, count: Int(len16))
         
-        (textDocumentProxy as UIKeyInput).deleteBackward() //seems to include any combining chars
+        (textDocumentProxy as UIKeyInput).deleteBackward() //seems to include any combining chars, but not in MSWord!
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
 

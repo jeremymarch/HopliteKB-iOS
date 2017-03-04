@@ -755,8 +755,9 @@ int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accent
     }
     
     if (!analyzePrecomposedLetter(ucs2String[i], letterCode, &precomposedIndex))
+    {
         return -1;
-    
+    }
     *accentBitMask = precomposedIndexToBitMask(precomposedIndex, *accentBitMask);
     
     return letterLen;
@@ -917,8 +918,9 @@ void accentSyllable2(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool to
     //2. now analyze what is currently there
     int letterCode = 0;
     int accentBitMask = 0;
-
-    unsigned char letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
+    
+    //this will be -1 on error
+    char letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
     if (letterLen < 1)
         return;
     
