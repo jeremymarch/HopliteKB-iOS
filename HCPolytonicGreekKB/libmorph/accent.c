@@ -771,7 +771,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     
     //fallback if macron + one more diacritic
     bool precomposingFallbackToComposing = false;
-    if (unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON)
+    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE &&  (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
     {
         if ((accentBitMask & ~_MACRON) != 0)//if any other bits set besides macron
         {
