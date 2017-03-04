@@ -37,7 +37,6 @@
 		3F85D1541E43FBBC00E5DAA4 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75BDF11E2B1F2D0093F18E /* HCDeleteButton.swift */; };
 		3F85D1551E43FBC100E5DAA4 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F40D7BF1E30026100CD6290 /* HCGlobeButton.swift */; };
 		3F85D1561E43FBC500E5DAA4 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
-		3F85D15A1E43FCA200E5DAA4 /* HCPolytonicGreek.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */; };
 		3F85D15B1E43FD1E00E5DAA4 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0F5E8E1E0F875A00DE5744 /* accent.c */; };
 		3FB2F91F1E3D551800861B52 /* HopliteKBLogo.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */; };
 		3FC696F61E31BDA600121658 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */; };
@@ -100,10 +99,9 @@
 		3F0F5E7D1E0F81D700DE5744 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F0F5E7F1E0F81D700DE5744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F0F5E8A1E0F875900DE5744 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
-		3F0F5E8C1E0F875A00DE5744 /* GreekForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekForms.h; path = libmorph/GreekForms.h; sourceTree = "<group>"; };
 		3F0F5E8D1E0F875A00DE5744 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
 		3F0F5E8E1E0F875A00DE5744 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = accent.c; path = libmorph/accent.c; sourceTree = "<group>"; };
-		3F0F5E8F1E0F875A00DE5744 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libmorph.h; path = libmorph/libmorph.h; sourceTree = "<group>"; };
+		3F1DE3301E6B828A00E4A524 /* accent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = accent.h; path = libmorph/accent.h; sourceTree = "<group>"; };
 		3F40D7BF1E30026100CD6290 /* HCGlobeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCGlobeButton.swift; sourceTree = "<group>"; };
 		3F4547AC1E2B0A6300946694 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
 		3F4A66301E3FB802002109FA /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPunctuationButton.swift; sourceTree = "<group>"; };
@@ -118,8 +116,6 @@
 		3F8003DD1E5D8E75003B2F80 /* HCPolytonicGreekKBapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKBapp.entitlements; sourceTree = "<group>"; };
 		3F8003DE1E5D8E9C003B2F80 /* HCPolytonicGreekKB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKB.entitlements; sourceTree = "<group>"; };
 		3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKBapp-Bridging-Header.h"; sourceTree = "<group>"; };
-		3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HCPolytonicGreek.c; sourceTree = "<group>"; };
-		3F85D1591E43FCA200E5DAA4 /* HCPolytonicGreek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCPolytonicGreek.h; sourceTree = "<group>"; };
 		3FB2F91E1E3D551800861B52 /* HopliteKBLogo.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HopliteKBLogo.xcf; path = Images/HopliteKBLogo.xcf; sourceTree = "<group>"; };
 		3FC696F51E31BDA600121658 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
 		3FE19A111E2DC8F30088E96C /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
@@ -191,8 +187,6 @@
 				3FE19A111E2DC8F30088E96C /* newathu5.ttf */,
 				3F0F5E521E0F819C00DE5744 /* LaunchScreen.storyboard */,
 				3F0F5E551E0F819C00DE5744 /* Info.plist */,
-				3F85D1581E43FCA200E5DAA4 /* HCPolytonicGreek.c */,
-				3F85D1591E43FCA200E5DAA4 /* HCPolytonicGreek.h */,
 				3F85D1571E43FCA200E5DAA4 /* HCPolytonicGreekKBapp-Bridging-Header.h */,
 				3F4AB7B51E5E4FA300A06962 /* SettingsTableViewController.swift */,
 				3F4AB7B71E5F632E00A06962 /* InstallViewController.swift */,
@@ -242,10 +236,9 @@
 		3F0F5E891E0F873000DE5744 /* libmorph */ = {
 			isa = PBXGroup;
 			children = (
-				3F0F5E8C1E0F875A00DE5744 /* GreekForms.h */,
 				3F0F5E8D1E0F875A00DE5744 /* GreekUnicode.h */,
+				3F1DE3301E6B828A00E4A524 /* accent.h */,
 				3F0F5E8E1E0F875A00DE5744 /* accent.c */,
-				3F0F5E8F1E0F875A00DE5744 /* libmorph.h */,
 				3F0F5E8A1E0F875900DE5744 /* HCPolytonicGreekKB-Bridging-Header.h */,
 			);
 			name = libmorph;
@@ -443,7 +436,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F85D1521E43FBB400E5DAA4 /* HCbutton.swift in Sources */,
-				3F85D15A1E43FCA200E5DAA4 /* HCPolytonicGreek.c in Sources */,
 				3F85D1511E43FBAF00E5DAA4 /* HCAccentButton.swift in Sources */,
 				3F85D1541E43FBBC00E5DAA4 /* HCDeleteButton.swift in Sources */,
 				3F0F5E4C1E0F819C00DE5744 /* ViewController.swift in Sources */,

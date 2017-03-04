@@ -909,7 +909,7 @@ class KeyboardViewController: UIInputViewController {
         var len16:Int32 = Int32(lenToSend)
         NSLog("len: \(len16), accent pressed, umode: \(unicodeMode)")
         
-        accentSyllable16(&buffer16, 0, &len16, Int32(accent), true, unicodeMode)
+        accentSyllable(&buffer16, 0, &len16, Int32(accent), true, unicodeMode)
         
         let newLetter = String(utf16CodeUnits: buffer16, count: Int(len16))
         
