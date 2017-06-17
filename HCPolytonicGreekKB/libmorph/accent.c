@@ -732,6 +732,11 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
             precomposingFallbackToComposing = true;
         }
     }
+    else if (unicodeMode == PRECOMPOSED_HC_MODE && (accentBitMask & _MACRON) == _MACRON)
+    {
+        //this is legacy for the hoplite challenge app which uses combining macron even if no other diacritics
+        precomposingFallbackToComposing = true;
+    }
     
     *newLetterLen = 1;
     if (unicode_mode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)

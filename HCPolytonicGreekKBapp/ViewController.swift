@@ -117,9 +117,25 @@ class ViewController: UIViewController {
  
     }
     
+    //http://stackoverflow.com/questions/12591192/center-text-vertically-in-a-uitextview
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        let tv = object as! UITextView
+        var topCorrect:CGFloat  = (tv.bounds.size.height - tv.contentSize.height * tv.zoomScale) / 2.0;
+        topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect )
+        NSLog("content fix")
+        tv.contentInset = UIEdgeInsetsMake(topCorrect,0,0,0)
+        
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        //this doesn't work here, but does in hctest?
+        //http://stackoverflow.com/questions/12591192/center-text-vertically-in-a-uitextview
+        textView?.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
     }
 
     func showTesting(button: UIButton) {

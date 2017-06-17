@@ -42,7 +42,8 @@ enum {
 enum {
     PRECOMPOSED_MODE            = 0,
     PRECOMPOSED_WITH_PUA_MODE,
-    COMBINING_ONLY_MODE
+    COMBINING_ONLY_MODE,
+    PRECOMPOSED_HC_MODE //this is legacy for the hoplite challenge app which uses combining macron even if no other diacritics
 };
 
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
