@@ -804,6 +804,7 @@ class KeyboardViewController: UIInputViewController {
     let COMBINING_ACUTE =            0x0301
     let COMBINING_CIRCUMFLEX =       0x0342//0x0302
     let COMBINING_MACRON =           0x0304
+    let COMBINING_BREVE =            0x0306
     let COMBINING_DIAERESIS =        0x0308
     let COMBINING_SMOOTH_BREATHING = 0x0313
     let COMBINING_ROUGH_BREATHING =  0x0314
@@ -855,6 +856,10 @@ class KeyboardViewController: UIInputViewController {
         {
             accent = 9
         }
+        else if whichAccent == "˘" //breve
+        {
+            accent = 10
+        }
         else
         {
             return;
@@ -877,7 +882,7 @@ class KeyboardViewController: UIInputViewController {
          let name = String(cString: nameBuf)
          */
         
-        let combiningChars = [COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
+        let combiningChars = [COMBINING_BREVE,COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
         
         // 1. make a buffer for the C string
         let bufferSize16 = 5
@@ -996,27 +1001,35 @@ class KeyboardViewController: UIInputViewController {
                 }
                 else if buttonTitle == ","
                 {
-                    button.setTitle("(", for: UIControlState())
+                    button.setTitle("’", for: UIControlState())
                 }
-                else if buttonTitle == "("
+                else if buttonTitle == "’"
                 {
                     button.setTitle(",", for: UIControlState())
                 }
                 else if buttonTitle == "·"
                 {
-                    button.setTitle(")", for: UIControlState())
+                    button.setTitle("—", for: UIControlState())
                 }
-                else if buttonTitle == ")"
+                else if buttonTitle == "—"
                 {
                     button.setTitle("·", for: UIControlState())
                 }
                 else if buttonTitle == "¯"
                 {
+                    button.setTitle("˘", for: UIControlState())
+                }
+                else if buttonTitle == "˘"
+                {
+                    button.setTitle("¯", for: UIControlState())
+                }
+                else if buttonTitle == "˜"
+                {
                     button.setTitle("¨", for: UIControlState())
                 }
                 else if buttonTitle == "¨"
                 {
-                    button.setTitle("¯", for: UIControlState())
+                    button.setTitle("˜", for: UIControlState())
                 }
                 else if buttonTitle == nil || buttonTitle == ""
                 {
