@@ -107,11 +107,9 @@ class KeyboardViewController: UIInputViewController {
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
-    let stackView1   = UIStackView()
-    let stackView2   = UIStackView()
-    let stackView3   = UIStackView()
-    let stackView4   = UIStackView()
+
     let stackViewV   = UIStackView()
+    var stackViews:[UIStackView] = []
     var tic:Int = 0
     
     var deleteButton:UIButton? = nil
@@ -213,13 +211,13 @@ class KeyboardViewController: UIInputViewController {
         deleteButton?.setNeedsDisplay()
         
         //these fix a problem where buttons are not initially drawn correctly?
-        stackView2.arrangedSubviews.forEach {view in
+        stackViews[1].arrangedSubviews.forEach {view in
             view.setNeedsDisplay()
         }
-        stackView3.arrangedSubviews.forEach {view in
+        stackViews[2].arrangedSubviews.forEach {view in
             view.setNeedsDisplay()
         }
-        stackView4.arrangedSubviews.forEach {view in
+        stackViews[3].arrangedSubviews.forEach {view in
             view.setNeedsDisplay()
         }
     }
@@ -365,7 +363,7 @@ class KeyboardViewController: UIInputViewController {
         {
             unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
         }
-        NSLog("Set unicode mode: \(unicodeMode)")
+        //NSLog("Set unicode mode: \(unicodeMode)")
     }
     
     override func viewDidLoad() {
@@ -409,7 +407,7 @@ class KeyboardViewController: UIInputViewController {
         //let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
         //recognizer.delegate = self
         //self.view.addGestureRecognizer(recognizer)
-
+/*
         //Stack View
         stackView1.axis  = UILayoutConstraintAxis.horizontal
         stackView1.distribution  = UIStackViewDistribution.equalSpacing
@@ -431,78 +429,104 @@ class KeyboardViewController: UIInputViewController {
         stackView4.alignment = UIStackViewAlignment.center
         stackView4.spacing   = buttonSpacing
         
-        let stackView5   = UIStackView()
         stackView5.axis  = UILayoutConstraintAxis.horizontal
         stackView5.distribution  = UIStackViewDistribution.equalSpacing
         stackView5.alignment = UIStackViewAlignment.center
         stackView5.spacing   = buttonSpacing
-        
+        */
         stackViewV.axis  = UILayoutConstraintAxis.vertical
         stackViewV.distribution  = UIStackViewDistribution.equalSpacing
         stackViewV.alignment = UIStackViewAlignment.center
         stackViewV.spacing   = 0//buttonSpacing //fixes broken constraints when embeded
-        
+        /*
         stackView1.translatesAutoresizingMaskIntoConstraints = false
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         stackView3.translatesAutoresizingMaskIntoConstraints = false
         stackView4.translatesAutoresizingMaskIntoConstraints = false
         stackView5.translatesAutoresizingMaskIntoConstraints = false
+ */
         stackViewV.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(stackViewV)
-        
+        /*
         stackViewV.addArrangedSubview(stackView1)
         stackViewV.addArrangedSubview(stackView2)
         stackViewV.addArrangedSubview(stackView3)
         stackViewV.addArrangedSubview(stackView4)
         stackViewV.addArrangedSubview(stackView5)
-        
-        /*
-            punctuation:
-            period
-            comma
-            raised dot (ano teleia)
-            question mark
-            parentheses
         */
+/*
         let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
                                ["CP", "KB", "space", ".", "enter"]]
+ */
+        let keysUpper: [[String]] = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—"],
+                                ["ς", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
+                                ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
+                                ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
+                                ["CP", "KB", "space", ";", "enter"]]
         
+        setButtons(keys:keysUpper)
+        //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
+    }
+    
+    func setButtons(keys:[[String]])
+    {
         for row in keys
         {
+            stackViews.append(UIStackView())
+            let rowSV = stackViews.last
+            rowSV?.axis  = UILayoutConstraintAxis.horizontal
+            rowSV?.distribution  = UIStackViewDistribution.equalSpacing
+            rowSV?.alignment = UIStackViewAlignment.center
+            rowSV?.spacing   = buttonSpacing
+            rowSV?.translatesAutoresizingMaskIntoConstraints = false
+            stackViewV.addArrangedSubview(rowSV!)
+            
             for key in row
             {
                 var b:UIButton
-
-                if row == keys[0]
+                
+                if key == "·" || key == "," || key == "—" || key == "’"  || key == ";" || key == "."
                 {
-                    if key == "·" || key == ","
-                    {
-                        b = HCPunctuationButton(buttonType:1)
-                        buttons.append(b)
-                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                    }
-                    else
-                    {
-                        b = HCAccentButton(buttonType:1)
-                        buttons.append(b)
-                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
-                    }
-
-                    if UIDevice.current.userInterfaceIdiom == .pad
-                    {
-                        b.layer.cornerRadius = HopliteConstants.ipadRadius
-                    }
-                    else
-                    {
-                        b.layer.cornerRadius = HopliteConstants.normalRadius
-                    }
-
+                    b = HCPunctuationButton(buttonType:1)
+                    buttons.append(b)
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
                     
+                    if key == ";"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == ","
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == "·"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == "()"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == "("
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == ")"
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                }
+                else if key == "῾" || key == "᾿" || key == "´" || key == "`" || key == "˜" || key == "¯" || key == "ͺ" || key == "¨" || key == "˘"
+                {
+                    b = HCAccentButton(buttonType:1)
+                    buttons.append(b)
+                    b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
+                    b.setTitle(key, for: [])
                     if key == "´"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
@@ -538,34 +562,78 @@ class KeyboardViewController: UIInputViewController {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
                     }
-                    else if key == ";"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == ","
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "·"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "()"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "("
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == ")"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    
-                    stackView1.addArrangedSubview(b)
                 }
-                else if row == keys[1]
+                else if key == "BK"
+                {
+                    b = HCDeleteButton(devicea:2)
+                    buttons.append(b)
+                    
+                    let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
+                    lpgr.minimumPressDuration = 0.4
+                    lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
+                    lpgr.allowableMovement = 50.0
+                    b.addGestureRecognizer(lpgr)
+                    
+                    //need both long and normal
+                    b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
+                    
+                    deleteButton = b
+                }
+                else if key == "CP"
+                {
+                    b = HCCapsLockButton()
+                    buttons.append(b)
+                    
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle("", for: [])
+                    
+                    b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
+                    
+                    capsLockButton = b
+                }
+                else if key == "KB"
+                {
+                    b = HCGlobeButton()
+                    buttons.append(b)
+                    
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    
+                    b.setTitle("", for: [])
+                    
+                    //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                    b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
+                    
+                    globeButton = b
+                }
+                else if key == "enter"
+                {
+                    b = HCEnterButton()
+                    buttons.append(b)
+                    
+                    b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                    b.setTitle(key, for: [])
+                    b.setTitleColor(UIColor.white, for: [])
+                    
+                    b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+                }
+                else if key == "space"
+                {
+                    b = HCSpaceButton()
+                    buttons.append(b)
+                    b.setTitleColor(UIColor.gray, for: [])
+                    b.setTitle(key, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                    
+                    b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
+                    //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
+                }
+                else
                 {
                     b = HCButton(buttonType:1)
                     buttons.append(b)
@@ -574,171 +642,23 @@ class KeyboardViewController: UIInputViewController {
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     
                     //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
-                    
-                    stackView2.addArrangedSubview(b)
                 }
-                else if row == keys[2]
+                
+                if UIDevice.current.userInterfaceIdiom == .pad
                 {
-                    b = HCButton(buttonType:1)
-                    buttons.append(b)
-                    
-                    b.setTitle(key, for: [])
-                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                    
-                    stackView3.addArrangedSubview(b)
+                    b.layer.cornerRadius = HopliteConstants.ipadRadius
                 }
-                else if row == keys[3]
+                else
                 {
-                    if key == "BK"
-                    {
-                        b = HCDeleteButton(devicea:2)
-                        buttons.append(b)
-                        
-                        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
-                        lpgr.minimumPressDuration = 0.4
-                        lpgr.delaysTouchesBegan = false //needed so it also listens for touchdown
-                        lpgr.allowableMovement = 50.0
-                        b.addGestureRecognizer(lpgr)
-                        
-                        //need both long and normal
-                        b.addTarget(self, action: #selector(backSpacePressed(_:)), for: .touchDown)
-                        stackView4.addArrangedSubview(b)
-                        
-                        deleteButton = b
-                    }
-                    else
-                    {
-                        b = HCButton(buttonType:1)
-                        buttons.append(b)
-                    
-                        b.setTitle(key, for: [])
-                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                        
-                        stackView4.addArrangedSubview(b)
-                    }
+                    b.layer.cornerRadius = HopliteConstants.normalRadius
                 }
-                else if row == keys[4]
-                {
-                    if key == "CP"
-                    {
-                        b = HCCapsLockButton()
-                        buttons.append(b)
-                        
-                        if UIDevice.current.userInterfaceIdiom == .pad
-                        {
-                            b.layer.cornerRadius = HopliteConstants.ipadRadius
-                        }
-                        else
-                        {
-                            b.layer.cornerRadius = HopliteConstants.normalRadius
-                        }
-                        b.titleLabel?.textColor = UIColor.black
-                        b.setTitleColor(keyTextColor, for: [])
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        //b.layer.backgroundColor = UIColor.brown.cgColor
-                        b.setTitle("", for: [])
-                        
-                        b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
-                        stackView5.addArrangedSubview(b)
-                        
-                        capsLockButton = b
-                    }
-                    else if key == "KB"
-                    {
-                        b = HCGlobeButton()
-                        buttons.append(b)
-                        
-                        if UIDevice.current.userInterfaceIdiom == .pad
-                        {
-                            b.layer.cornerRadius = HopliteConstants.ipadRadius
-                        }
-                        else
-                        {
-                            b.layer.cornerRadius = HopliteConstants.normalRadius
-                        }
-                        b.titleLabel?.textColor = UIColor.black
-                        b.setTitleColor(keyTextColor, for: [])
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-
-                        b.setTitle("", for: [])
-                        
-                        //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
-                        b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
-                        
-                        stackView5.addArrangedSubview(b)
-                        
-                        globeButton = b
-                    }
-                    else if key == "enter"
-                    {
-                        b = HCEnterButton()
-                        buttons.append(b)
-                        
-                        b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
-                        stackView5.addArrangedSubview(b)
-                        if UIDevice.current.userInterfaceIdiom == .pad
-                        {
-                            b.layer.cornerRadius = HopliteConstants.ipadRadius
-                        }
-                        else
-                        {
-                            b.layer.cornerRadius = HopliteConstants.normalRadius
-                        }
-                        b.setTitle(key, for: [])
-                        b.setTitleColor(UIColor.white, for: [])
-
-                        b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
-                    }
-                    else if key == "space"
-                    {
-                        b = HCSpaceButton()
-                        buttons.append(b)
-                        if UIDevice.current.userInterfaceIdiom == .pad
-                        {
-                            b.layer.cornerRadius = HopliteConstants.ipadRadius
-                        }
-                        else
-                        {
-                            b.layer.cornerRadius = HopliteConstants.normalRadius
-                        }
-                        b.setTitleColor(UIColor.gray, for: [])
-                        b.setTitle(key, for: [])
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
-
-                        b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
-                        //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
-                        stackView5.addArrangedSubview(b)
-                    }
-                    else if key == "."
-                    {
-                        b = HCPunctuationButton(buttonType:1)
-                        buttons.append(b)
-                        if UIDevice.current.userInterfaceIdiom == .pad
-                        {
-                            b.layer.cornerRadius = HopliteConstants.ipadRadius
-                        }
-                        else
-                        {
-                            b.layer.cornerRadius = HopliteConstants.normalRadius
-                        }
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        b.setTitle(key, for: [])
-                        
-                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
-                        stackView5.addArrangedSubview(b)
-                        
-                        periodButton = b
-                    }
-
-                }
+                rowSV?.addArrangedSubview(b)
             }
         }
         
         setupConstraints()
-        //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
     }
-
+/*
     //DEMO
     func runDemo(_ timer: Timer)
     {
@@ -777,7 +697,7 @@ class KeyboardViewController: UIInputViewController {
         }
         self.tic += 1
     }
-    
+    */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
@@ -972,10 +892,12 @@ class KeyboardViewController: UIInputViewController {
     
     func capsPressed(_ button: UIButton) {
         capsLockOn = !capsLockOn
+        /*
         changeCaps(stackView1)
         changeCaps(stackView2)
         changeCaps(stackView3)
         changeCaps(stackView4)
+ */
         if capsLockOn
         {
             periodButton?.setTitle(";", for: UIControlState())
