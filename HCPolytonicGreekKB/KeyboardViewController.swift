@@ -102,6 +102,8 @@ public enum UnicodeMode:Int32 {
 class KeyboardViewController: UIInputViewController {
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
+    var keysNums:[[String]] = []
+    var keysNumsUpper:[[String]] = []
     
     let playClick:Bool = true
     var capsLockOn:Bool = false
@@ -467,7 +469,19 @@ class KeyboardViewController: UIInputViewController {
                                 ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
                                 ["CP", "KB", "space", ";", "enter"]]
         
-        setButtons(keys:keys)
+        keysNums = [["1", "2", "3", "4", "5", "6", "7", "8","9"],
+                ["ϲ", "ϙ", "ϝ", "ϛ", "ϟ", "ϡ", "ϻ", "ͷ", "ͳ"],
+                ["ͱ", "ϸ", "ͻ", "ͼ", "ϵ", "ϐ", "Ϗ", "ʹ", "/"],
+                ["+", "*", "\"", "(", ")", "[", "]" , "BK" ],
+                ["CP", "KB", "space", "-", "enter"]]
+        
+        keysNumsUpper = [["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|"],
+                ["Ϲ", "Ϙ", "Ϝ", "Ϛ", "Ϟ", "Ϡ", "Ϻ", "Ͷ", "Ͳ"],
+                ["Ͱ", "Ϸ", "ͻ", "ͽ", "϶", "ϐ", "Ϗ", "͵", "\\"],
+                ["=", "#", "'", "<", ">", "{", "}" , "BK" ],
+                ["CP", "KB", "space", "_", "enter"]]
+        
+        setButtons(keys:keysNumsUpper)
         //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
     }
     
