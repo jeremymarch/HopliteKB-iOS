@@ -100,7 +100,9 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController {
-
+    var keys:[[String]] = []
+    var keysUpper:[[String]] = []
+    
     let playClick:Bool = true
     var capsLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
@@ -308,20 +310,17 @@ class KeyboardViewController: UIInputViewController {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 3).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
             }
             else if b is HCDeleteButton
             {
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.36).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
             }
             else
             {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
             }
         }
     }
@@ -455,20 +454,20 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.addArrangedSubview(stackView4)
         stackViewV.addArrangedSubview(stackView5)
         */
-/*
-        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
+
+        keys = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
                                ["CP", "KB", "space", ".", "enter"]]
- */
-        let keysUpper: [[String]] = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—"],
+ 
+        keysUpper = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—"],
                                 ["ς", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
                                 ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
                                 ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
                                 ["CP", "KB", "space", ";", "enter"]]
         
-        setButtons(keys:keysUpper)
+        setButtons(keys:keys)
         //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
     }
     
@@ -892,11 +891,30 @@ class KeyboardViewController: UIInputViewController {
     
     func capsPressed(_ button: UIButton) {
         capsLockOn = !capsLockOn
+        
+        changeCaps()
+ 
         /*
-        changeCaps(stackView1)
-        changeCaps(stackView2)
-        changeCaps(stackView3)
-        changeCaps(stackView4)
+        for a in stackViews
+        {
+            for b in a.arrangedSubviews
+            {
+                a.removeArrangedSubview(b)
+                b.removeFromSuperview()
+            }
+        }
+        buttons.removeAll()
+        NSLog("count2: %d", buttons.count)
+        
+        if capsLockOn
+        {
+            setButtons(keys:keysUpper)
+        }
+        else
+        {
+            setButtons(keys:keys)
+        }
+        NSLog("count2: %d", buttons.count)
  */
         if capsLockOn
         {
@@ -907,67 +925,109 @@ class KeyboardViewController: UIInputViewController {
             periodButton?.setTitle(".", for: UIControlState())
         }
     }
-    func changeCaps(_ containerView: UIView) {
-        for view in containerView.subviews {
-            if let button = view as? UIButton {
-                let buttonTitle = button.titleLabel!.text
-                
-                //final sigma alternates with digamma
-                if buttonTitle == "ς"
-                {
-                    button.setTitle("ϝ", for: UIControlState())
-                }
-                else if buttonTitle == "ϝ"
-                {
-                    button.setTitle("ς", for: UIControlState())
-                }
-                else if buttonTitle == ","
-                {
-                    button.setTitle("’", for: UIControlState())
-                }
-                else if buttonTitle == "’"
-                {
-                    button.setTitle(",", for: UIControlState())
-                }
-                else if buttonTitle == "·"
-                {
-                    button.setTitle("—", for: UIControlState())
-                }
-                else if buttonTitle == "—"
-                {
-                    button.setTitle("·", for: UIControlState())
-                }
-                else if buttonTitle == "¯"
-                {
-                    button.setTitle("˘", for: UIControlState())
-                }
-                else if buttonTitle == "˘"
-                {
-                    button.setTitle("¯", for: UIControlState())
-                }
-                else if buttonTitle == "˜"
-                {
-                    button.setTitle("¨", for: UIControlState())
-                }
-                else if buttonTitle == "¨"
-                {
-                    button.setTitle("˜", for: UIControlState())
-                }
-                else if buttonTitle == nil || buttonTitle == ""
-                {
-                    //delete button
-                }
-                else
-                {
-                    if capsLockOn
+    /*
+    func changeCaps2() {
+        for (i,_) in stackViews.enumerated()
+        {
+            let containerView = stackViews[i]
+            
+            for view in containerView.subviews {
+                if let button = view as? UIButton {
+                    let buttonTitle = button.titleLabel!.text
+                    
+                    //final sigma alternates with digamma
+                    if buttonTitle == "ς"
                     {
-                        let text = buttonTitle!.uppercased()
-                        button.setTitle("\(text)", for: UIControlState())
+                        button.setTitle("ϝ", for: UIControlState())
+                    }
+                    else if buttonTitle == "ϝ"
+                    {
+                        button.setTitle("ς", for: UIControlState())
+                    }
+                    else if buttonTitle == ","
+                    {
+                        button.setTitle("’", for: UIControlState())
+                    }
+                    else if buttonTitle == "’"
+                    {
+                        button.setTitle(",", for: UIControlState())
+                    }
+                    else if buttonTitle == "·"
+                    {
+                        button.setTitle("—", for: UIControlState())
+                    }
+                    else if buttonTitle == "—"
+                    {
+                        button.setTitle("·", for: UIControlState())
+                    }
+                    else if buttonTitle == "¯"
+                    {
+                        button.setTitle("˘", for: UIControlState())
+                    }
+                    else if buttonTitle == "˘"
+                    {
+                        button.setTitle("¯", for: UIControlState())
+                    }
+                    else if buttonTitle == "˜"
+                    {
+                        button.setTitle("¨", for: UIControlState())
+                    }
+                    else if buttonTitle == "¨"
+                    {
+                        button.setTitle("˜", for: UIControlState())
+                    }
+                    else if buttonTitle == nil || buttonTitle == ""
+                    {
+                        //delete button
                     }
                     else
                     {
-                        let text = buttonTitle!.lowercased()
-                        button.setTitle("\(text)", for: UIControlState())
+                        if capsLockOn
+                        {
+                            let text = buttonTitle!.uppercased()
+                            button.setTitle("\(text)", for: UIControlState())
+                        }
+                        else
+                        {
+                            let text = buttonTitle!.lowercased()
+                            button.setTitle("\(text)", for: UIControlState())
+                        }
+                    }
+                }
+            }
+        }
+    }
+    */
+    func changeCaps() {
+        var k:[[String]] = []
+        
+        if capsLockOn
+        {
+            k = keysUpper
+        }
+        else
+        {
+            k = keys
+        }
+        
+        for (i,_) in stackViews.enumerated()
+        {
+            if i >= k.count
+            {
+                break;
+            }
+            let containerView = stackViews[i]
+            
+            for (j,view) in containerView.subviews.enumerated() {
+                if j >= k[i].count
+                {
+                    break;
+                }
+                if let button = view as? UIButton {
+                    
+                    if k[i][j] != "enter" && k[i][j] != "KB" && k[i][j] != "CP" && k[i][j] != "space" && k[i][j] != "BK"
+                    {
+                        button.setTitle(k[i][j], for: UIControlState())
                     }
                 }
             }
