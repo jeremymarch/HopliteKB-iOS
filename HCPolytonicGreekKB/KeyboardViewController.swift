@@ -107,6 +107,7 @@ class KeyboardViewController: UIInputViewController {
     
     let playClick:Bool = true
     var capsLockOn:Bool = false
+    var miscLockOn:Bool = false
     let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
@@ -289,8 +290,7 @@ class KeyboardViewController: UIInputViewController {
         }
         //NSLog("height: \(kbHeight)")
         
-        
-         heightConstraint = NSLayoutConstraint(item: self.view!,
+        heightConstraint = NSLayoutConstraint(item: self.view!,
                                                attribute: .height,
                                                relatedBy: .equal,
                                                toItem: nil,
@@ -310,7 +310,7 @@ class KeyboardViewController: UIInputViewController {
             if b.titleLabel?.text == "enter" || b.titleLabel?.text == "space"
             {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
-                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 3).isActive = true
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 2.6).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
             }
             else if b is HCDeleteButton
@@ -461,27 +461,27 @@ class KeyboardViewController: UIInputViewController {
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
-                               ["CP", "KB", "space", ".", "enter"]]
+                               ["CP", "12", "KB", "space", ".", "enter"]]
  
         keysUpper = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—"],
                                 ["ς", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
                                 ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
                                 ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
-                                ["CP", "KB", "space", ";", "enter"]]
+                                ["CP", "12", "KB", "space", ";", "enter"]]
         
         keysNums = [["1", "2", "3", "4", "5", "6", "7", "8","9"],
                 ["ϲ", "ϙ", "ϝ", "ϛ", "ϟ", "ϡ", "ϻ", "ͷ", "ͳ"],
                 ["ͱ", "ϸ", "ͻ", "ͼ", "ϵ", "ϐ", "Ϗ", "ʹ", "/"],
                 ["+", "*", "\"", "(", ")", "[", "]" , "BK" ],
-                ["CP", "KB", "space", "-", "enter"]]
+                ["CP", "αβ", "KB", "space", "-", "enter"]]
         
         keysNumsUpper = [["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|"],
                 ["Ϲ", "Ϙ", "Ϝ", "Ϛ", "Ϟ", "Ϡ", "Ϻ", "Ͷ", "Ͳ"],
                 ["Ͱ", "Ϸ", "ͻ", "ͽ", "϶", "ϐ", "Ϗ", "͵", "\\"],
                 ["=", "#", "'", "<", ">", "{", "}" , "BK" ],
-                ["CP", "KB", "space", "_", "enter"]]
+                ["CP", "αβ", "KB", "space", "_", "enter"]]
         
-        setButtons(keys:keysNumsUpper)
+        setButtons(keys:keys)
         //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.runDemo(_:)), userInfo: nil, repeats: true)
     }
     
@@ -508,31 +508,6 @@ class KeyboardViewController: UIInputViewController {
                     buttons.append(b)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
-                    
-                    if key == ";"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == ","
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "·"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "()"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == "("
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
-                    else if key == ")"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                    }
                 }
                 else if key == "῾" || key == "᾿" || key == "´" || key == "`" || key == "˜" || key == "¯" || key == "ͺ" || key == "¨" || key == "˘"
                 {
@@ -540,41 +515,6 @@ class KeyboardViewController: UIInputViewController {
                     buttons.append(b)
                     b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
-                    if key == "´"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                    }
-                    else if key == "˜"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                    }
-                    else if key == "`"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                    }
-                    else if key == "¯"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
-                    }
-                    else if key == "῾"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
-                    }
-                    else if key == "᾿"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
-                    }
-                    else if key == "ͺ"
-                    {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
-                    }
                 }
                 else if key == "BK"
                 {
@@ -607,6 +547,22 @@ class KeyboardViewController: UIInputViewController {
                     
                     capsLockButton = b
                 }
+                else if key == "12" || key == "αβ"
+                {
+                    b = HCButton()
+                    buttons.append(b)
+                    
+                    b.titleLabel?.textColor = UIColor.black
+                    b.setTitleColor(keyTextColor, for: [])
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 6)
+                    //b.layer.backgroundColor = UIColor.brown.cgColor
+                    b.setTitle(key, for: [])
+                    
+                    b.addTarget(self, action: #selector(miscPressed(_:)), for: .touchUpInside)
+                    
+                    //capsLockButton = b
+                }
+                    
                 else if key == "KB"
                 {
                     b = HCGlobeButton()
@@ -668,7 +624,7 @@ class KeyboardViewController: UIInputViewController {
                 rowSV?.addArrangedSubview(b)
             }
         }
-        
+        changeKeys(keys: keys)
         setupConstraints()
     }
 /*
@@ -861,7 +817,6 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func keyPressed(button: UIButton) {
-        
         let string = button.titleLabel!.text
         (textDocumentProxy as UIKeyInput).insertText("\(string!)")
     }
@@ -903,145 +858,147 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\n")
     }
     
+    func miscPressed(_ button: UIButton) {
+        miscLockOn = !miscLockOn
+        capsLockOn = false
+        changeMisc()
+    }
+    
     func capsPressed(_ button: UIButton) {
         capsLockOn = !capsLockOn
-        
         changeCaps()
- 
-        /*
-        for a in stackViews
-        {
-            for b in a.arrangedSubviews
-            {
-                a.removeArrangedSubview(b)
-                b.removeFromSuperview()
-            }
-        }
-        buttons.removeAll()
-        NSLog("count2: %d", buttons.count)
-        
-        if capsLockOn
-        {
-            setButtons(keys:keysUpper)
-        }
-        else
-        {
-            setButtons(keys:keys)
-        }
-        NSLog("count2: %d", buttons.count)
- */
-        if capsLockOn
-        {
-            periodButton?.setTitle(";", for: UIControlState())
-        }
-        else
-        {
-            periodButton?.setTitle(".", for: UIControlState())
-        }
     }
-    /*
-    func changeCaps2() {
-        for (i,_) in stackViews.enumerated()
-        {
-            let containerView = stackViews[i]
-            
-            for view in containerView.subviews {
-                if let button = view as? UIButton {
-                    let buttonTitle = button.titleLabel!.text
-                    
-                    //final sigma alternates with digamma
-                    if buttonTitle == "ς"
-                    {
-                        button.setTitle("ϝ", for: UIControlState())
-                    }
-                    else if buttonTitle == "ϝ"
-                    {
-                        button.setTitle("ς", for: UIControlState())
-                    }
-                    else if buttonTitle == ","
-                    {
-                        button.setTitle("’", for: UIControlState())
-                    }
-                    else if buttonTitle == "’"
-                    {
-                        button.setTitle(",", for: UIControlState())
-                    }
-                    else if buttonTitle == "·"
-                    {
-                        button.setTitle("—", for: UIControlState())
-                    }
-                    else if buttonTitle == "—"
-                    {
-                        button.setTitle("·", for: UIControlState())
-                    }
-                    else if buttonTitle == "¯"
-                    {
-                        button.setTitle("˘", for: UIControlState())
-                    }
-                    else if buttonTitle == "˘"
-                    {
-                        button.setTitle("¯", for: UIControlState())
-                    }
-                    else if buttonTitle == "˜"
-                    {
-                        button.setTitle("¨", for: UIControlState())
-                    }
-                    else if buttonTitle == "¨"
-                    {
-                        button.setTitle("˜", for: UIControlState())
-                    }
-                    else if buttonTitle == nil || buttonTitle == ""
-                    {
-                        //delete button
-                    }
-                    else
-                    {
-                        if capsLockOn
-                        {
-                            let text = buttonTitle!.uppercased()
-                            button.setTitle("\(text)", for: UIControlState())
-                        }
-                        else
-                        {
-                            let text = buttonTitle!.lowercased()
-                            button.setTitle("\(text)", for: UIControlState())
-                        }
-                    }
-                }
-            }
-        }
-    }
-    */
-    func changeCaps() {
+
+    func changeMisc() {
         var k:[[String]] = []
         
-        if capsLockOn
+        if miscLockOn
         {
-            k = keysUpper
+            k = keysNums
         }
         else
         {
             k = keys
         }
         
+        changeKeys(keys: k)
+    }
+    
+    func changeCaps() {
+        var k:[[String]] = []
+        
+        if capsLockOn
+        {
+            if miscLockOn
+            {
+                k = keysNumsUpper
+            }
+            else
+            {
+                k = keysUpper
+            }
+        }
+        else
+        {
+            if miscLockOn
+            {
+                k = keysNums
+            }
+            else
+            {
+                k = keys
+            }
+        }
+        
+        changeKeys(keys: k)
+    }
+    
+    func changeKeys(keys:[[String]])
+    {
         for (i,_) in stackViews.enumerated()
         {
-            if i >= k.count
+            if i >= keys.count
             {
-                break;
+                break
             }
             let containerView = stackViews[i]
             
             for (j,view) in containerView.subviews.enumerated() {
-                if j >= k[i].count
+                if j >= keys[i].count
                 {
-                    break;
+                    break
                 }
-                if let button = view as? UIButton {
+                if let b = view as? UIButton {
                     
-                    if k[i][j] != "enter" && k[i][j] != "KB" && k[i][j] != "CP" && k[i][j] != "space" && k[i][j] != "BK"
+                    let key = keys[i][j]
+                    if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK"
                     {
-                        button.setTitle(k[i][j], for: UIControlState())
+                        b.setTitle(keys[i][j], for: UIControlState())
+                        
+                        if key == "´"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        }
+                        else if key == "˜"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        }
+                        else if key == "`"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        }
+                        else if key == "¯"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                        }
+                        else if key == "῾"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        }
+                        else if key == "᾿"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        }
+                        else if key == "ͺ"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
+                        }
+                        else if key == ";"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == ","
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "·"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "()"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "("
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == ")"
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else
+                        {
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                            b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                        }
                     }
                 }
             }
