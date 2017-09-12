@@ -100,6 +100,7 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController {
+    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
     var keysNums:[[String]] = []
@@ -1000,127 +1001,7 @@ class KeyboardViewController: UIInputViewController {
                             b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
                             b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                         }
-                        else if key == ";"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == ","
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "·"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "()"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "("
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == ")"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "["
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "]"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "*"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "#"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "+"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "="
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "'"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "<"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == ">"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "{"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "}"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "\\"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "\""
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "/"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "-"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "_"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "’"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "—"
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "."
+                        else if puncs.contains(key)
                         {
                             punc = true
                             b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
