@@ -53,6 +53,12 @@ class HCCapsLockButton: UIButton {
         return degrees * M_PI/180;
     }
     
+    func resetToLower()
+    {
+        capsLockOn = false
+        setNeedsDisplay()
+    }
+    
     override func draw(_ rect: CGRect) {
         // Drawing code
         

@@ -18,10 +18,10 @@ class HCButton: UIButton {
     var textDownColor:UIColor = .white
     */
     
-    var bgColor = HopliteConstants.keyBGColor
-    var textColor = HopliteConstants.keyTextColor
-    var bgDownColor = HopliteConstants.keyBGColorDown
-    var textDownColor = HopliteConstants.keyTextColorDown
+    var vbgColor = UIColor.white
+    var vtextColor = UIColor.black
+    var vbgDownColor = UIColor.white
+    var vtextDownColor = UIColor.black
     
     let buttonRadius:CGFloat = 4.0
     
@@ -38,16 +38,22 @@ class HCButton: UIButton {
     
     let blueColor:UIColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     
-    required init(buttonType: Int = 0) {
+    //buttonType 0 changes shape when depressed, else no
+    required init(buttonType: Int = 0, bgColor:UIColor, textColor:UIColor, bgColorDown:UIColor, textColorDown:UIColor) {
         // set myValue before super.init is called
         self.btype = buttonType
+        
+        vbgColor = bgColor
+        vtextColor = textColor
+        vbgDownColor = bgColorDown
+        vtextDownColor = textColorDown
         
         super.init(frame: .zero)
         
         // set other operations after super.init, if required
         
-        //backgroundColor = bgColor
-        setTitleColor(textColor, for: [])
+        //backgroundColor = vbgColor
+        setTitleColor(vtextColor, for: [])
         backgroundColor = UIColor.clear
         self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
         
@@ -78,21 +84,27 @@ class HCButton: UIButton {
             setTitleColor(.gray, for: [])
             backgroundColor = .white
         }
+        else if self.btype != 0
+        {
+            setTitleColor(vtextColor, for: [])
+            //backgroundColor = vbgColor
+            setNeedsDisplay()
+        }
         else
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
-            let width = self.frame.size.width / buttonDownWidthFactor
-            let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
-            let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
-            let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
-            
-            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
-            self.frame = buttonFrame
-            self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
-            self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                let width = self.frame.size.width / buttonDownWidthFactor
+                let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+                let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
+                let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
+                
+                let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+                self.frame = buttonFrame
+                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
             }
-            setTitleColor(textColor, for: [])
+            setTitleColor(vtextColor, for: [])
             setNeedsDisplay()
         }
     }
@@ -109,22 +121,28 @@ class HCButton: UIButton {
             setTitleColor(.gray, for: [])
             backgroundColor = .white
         }
+        else if self.btype != 0
+        {
+            setTitleColor(vtextColor, for: [])
+            //backgroundColor = vbgColor
+            setNeedsDisplay()
+        }
         else
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
-            let width = self.frame.size.width / buttonDownWidthFactor
-            let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
-            let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
-            let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
-            
-            let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
-            self.frame = buttonFrame
-            
-            self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+                let width = self.frame.size.width / buttonDownWidthFactor
+                let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+                let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
+                let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
+                
+                let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+                self.frame = buttonFrame
+                
+                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
             }
-            setTitleColor(textColor, for: [])
+            setTitleColor(vtextColor, for: [])
             
             setNeedsDisplay()
         }
@@ -147,6 +165,12 @@ class HCButton: UIButton {
             setTitleColor(.white, for: [])
             backgroundColor = .black
         }
+        else if self.btype != 0
+        {
+            setTitleColor(vtextDownColor, for: [])
+            setNeedsDisplay()
+            //backgroundColor = vbgDownColor
+        }
         else
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
@@ -161,11 +185,11 @@ class HCButton: UIButton {
                 
                 self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
-                setTitleColor(textColor, for: [])
+                setTitleColor(vtextColor, for: [])
             }
             else
             {
-                setTitleColor(textDownColor, for: [])
+                setTitleColor(vtextDownColor, for: [])
             }
             setNeedsDisplay()
         }
@@ -176,7 +200,7 @@ class HCButton: UIButton {
      override func draw(_ rect: CGRect) {
         //NSLog("drawdraw: \(rect.size.width), \(rect.size.height)")
         
-        let depressedPhoneButton:Bool = (buttonDown && !(rect.size.width > rect.size.height * 1.5)) && UIDevice.current.userInterfaceIdiom == .phone
+        let depressedPhoneButton:Bool = (buttonDown && !(rect.size.width > rect.size.height * 1.5)) && UIDevice.current.userInterfaceIdiom == .phone && self.btype == 0
         
         let ctx = UIGraphicsGetCurrentContext()
         
@@ -196,7 +220,6 @@ class HCButton: UIButton {
             else
             {
                 outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: HopliteConstants.normalRadius).cgPath
-        
             }
         }
         ctx?.saveGState()
@@ -208,15 +231,15 @@ class HCButton: UIButton {
         ctx?.addPath(outerPath)
         if depressedPhoneButton
         {
-            ctx?.setFillColor(bgColor.cgColor)
+            ctx?.setFillColor(vbgColor.cgColor)
         }
         else if buttonDown
         {
-            ctx?.setFillColor(bgDownColor.cgColor)
+            ctx?.setFillColor(vbgDownColor.cgColor)
         }
         else
         {
-            ctx?.setFillColor(bgColor.cgColor)
+            ctx?.setFillColor(vbgColor.cgColor)
         }
         ctx?.fillPath()
         ctx?.restoreGState()
@@ -261,5 +284,4 @@ class HCButton: UIButton {
     
         return path;
     }
-
 }
