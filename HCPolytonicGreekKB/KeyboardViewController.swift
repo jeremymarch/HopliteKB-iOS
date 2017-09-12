@@ -539,7 +539,6 @@ class KeyboardViewController: UIInputViewController {
                     b = HCCapsLockButton()
                     buttons.append(b)
                     
-                    b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
@@ -554,7 +553,6 @@ class KeyboardViewController: UIInputViewController {
                     b = HCButton(buttonType:1, bgColor:HopliteConstants.otherBGColor, textColor:HopliteConstants.otherTextColor, bgColorDown:HopliteConstants.otherBGColorDown, textColorDown:HopliteConstants.otherTextColorDown)
                     buttons.append(b)
                     
-                    b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 6)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
@@ -570,7 +568,6 @@ class KeyboardViewController: UIInputViewController {
                     b = HCGlobeButton()
                     buttons.append(b)
                     
-                    b.titleLabel?.textColor = UIColor.black
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     
@@ -1029,6 +1026,86 @@ class KeyboardViewController: UIInputViewController {
                             b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                         }
                         else if key == ")"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "["
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "]"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "*"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "#"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "+"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "="
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "'"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "<"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == ">"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "{"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "}"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "\\"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "\""
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "/"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "-"
+                        {
+                            punc = true
+                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        }
+                        else if key == "_"
                         {
                             punc = true
                             b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
