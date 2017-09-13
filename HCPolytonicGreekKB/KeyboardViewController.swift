@@ -166,15 +166,22 @@ class KeyboardViewController: UIInputViewController {
             NSLog("changed")
             if draggedView is UIButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
-                NSLog("Enter: \(self.currentButton?.tag)")
-                
+                if self.currentButton != nil
+                {
+                    let t = self.currentButton!.tag
+                    NSLog("Enter: \(t)")
+                }
                 // send enter event to your button
                 self.currentButton?.sendActions(for: .touchDragEnter)
             }
             
             if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
             {
-                NSLog("Out: \(self.currentButton?.tag)")
+                if self.currentButton != nil
+                {
+                    let t = self.currentButton!.tag
+                    NSLog("Exit: \(t)")
+                }
                 
                 // send exit event to your button
                 self.currentButton?.sendActions(for: .touchDragExit)
