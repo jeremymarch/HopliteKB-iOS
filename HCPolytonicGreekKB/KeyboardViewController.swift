@@ -163,7 +163,7 @@ class KeyboardViewController: UIInputViewController {
         
         if gestureRecognizer.state == .changed
         {
-            NSLog("changed")
+            //NSLog("changed")
             if draggedView is UIButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
                 if self.currentButton != nil

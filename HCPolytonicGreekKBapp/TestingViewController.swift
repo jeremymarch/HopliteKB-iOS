@@ -95,7 +95,8 @@ class TestingViewController: UIViewController, UITextViewDelegate {
         let endIndex = ns.index(ns.endIndex, offsetBy: -separator.characters.count, limitedBy: ns.startIndex)
         if endIndex != nil
         {
-            return ns.substring(to: endIndex!)
+            //return ns.substring(to: endIndex!)
+            return String(ns[..<endIndex!])
         }
         else
         {

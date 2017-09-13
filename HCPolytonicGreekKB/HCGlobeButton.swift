@@ -49,7 +49,7 @@ class HCGlobeButton: UIButton {
     
     func radians(_ degrees:Double) -> Double
     {
-        return degrees * M_PI/180;
+        return degrees * Double.pi/180;
     }
     
     override func draw(_ rect: CGRect) {
@@ -102,7 +102,7 @@ class HCGlobeButton: UIButton {
         ctx!.setStrokeColor(lineColor!)
         
         let radius:CGFloat = min / 3.0
-        let endAngle: CGFloat = CGFloat(2 * M_PI)
+        let endAngle: CGFloat = CGFloat(2 * Double.pi)
 
         //circle
         ctx!.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: endAngle, clockwise: true)

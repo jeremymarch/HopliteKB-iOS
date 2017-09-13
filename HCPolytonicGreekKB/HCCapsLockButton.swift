@@ -50,7 +50,7 @@ class HCCapsLockButton: UIButton {
     
     func radians(_ degrees:Double) -> Double
     {
-        return degrees * M_PI/180;
+        return degrees * Double.pi/180;
     }
     
     func resetToLower()
