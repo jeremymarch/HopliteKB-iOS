@@ -51,7 +51,7 @@ class HCPunctuationButton: UIButton {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func touchUpInside(sender: UIButton!) {
+        @objc func touchUpInside(sender: UIButton!) {
             
             if self.titleLabel?.text == "enter"
             {
@@ -71,7 +71,7 @@ class HCPunctuationButton: UIButton {
             }
         }
         
-        func touchUpOutside(sender: UIButton!) {
+        @objc func touchUpOutside(sender: UIButton!) {
             
             if self.titleLabel?.text == "enter"
             {
@@ -91,7 +91,7 @@ class HCPunctuationButton: UIButton {
             }
         }
         
-        func touchDown(sender: UIButton!) {
+        @objc func touchDown(sender: UIButton!) {
             
             if self.titleLabel?.text == "enter"
             {

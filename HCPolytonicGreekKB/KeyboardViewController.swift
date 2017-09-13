@@ -165,7 +165,7 @@ class KeyboardViewController: UIInputViewController {
         {
             NSLog("changed")
             if draggedView is UIButton && self.currentButton == nil {
-                self.currentButton = draggedView as! UIButton
+                self.currentButton = draggedView as? UIButton
                 NSLog("Enter: \(self.currentButton?.tag)")
                 
                 // send enter event to your button
@@ -299,7 +299,7 @@ class KeyboardViewController: UIInputViewController {
                                                attribute: .notAnAttribute,
                                                multiplier: 1.0,
                                                constant: kbHeight)
-         heightConstraint!.priority = 999.0
+         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
          heightConstraint?.isActive = true
          self.view.addConstraint(heightConstraint!)
         
@@ -522,7 +522,7 @@ class KeyboardViewController: UIInputViewController {
                 }
                 else if key == "BK"
                 {
-                    b = HCDeleteButton(devicea:2)
+                    b = HCDeleteButton()
                     buttons.append(b)
                     
                     let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
@@ -548,7 +548,7 @@ class KeyboardViewController: UIInputViewController {
                     
                     b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                     
-                    capsLockButton = b as! HCCapsLockButton
+                    capsLockButton = b as? HCCapsLockButton
                 }
                 else if key == "123" || key == "αβγ"
                 {
@@ -810,12 +810,12 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
 
-    func keyPressedDown(button: UIButton) {
+    @objc func keyPressedDown(button: UIButton) {
         //button.superview!.bringSubview(toFront: button)
         playKeyClick()
     }
     
-    func keyPressed(button: UIButton) {
+    @objc func keyPressed(button: UIButton) {
         let key = button.titleLabel!.text
         
         if key == "῾" || key == "᾿" || key == "´" || key == "`" || key == "˜" || key == "¯" || key == "ͺ" || key == "¨" || key == "˘"
@@ -828,12 +828,12 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func backSpacePressed(_ button: UIButton) {
+    @objc func backSpacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
         playKeyClick()
     }
     
-    func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
         
         if ( gestureReconizer.state == UIGestureRecognizerState.began )
         {
@@ -854,24 +854,24 @@ class KeyboardViewController: UIInputViewController {
         //NSLog(@"lg: %ld", (long)gesture.state);
     }
     
-    func spacePressed(_ button: UIButton) {
+    @objc func spacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(" ")
     }
     func didDoubleTapSapce(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(". ")
     }
     
-    func returnPressed(_ button: UIButton) {
+    @objc func returnPressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText("\n")
     }
     
-    func miscPressed(_ button: UIButton) {
+    @objc func miscPressed(_ button: UIButton) {
         miscLockOn = !miscLockOn
         capsLockOn = false
         changeMisc()
     }
     
-    func capsPressed(_ button: UIButton) {
+    @objc func capsPressed(_ button: UIButton) {
         capsLockOn = !capsLockOn
         changeCaps()
     }
@@ -1068,7 +1068,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
  
-    func nextKeyboardPressed(_ button: UIButton) {
+    @objc func nextKeyboardPressed(_ button: UIButton) {
         advanceToNextInputMode()
     }
 }

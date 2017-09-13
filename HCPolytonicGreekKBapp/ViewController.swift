@@ -138,7 +138,7 @@ class ViewController: UIViewController {
         textView?.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
     }
 
-    func showTesting(button: UIButton) {
+    @objc func showTesting(button: UIButton) {
         
         //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
         self.navigationController?.performSegue(withIdentifier: "showTesting", sender: self)
@@ -146,7 +146,7 @@ class ViewController: UIViewController {
         //[self.navigationController pushViewController:dvc animated:YES];
     }
     
-    func showFeatures(button: UIButton) {
+    @objc func showFeatures(button: UIButton) {
         
         //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
         self.navigationController?.performSegue(withIdentifier: "showFeatures", sender: self)
@@ -154,7 +154,7 @@ class ViewController: UIViewController {
         //[self.navigationController pushViewController:dvc animated:YES];
     }
     
-    func showInstall(button: UIButton) {
+    @objc func showInstall(button: UIButton) {
         
         //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
         self.navigationController?.performSegue(withIdentifier: "showInstall", sender: self)
@@ -162,7 +162,7 @@ class ViewController: UIViewController {
         //[self.navigationController pushViewController:dvc animated:YES];
     }
     
-    func showSettings(button: UIButton) {
+    @objc func showSettings(button: UIButton) {
     
     //TutorialPageViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"tutorialvc"];
         self.navigationController?.performSegue(withIdentifier: "showSettings", sender: self)

@@ -71,7 +71,7 @@ class HCButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUpInside(sender: UIButton!) {
+    @objc func touchUpInside(sender: UIButton!) {
         buttonDown = false
         
         if self.titleLabel?.text == "enter"
@@ -109,7 +109,7 @@ class HCButton: UIButton {
         }
     }
     
-    func touchUpOutside(sender: UIButton!) {
+    @objc func touchUpOutside(sender: UIButton!) {
         buttonDown = false
         if self.titleLabel?.text == "enter"
         {
@@ -152,7 +152,7 @@ class HCButton: UIButton {
      This accounts for why button down doesn't work on left hand side when used as app extension
      http://stackoverflow.com/questions/37196205/animation-delay-on-left-side-of-screen-in-ios-keyboard-extension
      */
-    func touchDown(sender: UIButton!) {
+    @objc func touchDown(sender: UIButton!) {
         buttonDown = true
         //sender.superview!.bringSubview(toFront: sender)
         if self.titleLabel?.text == "enter"

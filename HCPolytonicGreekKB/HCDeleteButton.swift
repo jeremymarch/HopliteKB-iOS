@@ -26,8 +26,8 @@ class HCDeleteButton: UIButton {
     var deleteInnerColorDown:UIColor    = HopliteConstants.deleteInnerColorDown
     var deleteXColorDown:UIColor        = HopliteConstants.deleteXColorDown
     
-    required init(devicea:Int = 1) {
-        let device = 1
+    required init() {
+        
         super.init(frame: .zero)
         
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
@@ -39,19 +39,19 @@ class HCDeleteButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUpInside1(sender: UIButton!) {
+    @objc func touchUpInside1(sender: UIButton!) {
         
         buttonPressed = false
         setNeedsDisplay()
     }
     
-    func touchUpOutside1(sender: UIButton!) {
+    @objc func touchUpOutside1(sender: UIButton!) {
         
         buttonPressed = false
         setNeedsDisplay()
     }
     
-    func touchDown1(sender: UIButton!) {
+    @objc func touchDown1(sender: UIButton!) {
         
         buttonPressed = true
         setNeedsDisplay()

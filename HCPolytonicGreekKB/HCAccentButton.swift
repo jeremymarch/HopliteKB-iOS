@@ -42,21 +42,21 @@ class HCAccentButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUpInside(sender: UIButton!) {
+    @objc func touchUpInside(sender: UIButton!) {
         
         backgroundColor = bgColor
         setTitleColor(textColor, for: [])
         //setNeedsDisplay()
     }
     
-    func touchUpOutside(sender: UIButton!) {
+    @objc func touchUpOutside(sender: UIButton!) {
         
         backgroundColor = bgColor
         setTitleColor(textColor, for: [])
         //setNeedsDisplay()
     }
     
-    func touchDown(sender: UIButton!) {
+    @objc func touchDown(sender: UIButton!) {
         backgroundColor = bgDownColor
         setTitleColor(textDownColor, for: [])
         setNeedsDisplay()

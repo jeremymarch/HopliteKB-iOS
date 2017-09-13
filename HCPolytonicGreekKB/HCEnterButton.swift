@@ -52,19 +52,19 @@ class HCEnterButton: UIButton {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func touchUpInside(sender: UIButton!) {
+        @objc func touchUpInside(sender: UIButton!) {
             
                 setTitleColor(.white, for: [])
                 backgroundColor = blueColor
         }
         
-        func touchUpOutside(sender: UIButton!) {
+        @objc func touchUpOutside(sender: UIButton!) {
             
                 setTitleColor(.white, for: [])
                 backgroundColor = blueColor
         }
         
-        func touchDown(sender: UIButton!) {
+        @objc func touchDown(sender: UIButton!) {
             
                 setTitleColor(blueColor, for: [])
                 backgroundColor = .white

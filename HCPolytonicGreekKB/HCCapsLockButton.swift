@@ -30,19 +30,19 @@ class HCCapsLockButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUpInside1(sender: UIButton!) {
+    @objc func touchUpInside1(sender: UIButton!) {
         
         buttonPressed = false
         setNeedsDisplay()
     }
     
-    func touchUpOutside1(sender: UIButton!) {
+    @objc func touchUpOutside1(sender: UIButton!) {
         
         buttonPressed = false
         setNeedsDisplay()
     }
     
-    func touchDown1(sender: UIButton!) {
+    @objc func touchDown1(sender: UIButton!) {
         capsLockOn = !capsLockOn
         buttonPressed = true
         setNeedsDisplay()
