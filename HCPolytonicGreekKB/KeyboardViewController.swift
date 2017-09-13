@@ -100,6 +100,7 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController {
+    let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
@@ -503,7 +504,7 @@ class KeyboardViewController: UIInputViewController {
             {
                 var b:UIButton
                 
-                if key == "·" || key == "," || key == "—" || key == "’"  || key == ";" || key == "."
+                if puncs.contains(key)
                 {
                     //b = HCPunctuationButton(buttonType:1)
                     b = HCButton(buttonType:1, bgColor:HopliteConstants.punctuationBGColor, textColor:HopliteConstants.punctuationTextColor, bgColorDown:HopliteConstants.punctuationBGColorDown, textColorDown:HopliteConstants.punctuationTextColorDown)
@@ -511,7 +512,7 @@ class KeyboardViewController: UIInputViewController {
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
                 }
-                else if key == "῾" || key == "᾿" || key == "´" || key == "`" || key == "˜" || key == "¯" || key == "ͺ" || key == "¨" || key == "˘"
+                else if accents.contains(key)
                 {
                     //b = HCAccentButton(buttonType:1)
                     b = HCButton(buttonType:1, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
@@ -563,7 +564,6 @@ class KeyboardViewController: UIInputViewController {
                     
                     //capsLockButton = b
                 }
-                    
                 else if key == "KB"
                 {
                     b = HCGlobeButton()
@@ -944,6 +944,7 @@ class KeyboardViewController: UIInputViewController {
                     {
                         punc = false
                         accent = false
+                        
                         other = false
                         b.setTitle(keys[i][j], for: UIControlState())
                         
