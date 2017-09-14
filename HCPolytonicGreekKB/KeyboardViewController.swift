@@ -318,7 +318,6 @@ class KeyboardViewController: UIInputViewController {
         buttons.forEach { b in
             if b.titleLabel?.text == "enter" || b.titleLabel?.text == "space"
             {
-                b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 2.6).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
             }
@@ -329,7 +328,6 @@ class KeyboardViewController: UIInputViewController {
             }
             else
             {
-                b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
             }
@@ -516,6 +514,7 @@ class KeyboardViewController: UIInputViewController {
                     //b = HCPunctuationButton(buttonType:1)
                     b = HCButton(buttonType:1, bgColor:HopliteConstants.punctuationBGColor, textColor:HopliteConstants.punctuationTextColor, bgColorDown:HopliteConstants.punctuationBGColorDown, textColorDown:HopliteConstants.punctuationTextColorDown)
                     buttons.append(b)
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
                 }
@@ -524,6 +523,7 @@ class KeyboardViewController: UIInputViewController {
                     //b = HCAccentButton(buttonType:1)
                     b = HCButton(buttonType:1, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
                     buttons.append(b)
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.setTitle(key, for: [])
                 }
@@ -552,7 +552,7 @@ class KeyboardViewController: UIInputViewController {
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle("", for: [])
-                    
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(capsPressed(_:)), for: .touchUpInside)
                     
                     capsLockButton = b as? HCCapsLockButton
@@ -566,7 +566,7 @@ class KeyboardViewController: UIInputViewController {
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 6)
                     //b.layer.backgroundColor = UIColor.brown.cgColor
                     b.setTitle(key, for: [])
-                    
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(miscPressed(_:)), for: .touchUpInside)
                     
                     //capsLockButton = b
@@ -582,6 +582,7 @@ class KeyboardViewController: UIInputViewController {
                     b.setTitle("", for: [])
                     
                     //b.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .touchUpInside)
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(nextKeyboardPressed(_:)), for: .touchUpInside)
                     
                     globeButton = b
@@ -590,7 +591,7 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b = HCEnterButton()
                     buttons.append(b)
-                    
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                     b.setTitle(key, for: [])
@@ -605,7 +606,7 @@ class KeyboardViewController: UIInputViewController {
                     b.setTitleColor(UIColor.gray, for: [])
                     b.setTitle(key, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
-                    
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(spacePressed(_:)), for: .touchUpInside)
                     //b.addTarget(self, action: #selector(didDoubleTapSapce(_:)), for: .touchDownRepeat)
                 }
@@ -615,6 +616,7 @@ class KeyboardViewController: UIInputViewController {
                     buttons.append(b)
                     
                     b.setTitle(key, for: [])
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     
                     //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
