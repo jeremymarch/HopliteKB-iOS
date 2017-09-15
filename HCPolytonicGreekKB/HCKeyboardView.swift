@@ -42,8 +42,6 @@ class HCKeyboardView: UIView {
         var xoffstart:CGFloat = 0
         var xoff:CGFloat = 0
         
-
-        
         for (i, row) in buttons.enumerated()
         {
             c = row.count
@@ -92,8 +90,33 @@ class HCKeyboardView: UIView {
                     }
                     else
                     {
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing, width: buttonWidth, height: buttonHeight)
-                        xoff += (buttonSpacing + buttonWidth)
+                        //let aa = key as! HCButton
+                        var buttonDown = false
+                        if let aa = key as? HCButton
+                        {
+                            if aa.buttonDown
+                            {
+                                buttonDown = true
+                            }
+                        }
+                        
+                        if buttonDown
+                        {
+                            let aa = key as! HCButton
+                            let width2 = buttonWidth * aa.buttonDownWidthFactor
+                            let height2 = (buttonHeight * aa.buttonDownHeightFactor) + aa.buttonTail
+                            let x2 = xoff - (((buttonWidth * aa.buttonDownWidthFactor) - buttonWidth) / 2)
+                            let y2 = ((CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing) - height2 + buttonHeight + aa.buttonTail
+                            
+                            key.frame = CGRect(x: x2, y: y2, width: width2, height: height2)
+                            key.superview?.bringSubview(toFront: key)
+                            xoff += (buttonSpacing + buttonWidth)
+                        }
+                        else
+                        {
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing, width: buttonWidth, height: buttonHeight)
+                            xoff += (buttonSpacing + buttonWidth)
+                        }
                     }
                 }
                 
