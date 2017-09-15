@@ -30,7 +30,7 @@ class HCButton: UIButton {
     var buttonDown:Bool = false
     let buttonTail:CGFloat = 4
     let buttonDownWidthFactor:CGFloat = 1.46
-    let buttonDownHeightFactor:CGFloat = 2.26
+    let buttonDownHeightFactor:CGFloat = 2.20
     let hPadding:CGFloat = 3;
     let vPadding:CGFloat = 8;
     let topMargin:CGFloat = 4;

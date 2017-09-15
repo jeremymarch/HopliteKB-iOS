@@ -114,9 +114,10 @@ class KeyboardViewController: UIInputViewController {
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
-
+/*
     let stackViewV   = UIStackView()
     var stackViews:[UIStackView] = []
+    */
     var tic:Int = 0
     
     var deleteButton:UIButton? = nil
@@ -320,10 +321,27 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
         stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
         */
-        hv.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        hv.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        hv.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        hv.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        if #available(iOS 9.0, *)
+        {
+            hv.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+            hv.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            hv.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            hv.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        }
+        else
+        {
+            // Fallback for ios 8.0
+            let leftC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
+            
+            let topC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
+            
+            let rightC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
+            
+            let bottomC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
+            
+            self.inputView?.addConstraints([leftC,topC,rightC,bottomC])
+        }
     }
     /*
     func setupButtonConstraints()
@@ -429,7 +447,11 @@ class KeyboardViewController: UIInputViewController {
         
         //http://stackoverflow.com/questions/26120043/unable-to-change-uiinputview-height
         //this is required when embedded, doesn't matter if run as app extension
-        self.inputView?.allowsSelfSizing = true //iOS 9.0+
+        if #available(iOS 9.0, *) {
+            self.inputView?.allowsSelfSizing = true
+        } else {
+            // Fallback on earlier versions
+        } //iOS 9.0+
         
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
@@ -487,22 +509,22 @@ class KeyboardViewController: UIInputViewController {
         stackView5.distribution  = UIStackViewDistribution.equalSpacing
         stackView5.alignment = UIStackViewAlignment.center
         stackView5.spacing   = buttonSpacing
-        */
+        
         stackViewV.axis  = UILayoutConstraintAxis.vertical
         stackViewV.distribution  = UIStackViewDistribution.equalSpacing
         stackViewV.alignment = UIStackViewAlignment.center
         stackViewV.spacing   = 0//buttonSpacing //fixes broken constraints when embeded
-        /*
+        
         stackView1.translatesAutoresizingMaskIntoConstraints = false
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         stackView3.translatesAutoresizingMaskIntoConstraints = false
         stackView4.translatesAutoresizingMaskIntoConstraints = false
         stackView5.translatesAutoresizingMaskIntoConstraints = false
- */
+ 
         stackViewV.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(stackViewV)
-        /*
+        
         stackViewV.addArrangedSubview(stackView1)
         stackViewV.addArrangedSubview(stackView2)
         stackViewV.addArrangedSubview(stackView3)
@@ -553,7 +575,7 @@ class KeyboardViewController: UIInputViewController {
             rowSV?.translatesAutoresizingMaskIntoConstraints = false
             stackViewV.addArrangedSubview(rowSV!)
             */
-            for (j,key) in row.enumerated()
+            for key in row
             {
                 var b:UIButton
                 
