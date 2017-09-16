@@ -457,10 +457,18 @@ class KeyboardViewController: UIInputViewController {
     
     func setButtons(keys:[[String]])
     {
+        var topRowButtonType = 1
         for (i,row) in keys.enumerated()
         {
             hv.buttons.append([UIButton]())
-            
+            if i == 0 && appExt
+            {
+                topRowButtonType = 1
+            }
+            else
+            {
+                topRowButtonType = 0
+            }
             for key in row
             {
                 var b:UIButton
@@ -468,7 +476,7 @@ class KeyboardViewController: UIInputViewController {
                 if puncs.contains(key)
                 {
                     //b = HCPunctuationButton(buttonType:1)
-                    b = HCButton(buttonType:1, bgColor:HopliteConstants.punctuationBGColor, textColor:HopliteConstants.punctuationTextColor, bgColorDown:HopliteConstants.punctuationBGColorDown, textColorDown:HopliteConstants.punctuationTextColorDown)
+                    b = HCButton(buttonType:topRowButtonType, bgColor:HopliteConstants.punctuationBGColor, textColor:HopliteConstants.punctuationTextColor, bgColorDown:HopliteConstants.punctuationBGColorDown, textColorDown:HopliteConstants.punctuationTextColorDown)
                     
                     b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
@@ -477,7 +485,7 @@ class KeyboardViewController: UIInputViewController {
                 else if accents.contains(key)
                 {
                     //b = HCAccentButton(buttonType:1)
-                    b = HCButton(buttonType:1, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
+                    b = HCButton(buttonType:topRowButtonType, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
                     
                     b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
@@ -501,7 +509,6 @@ class KeyboardViewController: UIInputViewController {
                 else if key == "CP"
                 {
                     b = HCCapsLockButton()
-                    
                     
                     b.setTitleColor(keyTextColor, for: [])
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
@@ -590,7 +597,6 @@ class KeyboardViewController: UIInputViewController {
         }
         setupConstraints()
         changeKeys(keys: keys)
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -940,7 +946,14 @@ class KeyboardViewController: UIInputViewController {
                     if accent
                     {
                         b.setTitleColor(HopliteConstants.accentTextColor, for: [])
-                        b.btype = 1
+                        if i == 0 && appExt
+                        {
+                            b.btype = 1
+                        }
+                        else
+                        {
+                            b.btype = 0
+                        }
                         b.vbgColor = HopliteConstants.accentBGColor
                         b.vtextColor = HopliteConstants.accentTextColor
                         b.vbgDownColor = HopliteConstants.accentBGColorDown
@@ -949,7 +962,14 @@ class KeyboardViewController: UIInputViewController {
                     else if punc
                     {
                         b.setTitleColor(HopliteConstants.punctuationTextColor, for: [])
-                        b.btype = 1
+                        if i == 0 && appExt
+                        {
+                            b.btype = 1
+                        }
+                        else
+                        {
+                            b.btype = 0
+                        }
                         b.vbgColor = HopliteConstants.punctuationBGColor
                         b.vtextColor = HopliteConstants.punctuationTextColor
                         b.vbgDownColor = HopliteConstants.punctuationBGColorDown
@@ -967,7 +987,7 @@ class KeyboardViewController: UIInputViewController {
                     else
                     {
                         b.setTitleColor(HopliteConstants.keyTextColor, for: [])
-                        if i == 0
+                        if i == 0 && appExt
                         {
                             b.btype = 1
                         }
