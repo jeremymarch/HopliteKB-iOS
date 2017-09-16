@@ -18,6 +18,8 @@ class HCKeyboardView: UIView {
     }
     */
     override func layoutSubviews() {
+        super.layoutSubviews()
+        
         let viewWidth:CGFloat = self.bounds.width
         let viewHeight:CGFloat = self.bounds.height
 
@@ -119,7 +121,9 @@ class HCKeyboardView: UIView {
                         }
                     }
                 }
-                
+                //key.setNeedsDisplay() //needed for iOS 8.4 when app extension
+                //commented out, setting contentMode of button to .redraw achieves same thing.
+                //https://stackoverflow.com/questions/13434794/calling-setneedsdisplay-in-layoutsubviews
             }
         }
     }
