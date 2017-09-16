@@ -312,15 +312,9 @@ class KeyboardViewController: UIInputViewController {
                                                attribute: .notAnAttribute,
                                                multiplier: 1.0,
                                                constant: kbHeight)
-         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
-         heightConstraint?.isActive = true
-         self.view.addConstraint(heightConstraint!)
-        /*
-        stackViewV.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        stackViewV.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stackViewV.topAnchor.constraint(equalTo: self.view.topAnchor, constant:buttonSpacing).isActive = true
-        stackViewV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-buttonSpacing).isActive = true
-        */
+        heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
+        heightConstraint?.isActive = true
+        self.view.addConstraint(heightConstraint!)
         
         if #available(iOS 9.0, *)
         {
@@ -343,57 +337,7 @@ class KeyboardViewController: UIInputViewController {
             self.inputView?.addConstraints([leftC,topC,rightC,bottomC])
         }
     }
-    /*
-    func setupButtonConstraints()
-    {
-        var i = 0
-        buttons.forEach { b in
-            
-            if b.titleLabel?.text == "enter" || b.titleLabel?.text == "space"
-            {
-                widthConstraints[i]?.isActive = false
-                widthConstraints[i] = b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 2.6)
-                widthConstraints[i]?.isActive = true
-            }
-            else if b is HCDeleteButton
-            {
-                widthConstraints[i]?.isActive = false
-                widthConstraints[i] = b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.36)
-                widthConstraints[i]?.isActive = true
-            }
-            else if b.titleLabel?.text == "xxx"
-            {
-                widthConstraints[i]?.isActive = false
-                let a = b.superview as? UIStackView
-                a?.removeArrangedSubview(b)
-                //widthConstraints[i] = b.widthAnchor.constraint(equalToConstant: 0.0)
-                //widthConstraints[i]?.isActive = true
-                //b.isHidden = true
-            }
-            else if b.titleLabel?.text == "0"
-            {
-                widthConstraints[i]?.isActive = false
-                let a = b.superview as? UIStackView
-                a?.addArrangedSubview(b)
-                widthConstraints[i] = b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                widthConstraints[i]?.isActive = true
-                //b.isHidden = true
-            }
-            else
-            {
-                widthConstraints[i]?.isActive = false
-                widthConstraints[i] = b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                widthConstraints[i]?.isActive = true
-            }
-            
-            if b.titleLabel?.text != "xxx"
-            {
-                //b.isHidden = false
-            }
-            i += 1
-        }
-    }
-    */
+
 /*
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
@@ -446,12 +390,10 @@ class KeyboardViewController: UIInputViewController {
         self.inputView?.translatesAutoresizingMaskIntoConstraints = appExt
         
         //http://stackoverflow.com/questions/26120043/unable-to-change-uiinputview-height
-        //this is required when embedded, doesn't matter if run as app extension
+        //for ios 9.0+, this is required when embedded, doesn't matter if run as app extension
         if #available(iOS 9.0, *) {
             self.inputView?.allowsSelfSizing = true
-        } else {
-            // Fallback on earlier versions
-        } //iOS 9.0+
+        }
         
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
@@ -483,54 +425,6 @@ class KeyboardViewController: UIInputViewController {
         //let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
         //recognizer.delegate = self
         //self.view.addGestureRecognizer(recognizer)
-/*
-        //Stack View
-        stackView1.axis  = UILayoutConstraintAxis.horizontal
-        stackView1.distribution  = UIStackViewDistribution.equalSpacing
-        stackView1.alignment = UIStackViewAlignment.center
-        stackView1.spacing   = buttonSpacing
-        
-        stackView2.axis  = UILayoutConstraintAxis.horizontal
-        stackView2.distribution  = UIStackViewDistribution.equalSpacing
-        stackView2.alignment = UIStackViewAlignment.center
-        stackView2.spacing   = buttonSpacing
-        
-        stackView3.axis  = UILayoutConstraintAxis.horizontal
-        stackView3.distribution  = UIStackViewDistribution.equalSpacing
-        stackView3.alignment = UIStackViewAlignment.center
-        stackView3.spacing   = buttonSpacing
-        
-        stackView4.axis  = UILayoutConstraintAxis.horizontal
-        stackView4.distribution  = UIStackViewDistribution.equalSpacing
-        stackView4.alignment = UIStackViewAlignment.center
-        stackView4.spacing   = buttonSpacing
-        
-        stackView5.axis  = UILayoutConstraintAxis.horizontal
-        stackView5.distribution  = UIStackViewDistribution.equalSpacing
-        stackView5.alignment = UIStackViewAlignment.center
-        stackView5.spacing   = buttonSpacing
-        
-        stackViewV.axis  = UILayoutConstraintAxis.vertical
-        stackViewV.distribution  = UIStackViewDistribution.equalSpacing
-        stackViewV.alignment = UIStackViewAlignment.center
-        stackViewV.spacing   = 0//buttonSpacing //fixes broken constraints when embeded
-        
-        stackView1.translatesAutoresizingMaskIntoConstraints = false
-        stackView2.translatesAutoresizingMaskIntoConstraints = false
-        stackView3.translatesAutoresizingMaskIntoConstraints = false
-        stackView4.translatesAutoresizingMaskIntoConstraints = false
-        stackView5.translatesAutoresizingMaskIntoConstraints = false
- 
-        stackViewV.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(stackViewV)
-        
-        stackViewV.addArrangedSubview(stackView1)
-        stackViewV.addArrangedSubview(stackView2)
-        stackViewV.addArrangedSubview(stackView3)
-        stackViewV.addArrangedSubview(stackView4)
-        stackViewV.addArrangedSubview(stackView5)
-        */
 
         keys = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·", "xxx"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
@@ -565,16 +459,7 @@ class KeyboardViewController: UIInputViewController {
         for (i,row) in keys.enumerated()
         {
             hv.buttons.append([UIButton]())
-            /*
-            stackViews.append(UIStackView())
-            let rowSV = stackViews.last
-            rowSV?.axis  = UILayoutConstraintAxis.horizontal
-            rowSV?.distribution  = UIStackViewDistribution.equalSpacing
-            rowSV?.alignment = UIStackViewAlignment.center
-            rowSV?.spacing   = buttonSpacing
-            rowSV?.translatesAutoresizingMaskIntoConstraints = false
-            stackViewV.addArrangedSubview(rowSV!)
-            */
+            
             for key in row
             {
                 var b:UIButton
@@ -600,7 +485,6 @@ class KeyboardViewController: UIInputViewController {
                 else if key == "BK"
                 {
                     b = HCDeleteButton()
-                    
                     
                     let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longDeletePressGesture))
                     lpgr.minimumPressDuration = 0.4
@@ -690,7 +574,6 @@ class KeyboardViewController: UIInputViewController {
                     //b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 }
                 buttons.append(b)
-                //widthConstraints.append(nil)
                 hv.addSubview(b)
                 hv.buttons[i].append(b)
                 if UIDevice.current.userInterfaceIdiom == .pad
@@ -701,13 +584,11 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b.layer.cornerRadius = HopliteConstants.normalRadius
                 }
-                //rowSV?.addArrangedSubview(b)
-                //b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
+                
             }
         }
         changeKeys(keys: keys)
         setupConstraints()
-        //setupButtonConstraints()
     }
 /*
     //DEMO
@@ -1012,177 +893,140 @@ class KeyboardViewController: UIInputViewController {
             var punc = false
             var other = false
             for (j,k) in row.enumerated() {
+                
+                let key = k
+                
+                if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK"
+                {
+                    let b = hv.buttons[i][j] as! HCButton
+                    punc = false
+                    accent = false
+                    other = false
+                    b.setTitle(keys[i][j], for: UIControlState())
                     
-                    let key = k
-                
-                    if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK"
+                    if key == "´"
                     {
-                        let b = hv.buttons[i][j] as! HCButton
-                        punc = false
-                        accent = false
-                        other = false
-                        b.setTitle(keys[i][j], for: UIControlState())
-                        
-                        if key == "´"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                        }
-                        else if key == "˜"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                        }
-                        else if key == "`"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                        }
-                        else if key == "¯"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
-                        }
-                        else if key == "῾"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
-                        }
-                        else if key == "᾿"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
-                        }
-                        else if key == "ͺ"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
-                        }
-                        else if key == "¨"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                        }
-                        else if key == "˘"
-                        {
-                            accent = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
-                        }
-                        else if puncs.contains(key)
-                        {
-                            punc = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                        }
-                        else if key == "123" || key == "αβγ"
-                        {
-                            other = true
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 8)
-                        }
-                        else
-                        {
-                            b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
-                            b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-                        }
-                        
-                        if accent
-                        {
-                            b.setTitleColor(HopliteConstants.accentTextColor, for: [])
-                            b.btype = 1
-                            b.vbgColor = HopliteConstants.accentBGColor
-                            b.vtextColor = HopliteConstants.accentTextColor
-                            b.vbgDownColor = HopliteConstants.accentBGColorDown
-                            b.vtextDownColor = HopliteConstants.accentTextColorDown
-                        }
-                        else if punc
-                        {
-                            b.setTitleColor(HopliteConstants.punctuationTextColor, for: [])
-                            b.btype = 1
-                            b.vbgColor = HopliteConstants.punctuationBGColor
-                            b.vtextColor = HopliteConstants.punctuationTextColor
-                            b.vbgDownColor = HopliteConstants.punctuationBGColorDown
-                            b.vtextDownColor = HopliteConstants.punctuationTextColorDown
-                        }
-                        else if other
-                        {
-                            b.setTitleColor(HopliteConstants.otherTextColor, for: [])
-                            b.btype = 1
-                            b.vbgColor = HopliteConstants.otherBGColor
-                            b.vtextColor = HopliteConstants.otherTextColor
-                            b.vbgDownColor = HopliteConstants.otherBGColorDown
-                            b.vtextDownColor = HopliteConstants.otherTextColorDown
-                        }
-                        else
-                        {
-                            b.setTitleColor(HopliteConstants.keyTextColor, for: [])
-                            if i == 0
-                            {
-                                b.btype = 1
-                            }
-                            else
-                            {
-                                b.btype = 0
-                            }
-                            b.vbgColor = HopliteConstants.keyBGColor
-                            b.vtextColor = HopliteConstants.keyTextColor
-                            b.vbgDownColor = HopliteConstants.keyBGColorDown
-                            b.vtextDownColor = HopliteConstants.keyTextColorDown
-                        }
-                        b.setNeedsDisplay()
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
-                
+                    else if key == "˜"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "`"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "¯"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                    }
+                    else if key == "῾"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                    }
+                    else if key == "᾿"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                    }
+                    else if key == "ͺ"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
+                    }
+                    else if key == "¨"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if key == "˘"
+                    {
+                        accent = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                    }
+                    else if puncs.contains(key)
+                    {
+                        punc = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                    }
+                    else if key == "123" || key == "αβγ"
+                    {
+                        other = true
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 8)
+                    }
+                    else
+                    {
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                    }
+                    
+                    if accent
+                    {
+                        b.setTitleColor(HopliteConstants.accentTextColor, for: [])
+                        b.btype = 1
+                        b.vbgColor = HopliteConstants.accentBGColor
+                        b.vtextColor = HopliteConstants.accentTextColor
+                        b.vbgDownColor = HopliteConstants.accentBGColorDown
+                        b.vtextDownColor = HopliteConstants.accentTextColorDown
+                    }
+                    else if punc
+                    {
+                        b.setTitleColor(HopliteConstants.punctuationTextColor, for: [])
+                        b.btype = 1
+                        b.vbgColor = HopliteConstants.punctuationBGColor
+                        b.vtextColor = HopliteConstants.punctuationTextColor
+                        b.vbgDownColor = HopliteConstants.punctuationBGColorDown
+                        b.vtextDownColor = HopliteConstants.punctuationTextColorDown
+                    }
+                    else if other
+                    {
+                        b.setTitleColor(HopliteConstants.otherTextColor, for: [])
+                        b.btype = 1
+                        b.vbgColor = HopliteConstants.otherBGColor
+                        b.vtextColor = HopliteConstants.otherTextColor
+                        b.vbgDownColor = HopliteConstants.otherBGColorDown
+                        b.vtextDownColor = HopliteConstants.otherTextColorDown
+                    }
+                    else
+                    {
+                        b.setTitleColor(HopliteConstants.keyTextColor, for: [])
+                        if i == 0
+                        {
+                            b.btype = 1
+                        }
+                        else
+                        {
+                            b.btype = 0
+                        }
+                        b.vbgColor = HopliteConstants.keyBGColor
+                        b.vtextColor = HopliteConstants.keyTextColor
+                        b.vbgDownColor = HopliteConstants.keyBGColorDown
+                        b.vtextDownColor = HopliteConstants.keyTextColorDown
+                    }
+                    b.setNeedsDisplay()
                 }
+                
             }
+        }
         hv.setNeedsLayout()
-        
     }
  
     @objc func nextKeyboardPressed(_ button: UIButton) {
         advanceToNextInputMode()
     }
-    
-    /*
-    func newSetKeys(keys:[[String]])
-    {
-        var ba:[[UIButton]] = []
-        for (i,r) in keys.enumerated()
-        {
-            ba.append([UIButton]())
-            for (j,k) in r.enumerated()
-            {
-                let b = HCButton(buttonType:1, bgColor:HopliteConstants.punctuationBGColor, textColor:HopliteConstants.punctuationTextColor, bgColorDown:HopliteConstants.punctuationBGColorDown, textColorDown:HopliteConstants.punctuationTextColorDown)
-                
-                ba[i].append(b)
-                ba[i][j].setTitle(k, for: [])
-                if i == 0
-                {
-                    b.topAnchor.constraint(equalTo: self.view.topAnchor, constant: buttonSpacing).isActive = true
-                }
-                else
-                {
-                    b.topAnchor.constraint(equalTo: ba[i-1][0].bottomAnchor, constant: buttonSpacing).isActive = true
-                }
-                
-                if j == 0
-                {
-                    b.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: buttonSpacing).isActive = true
-                }
-                else
-                {
-                    b.leftAnchor.constraint(equalTo: ba[0][j-1].rightAnchor, constant: buttonSpacing).isActive = true
-                }
-                
-            }
-        }
-    }
-*/
 }
 
