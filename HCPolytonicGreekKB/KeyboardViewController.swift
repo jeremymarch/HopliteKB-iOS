@@ -586,11 +586,11 @@ class KeyboardViewController: UIInputViewController {
                 {
                     b.layer.cornerRadius = HopliteConstants.normalRadius
                 }
-                
             }
         }
-        changeKeys(keys: keys)
         setupConstraints()
+        changeKeys(keys: keys)
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -37,18 +37,29 @@ class HCKeyboardView: UIView {
         {
             buttonSpacing = 4.0
         }
-        let buttonWidth = (viewWidth - (buttonSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
-        let buttonHeight = (viewHeight - (buttonSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
         
         var c = 0
         var xoffstart:CGFloat = 0
         var xoff:CGFloat = 0
+        var buttonWidth:CGFloat = 0
+        var buttonHeight:CGFloat = 0
         
         for (i, row) in buttons.enumerated()
         {
             c = row.count
             xoffstart = 0
             xoff = 0
+            
+            if c > 9 && row.last!.titleLabel!.text != "xxx"
+            {
+                maxColumns = c
+            }
+            else
+            {
+                maxColumns = 9
+            }
+            buttonWidth = (viewWidth - (buttonSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
+            buttonHeight = (viewHeight - (buttonSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
             
             if c < maxColumns
             {
