@@ -623,7 +623,8 @@ class KeyboardViewController: UIInputViewController {
         } else {
             textColor = UIColor.black
         }
-        globeButton!.setTitleColor(textColor, for: [])
+        
+        globeButton?.setTitleColor(textColor, for: [])
     }
     
     let COMBINING_GRAVE =            0x0300
@@ -1023,7 +1024,19 @@ class KeyboardViewController: UIInputViewController {
     }
  
     @objc func nextKeyboardPressed(_ button: UIButton) {
-        advanceToNextInputMode()
+        if appExt
+        {
+            advanceToNextInputMode()
+        }
+        else
+        {
+            let alertController = UIAlertController(title: NSLocalizedString("Globe Key",comment:""), message: NSLocalizedString("Outside of this app, pressing the globe key will change to a different keyboard.",comment:""), preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title:     NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
+                //Do whatever you wants here
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     /*
