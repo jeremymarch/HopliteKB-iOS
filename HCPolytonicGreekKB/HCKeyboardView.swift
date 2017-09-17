@@ -32,10 +32,11 @@ class HCKeyboardView: UIView {
             }
         }
         let maxRows = buttons.count
-        var buttonSpacing:CGFloat = 5.0
+        var buttonHSpacing:CGFloat = 5.0
+        var buttonVSpacing:CGFloat = 5.0
         if maxColumns > 9
         {
-            buttonSpacing = 4.0
+            buttonHSpacing = 4.0
         }
         
         var c = 0
@@ -58,16 +59,16 @@ class HCKeyboardView: UIView {
             {
                 maxColumns = 9
             }
-            buttonWidth = (viewWidth - (buttonSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
-            buttonHeight = (viewHeight - (buttonSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
+            buttonWidth = (viewWidth - (buttonHSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
+            buttonHeight = (viewHeight - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
             
             if c < maxColumns
             {
-                xoffstart = ((buttonWidth + buttonSpacing) / 2.0) * CGFloat(maxColumns - c) + buttonSpacing
+                xoffstart = ((buttonWidth + buttonHSpacing) / 2.0) * CGFloat(maxColumns - c) + buttonHSpacing
             }
             else
             {
-                xoffstart = buttonSpacing
+                xoffstart = buttonHSpacing
             }
             xoff = xoffstart
             var x = false //skip one
@@ -93,13 +94,13 @@ class HCKeyboardView: UIView {
                     key.isHidden = false
                     if i == 3 && j == 7
                     {
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing, width: buttonWidth * 1.36, height: buttonHeight)
-                        xoff += buttonSpacing + (buttonWidth * 1.36)
+                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonWidth * 1.36, height: buttonHeight)
+                        xoff += buttonHSpacing + (buttonWidth * 1.36)
                     }
                     else if key.titleLabel?.text == "enter" || key.titleLabel?.text == "space"
                     {
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing, width: buttonWidth * 2.6, height: buttonHeight)
-                        xoff += buttonSpacing + (buttonWidth * 2.6)
+                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonWidth * 2.6, height: buttonHeight)
+                        xoff += buttonHSpacing + (buttonWidth * 2.6)
                     }
                     else
                     {
@@ -119,16 +120,16 @@ class HCKeyboardView: UIView {
                             let width2 = buttonWidth * aa.buttonDownWidthFactor
                             let height2 = (buttonHeight * aa.buttonDownHeightFactor) + aa.buttonTail
                             let x2 = xoff - (((buttonWidth * aa.buttonDownWidthFactor) - buttonWidth) / 2)
-                            let y2 = ((CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing) - height2 + buttonHeight + aa.buttonTail
+                            let y2 = ((CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing) - height2 + buttonHeight + aa.buttonTail
                             
                             key.frame = CGRect(x: x2, y: y2, width: width2, height: height2)
                             key.superview?.bringSubview(toFront: key)
-                            xoff += (buttonSpacing + buttonWidth)
+                            xoff += (buttonHSpacing + buttonWidth)
                         }
                         else
                         {
-                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonSpacing + buttonHeight)) + buttonSpacing, width: buttonWidth, height: buttonHeight)
-                            xoff += (buttonSpacing + buttonWidth)
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonWidth, height: buttonHeight)
+                            xoff += (buttonHSpacing + buttonWidth)
                         }
                     }
                 }
