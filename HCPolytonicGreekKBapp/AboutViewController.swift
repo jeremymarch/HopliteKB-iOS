@@ -15,7 +15,7 @@ class AboutViewController: UIViewController {
         
         label?.sizeToFit()
         
-        let s = "USE: \n• Type the letter first, then add diacritics.\n• Diacritics can be added in any order.\n• Pressing the diacritic again will toggle it on or off.\n• Contrasting diacritics replace each other.\n• Press caps lock to see the diaeresis key.\n\nSETTINGS: \n• Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist.\n• Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode.\n• Combining Only uses only combining diacritics.  This is only supported by certain fonts."
+        let s = "USE: \n• Type the letter first, then add diacritics.\n• Diacritics can be added in any order.\n• Pressing the diacritic again will toggle it on or off.\n• Contrasting diacritics replace each other.\n• Press caps lock to see the diaeresis and breve keys.\n•Typing a diacritic key after a letter which cannot receive the diacritic will type a spacing diacritic.\n\nSETTINGS: \n• Precomposed will use precomposed unicode characters when possible, falling back to combining diacritics if a precomposed character doesn't exist.\n• Precomposed with PUA is like the above, but will also use precomposed characters from the Private Use Area when possible.  This is only supported by certain fonts and is not standard unicode.\n• Combining Only uses only combining diacritics.  This is only supported by certain fonts."
         
         var fsize:CGFloat = 18.0
         //for iphone 5s and narrower
@@ -31,9 +31,9 @@ class AboutViewController: UIViewController {
         
         //s2.addAttribute(NSFontAttributeName, value: italicsFont, range: NSRange(location: 335, length:11))
         
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 252, length:11))
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 399, length:21))
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 592, length:16))
+        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 368, length:11))
+        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 515, length:21))
+        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 708, length:16))
         
         label?.attributedText = s2
     }
