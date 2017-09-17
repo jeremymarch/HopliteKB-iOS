@@ -17,6 +17,11 @@
 char unicode_mode = PRECOMPOSED_MODE; //set default
 bool addSpacingDiacriticIfNotLegal = true;
 
+void allowSpacingDiacritics(bool val)
+{
+    addSpacingDiacriticIfNotLegal = val;
+}
+
 #define NUM_COMBINING_ACCENTS 9
 //this is the order they will follow after the vowel
 unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_BREVE, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX, COMBINING_IOTA_SUBSCRIPT };

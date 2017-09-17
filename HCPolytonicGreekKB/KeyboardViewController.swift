@@ -386,6 +386,8 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         loadDefaults()
+    
+        allowSpacingDiacritics(true) //this sets variable in accent.c
         
         self.inputView?.autoresizingMask = [] //this is needed too???
         

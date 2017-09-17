@@ -33,7 +33,7 @@ class HCKeyboardView: UIView {
         }
         let maxRows = buttons.count
         var buttonHSpacing:CGFloat = 5.0
-        var buttonVSpacing:CGFloat = 5.0
+        let buttonVSpacing:CGFloat = 5.0
         if maxColumns > 9
         {
             buttonHSpacing = 4.0
