@@ -102,6 +102,7 @@ public enum UnicodeMode:Int32 {
 class KeyboardViewController: UIInputViewController {
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
+    let metrical = ["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
     var keysNums:[[String]] = []
@@ -937,6 +938,11 @@ class KeyboardViewController: UIInputViewController {
                         other = true
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize - 8)
                     }
+                    else if metrical.contains(key)
+                    {
+                        b.titleLabel!.font = UIFont(name: "NewAthenaUnicode", size: fontSize)
+                        b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                    }
                     else
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
@@ -1000,6 +1006,7 @@ class KeyboardViewController: UIInputViewController {
                         b.vbgDownColor = HopliteConstants.keyBGColorDown
                         b.vtextDownColor = HopliteConstants.keyTextColorDown
                     }
+                    
                     b.setNeedsDisplay()
                 }
             }
