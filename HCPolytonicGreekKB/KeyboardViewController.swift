@@ -115,10 +115,7 @@ class KeyboardViewController: UIInputViewController {
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
-/*
-    let stackViewV   = UIStackView()
-    var stackViews:[UIStackView] = []
-    */
+
     var tic:Int = 0
     
     var deleteButton:UIButton? = nil
@@ -150,6 +147,11 @@ class KeyboardViewController: UIInputViewController {
     var unicodeMode:Int32 = UnicodeMode.PreComposedNoPUA.rawValue
     
     let hv = HCKeyboardView()
+    
+    var topRowButtonDepressNotAppExt = true
+    /* true means allow top row buttons to expand above top line, false means prevent it.
+     Only when embedded in an app/not an app extension.
+    */
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
@@ -462,7 +464,7 @@ class KeyboardViewController: UIInputViewController {
         for (i,row) in keys.enumerated()
         {
             hv.buttons.append([UIButton]())
-            if i == 0 && appExt
+            if i == 0 && (appExt || !topRowButtonDepressNotAppExt)
             {
                 topRowButtonType = 1
             }
@@ -956,7 +958,7 @@ class KeyboardViewController: UIInputViewController {
                     if accent
                     {
                         b.setTitleColor(HopliteConstants.accentTextColor, for: [])
-                        if i == 0 && appExt
+                        if i == 0 && (appExt || !topRowButtonDepressNotAppExt)
                         {
                             b.btype = 1
                         }
@@ -972,7 +974,7 @@ class KeyboardViewController: UIInputViewController {
                     else if punc
                     {
                         b.setTitleColor(HopliteConstants.punctuationTextColor, for: [])
-                        if i == 0 && appExt
+                        if i == 0 && (appExt || !topRowButtonDepressNotAppExt)
                         {
                             b.btype = 1
                         }
@@ -997,7 +999,7 @@ class KeyboardViewController: UIInputViewController {
                     else
                     {
                         b.setTitleColor(HopliteConstants.keyTextColor, for: [])
-                        if i == 0 && appExt
+                        if i == 0 && (appExt || !topRowButtonDepressNotAppExt)
                         {
                             b.btype = 1
                         }
