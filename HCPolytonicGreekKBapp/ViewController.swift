@@ -83,7 +83,7 @@ class ViewController: UIViewController {
             //to include keyboard in container app
             kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
             kb?.appExt = false
-            
+            kb?.topRowButtonDepressNotAppExt = false //prevent top row button expansion in app, to simulate app extension behavior
             textView!.inputView = kb?.view
         }
         
