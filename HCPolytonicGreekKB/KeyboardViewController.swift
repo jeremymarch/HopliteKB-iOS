@@ -854,9 +854,13 @@ class KeyboardViewController: UIInputViewController {
         
         changeKeys(keys: k)
     }
-    
+    var buttonFont:String?
     func changeKeys(keys:[[String]])
     {
+        if buttonFont == nil
+        {
+            buttonFont = hv.buttons[0][0].titleLabel?.font.fontName
+        }
         for (i,row) in keys.enumerated()
         {
             var accent = false
@@ -877,61 +881,61 @@ class KeyboardViewController: UIInputViewController {
                     if key == "´"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
                     else if key == "˜"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
                     else if key == "`"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
                     else if key == "¯"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
                     }
                     else if key == "῾"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
                     }
                     else if key == "᾿"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
                     }
                     else if key == "ͺ"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
                     }
                     else if key == "¨"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
                     else if key == "˘"
                     {
                         accent = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: 40)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
                     else if puncs.contains(key)
                     {
                         punc = true
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: fontSize)
                     }
                     else if key == "123" || key == "αβγ"
                     {
@@ -945,7 +949,7 @@ class KeyboardViewController: UIInputViewController {
                     }
                     else
                     {
-                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        b.titleLabel!.font = UIFont(name: buttonFont!, size: fontSize)
                         b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
                     }
                     
