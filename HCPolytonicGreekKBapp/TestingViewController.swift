@@ -92,7 +92,7 @@ class TestingViewController: UIViewController, UITextViewDelegate {
             //ns = ns + String(a.value, radix:16) + " "
             ns = ns + String(format: "%04X", a.value) + separator
         }
-        let endIndex = ns.index(ns.endIndex, offsetBy: -separator.characters.count, limitedBy: ns.startIndex)
+        let endIndex = ns.index(ns.endIndex, offsetBy: -separator.count, limitedBy: ns.startIndex)
         if endIndex != nil
         {
             //return ns.substring(to: endIndex!)
