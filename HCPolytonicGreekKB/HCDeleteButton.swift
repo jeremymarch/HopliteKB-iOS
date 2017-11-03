@@ -10,7 +10,7 @@ import UIKit
 
 class HCDeleteButton: UIButton {
     var device:Int?
-    var buttonPressed:Bool = false
+    var buttonDown:Bool = false
  /*
     var deleteBGColor:UIColor           = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     var deleteInnerColor:UIColor        = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
@@ -33,6 +33,11 @@ class HCDeleteButton: UIButton {
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDown)
+        
+        //these don't work, maybe this:
+        //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
+        self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,19 +46,19 @@ class HCDeleteButton: UIButton {
     
     @objc func touchUpInside1(sender: UIButton!) {
         
-        buttonPressed = false
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchUpOutside1(sender: UIButton!) {
         
-        buttonPressed = false
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchDown1(sender: UIButton!) {
         
-        buttonPressed = true
+        buttonDown = true
         setNeedsDisplay()
     }
     
@@ -89,7 +94,7 @@ class HCDeleteButton: UIButton {
         }
 
         //up state
-        if buttonPressed == true
+        if buttonDown == true
         {
             context!.addPath(outerPath!)
             context!.setFillColor(deleteBGColorDown.cgColor)
@@ -148,7 +153,7 @@ class HCDeleteButton: UIButton {
         context!.addPath(path);
         var iconColor:CGColor?
         var xColor:CGColor?
-        if buttonPressed
+        if buttonDown
         {
             iconColor = deleteInnerColorDown.cgColor;
             xColor = deleteXColorDown.cgColor;

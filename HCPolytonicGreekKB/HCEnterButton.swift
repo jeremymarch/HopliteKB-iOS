@@ -11,6 +11,7 @@ import UIKit
 class HCEnterButton: UIButton {
         
         var btype: Int? = nil
+        var buttonDown:Bool = false
         /*
          var bgColor:UIColor = .white
          var bgDownColor:UIColor = .black
@@ -46,6 +47,9 @@ class HCEnterButton: UIButton {
             self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
             self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
             self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
+            
+            self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+            self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchDragExit)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -56,18 +60,21 @@ class HCEnterButton: UIButton {
             
                 setTitleColor(.white, for: [])
                 backgroundColor = blueColor
+            buttonDown = false
         }
         
         @objc func touchUpOutside(sender: UIButton!) {
             
                 setTitleColor(.white, for: [])
                 backgroundColor = blueColor
+                buttonDown = false
         }
         
         @objc func touchDown(sender: UIButton!) {
             
                 setTitleColor(blueColor, for: [])
                 backgroundColor = .white
+                buttonDown = true
         }
         
 }

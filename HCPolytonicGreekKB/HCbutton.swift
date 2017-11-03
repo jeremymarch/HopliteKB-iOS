@@ -29,7 +29,7 @@ class HCButton: UIButton {
     let downFontSize:CGFloat = 36.0
     var buttonDown:Bool = false
     let buttonTail:CGFloat = 4
-    let buttonDownWidthFactor:CGFloat = 1.46
+    let buttonDownWidthFactor:CGFloat = 1.66
     let buttonDownHeightFactor:CGFloat = 2.20
     let hPadding:CGFloat = 3;
     let vPadding:CGFloat = 8;
@@ -63,8 +63,8 @@ class HCButton: UIButton {
         
         //these don't work, maybe this:
         //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
-        //self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
-        //self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchDragExit)
+        self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -195,9 +195,9 @@ class HCButton: UIButton {
         }
     }
         
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
         //NSLog("drawdraw: \(rect.size.width), \(rect.size.height)")
         
         let depressedPhoneButton:Bool = (buttonDown && !(rect.size.width > rect.size.height * 1.5)) && UIDevice.current.userInterfaceIdiom == .phone && self.btype == 0
@@ -205,11 +205,11 @@ class HCButton: UIButton {
         let ctx = UIGraphicsGetCurrentContext()
         
         let outerRect:CGRect = self.bounds//.insetBy(dx: 4.0, dy: 4.0);
-     
+        
         var outerPath:CGPath
         if depressedPhoneButton
         {
-            outerPath = createDepressedButtonForRect(rect: outerRect, radius: buttonRadius + 2);
+            outerPath = createDepressedButtonForRect(rect: outerRect, radius: buttonRadius + 2)
         }
         else
         {
@@ -226,9 +226,16 @@ class HCButton: UIButton {
         ctx?.addPath(outerPath)
         ctx?.clip()
         ctx?.restoreGState()
-
+        
         ctx?.saveGState()
-        ctx?.addPath(outerPath)
+        if depressedPhoneButton
+        {
+            ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.5, dy: 1.5), radius: buttonRadius + 2))
+        }
+        else
+        {
+            ctx?.addPath(outerPath)
+        }
         if depressedPhoneButton
         {
             ctx?.setFillColor(vbgColor.cgColor)
@@ -240,21 +247,63 @@ class HCButton: UIButton {
         else
         {
             ctx?.setFillColor(vbgColor.cgColor)
+            //ctx?.setShadow(offset: CGSize(width: 0, height: 10), blur: 2.0, color: UIColor.black.cgColor)
         }
+        
         ctx?.fillPath()
         ctx?.restoreGState()
         
         if depressedPhoneButton
         {
             ctx?.saveGState()
-            ctx?.addPath(outerPath)
+            ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.0, dy: 1.0), radius: buttonRadius + 2))
+            ctx?.setLineWidth(0.5)
             ctx?.setStrokeColor(UIColor.lightGray.cgColor)
             ctx?.strokePath()
             ctx?.restoreGState()
         }
     }
- 
+    
     func createDepressedButtonForRect(rect:CGRect, radius:CGFloat ) -> CGMutablePath
+    {
+        let path:CGMutablePath = CGMutablePath()
+        
+        let offsetY:CGFloat = 54.0
+        let a = superview as! HCKeyboardView
+        let offsetX:CGFloat = (rect.maxX - a.buttonWidth) / 2// 10.0
+        //NSLog("\(offsetX) abc \(rect.maxX) - \(rect.maxY / widthPerHeight)")
+        let deltaY:CGFloat = 12.0
+        
+        let more:CGFloat = 12.0 //bigger radius for inner curves
+        
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        
+        //line, then arc around toward second point
+        //first point is the destination of the line, second is where it arcs to
+        
+        //clockwise from top middle to right side, then curve down radius
+        path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.maxY), radius: CGFloat(radius))
+        //right-most side
+        path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.maxY - offsetY), tangent2End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY - offsetY + deltaY), radius: CGFloat(radius + more))
+        //xoffset towards middle
+        path.addArc(tangent1End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY - offsetY + deltaY), tangent2End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY + deltaY), radius: CGFloat(radius + more))
+        //yoffset down to bottom
+        path.addArc(tangent1End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY), tangent2End: CGPoint(x:rect.minX, y:rect.maxY), radius: CGFloat(radius))
+        //bottom towards left side
+        path.addArc(tangent1End: CGPoint(x:rect.minX + offsetX, y:rect.maxY), tangent2End: CGPoint(x:rect.minX + offsetX, y:rect.maxY - offsetY + deltaY), radius: CGFloat(radius))
+        //yoffset up
+        path.addArc(tangent1End: CGPoint(x:rect.minX + offsetX, y:rect.maxY - offsetY + deltaY), tangent2End: CGPoint(x:rect.minX, y:rect.maxY - offsetY), radius: CGFloat(radius + more))
+        //xoffset to left side
+        path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.maxY - offsetY), tangent2End: CGPoint(x:rect.minX, y:rect.minY), radius: CGFloat(radius + more))
+        //left side up to top
+        path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.minY), radius: CGFloat(radius))
+        //close to middle
+        path.closeSubpath()
+        
+        return path
+    }
+ /*
+    func createDepressedButtonForRectOld(rect:CGRect, radius:CGFloat ) -> CGMutablePath
     {
         let inset:CGFloat = 8
         let topHeight:CGFloat = rect.size.height / 2
@@ -284,4 +333,5 @@ class HCButton: UIButton {
     
         return path;
     }
+ */
 }

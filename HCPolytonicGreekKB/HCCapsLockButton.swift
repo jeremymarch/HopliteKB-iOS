@@ -10,7 +10,7 @@ import UIKit
 
 class HCCapsLockButton: UIButton {
 
-    var buttonPressed:Bool = false
+    var buttonDown:Bool = false
     var capsLockOn:Bool = false
     
     var lineColor1:UIColor           = HopliteConstants.otherTextColor
@@ -24,6 +24,9 @@ class HCCapsLockButton: UIButton {
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDown)
+        
+        self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,20 +34,20 @@ class HCCapsLockButton: UIButton {
     }
     
     @objc func touchUpInside1(sender: UIButton!) {
-        
-        buttonPressed = false
+        capsLockOn = !capsLockOn
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchUpOutside1(sender: UIButton!) {
         
-        buttonPressed = false
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchDown1(sender: UIButton!) {
-        capsLockOn = !capsLockOn
-        buttonPressed = true
+        
+        buttonDown = true
         setNeedsDisplay()
     }
     
@@ -76,7 +79,14 @@ class HCCapsLockButton: UIButton {
         
         let ctx = UIGraphicsGetCurrentContext()
         ctx!.addPath(outerPath)
-        ctx!.setFillColor(bgColor1.cgColor)
+        if buttonDown
+        {
+            ctx!.setFillColor(bgColorDown.cgColor)
+        }
+        else
+        {
+            ctx!.setFillColor(bgColor1.cgColor)
+        }
         ctx?.fillPath()
         
         
@@ -105,14 +115,28 @@ class HCCapsLockButton: UIButton {
         
         if capsLockOn
         {
-            ctx!.setFillColor(lineColor1.cgColor)
+            if buttonDown
+            {
+                ctx!.setFillColor(lineColorDown.cgColor)
+            }
+            else
+            {
+                ctx!.setFillColor(lineColor1.cgColor)
+            }
             ctx!.fillPath()
             ctx!.setLineWidth(1.5)
             ctx!.strokePath()
         }
         else
         {
-            ctx!.setStrokeColor(lineColor1.cgColor)
+            if buttonDown
+            {
+                ctx!.setStrokeColor(lineColorDown.cgColor)
+            }
+            else
+            {
+                ctx!.setStrokeColor(lineColor1.cgColor)
+            }
             ctx!.setLineWidth(1.5)
             ctx!.strokePath()
         }

@@ -99,7 +99,8 @@ public enum UnicodeMode:Int32 {
     case CombiningOnly = 2
 }
 
-class KeyboardViewController: UIInputViewController {
+class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    let dragOverButtons = true
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
     let metrical = ["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"]
@@ -163,36 +164,101 @@ class KeyboardViewController: UIInputViewController {
     }
     */
     
-     //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
-    func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
+    func resetButtons(button:UIButton?)
+    {
+        buttons.forEach { b in
+            if button == nil || b != button //for all except the one passed in, if any
+            {
+                if let a = b as? HCButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCDeleteButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCEnterButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCSpaceButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCGlobeButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCCapsLockButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+            }
+        }
+    }
+    
+    //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
+    @objc func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
     {
         let point:CGPoint  = gestureRecognizer.location(in: self.view)
-        let draggedView = self.view.hitTest(point, with: nil)! as Any
+        let draggedView = self.view.hitTest(point, with: nil)
+        if draggedView == nil
+        {
+            //if self.currentButton != nil
+            //{
+            //self.currentButton?.sendActions(for: .touchUpOutside)
+            resetButtons(button: nil)
+            self.currentButton = nil;
+            //}
+            return
+        }
         
         if gestureRecognizer.state == .changed
         {
             //NSLog("changed")
-            if draggedView is UIButton && self.currentButton == nil {
+            if draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
-                if self.currentButton != nil
-                {
-                    let t = self.currentButton!.tag
-                    NSLog("Enter: \(t)")
-                }
+                /*
+                 if self.currentButton != nil
+                 {
+                 let t = self.currentButton!.tag
+                 NSLog("Enter: \(t)")
+                 }
+                 */
                 // send enter event to your button
                 self.currentButton?.sendActions(for: .touchDragEnter)
+                resetButtons(button: self.currentButton)
             }
             
             if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
             {
-                if self.currentButton != nil
-                {
-                    let t = self.currentButton!.tag
-                    NSLog("Exit: \(t)")
-                }
-                
+                /*
+                 if self.currentButton != nil
+                 {
+                 let t = self.currentButton!.tag
+                 NSLog("Exit: \(t)")
+                 }
+                 */
                 // send exit event to your button
-                self.currentButton?.sendActions(for: .touchDragExit)
+                self.currentButton?.sendActions(for: .touchDragOutside)
                 self.currentButton = nil;
             }
         }
@@ -200,7 +266,19 @@ class KeyboardViewController: UIInputViewController {
         {
             if (self.currentButton != nil)
             {
-                self.currentButton?.sendActions(for: .touchDragExit)
+                if self.currentButton is HCButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton
+                {
+                    self.currentButton?.sendActions(for: .touchUpInside)
+                }
+                else if self.currentButton is HCDeleteButton
+                {
+                    self.currentButton?.sendActions(for: .touchDown) //to delete a character
+                    self.currentButton?.sendActions(for: .touchUpOutside) //to reset up state
+                }
+            }
+            else
+            {
+                resetButtons(button: nil)
             }
             self.currentButton = nil
         }
@@ -427,9 +505,12 @@ class KeyboardViewController: UIInputViewController {
             }
         }
         
-        //let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
-        //recognizer.delegate = self
-        //self.view.addGestureRecognizer(recognizer)
+        if dragOverButtons == true
+        {
+            let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
+            recognizer.delegate = self
+            self.view.addGestureRecognizer(recognizer)
+        }
 
         keys = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·", "xxx"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
@@ -689,14 +770,14 @@ class KeyboardViewController: UIInputViewController {
         }
         else
         {
-            return;
+            return
         }
         
         let context = self.textDocumentProxy.documentContextBeforeInput
-        let len = context?.characters.count
+        let len = context?.count
         if len == nil || len! < 1
         {
-            return;
+            return
         }
         
         //accentSyllable(&context?.utf16, context.count, &context.count, 1, false);

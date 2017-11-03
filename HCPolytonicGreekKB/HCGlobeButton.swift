@@ -15,7 +15,7 @@ class HCGlobeButton: UIButton {
     var lineColorDown:UIColor            = HopliteConstants.otherTextColorDown
     var bgColorDown:UIColor       = HopliteConstants.otherBGColorDown
     
-    var buttonPressed:Bool = false
+    var buttonDown:Bool = false
     
     required init() {
         super.init(frame: .zero)
@@ -23,6 +23,9 @@ class HCGlobeButton: UIButton {
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDown)
+        
+        self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,19 +34,19 @@ class HCGlobeButton: UIButton {
     
     @objc func touchUpInside1(sender: UIButton!) {
         
-        buttonPressed = false
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchUpOutside1(sender: UIButton!) {
         
-        buttonPressed = false
+        buttonDown = false
         setNeedsDisplay()
     }
     
     @objc func touchDown1(sender: UIButton!) {
         
-        buttonPressed = true
+        buttonDown = true
         setNeedsDisplay()
     }
     
@@ -58,7 +61,7 @@ class HCGlobeButton: UIButton {
         
         var lineColor:CGColor?
         var bgColor:CGColor?
-        if buttonPressed
+        if buttonDown
         {
             lineColor = lineColorDown.cgColor
             bgColor = bgColorDown.cgColor

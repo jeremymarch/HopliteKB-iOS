@@ -10,6 +10,7 @@ import UIKit
 
 class HCKeyboardView: UIView {
     var buttons:[[UIButton]] = []
+    var buttonWidth:CGFloat = 0
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -42,7 +43,7 @@ class HCKeyboardView: UIView {
         var c = 0
         var xoffstart:CGFloat = 0
         var xoff:CGFloat = 0
-        var buttonWidth:CGFloat = 0
+        buttonWidth = 0
         var buttonHeight:CGFloat = 0
         
         for (i, row) in buttons.enumerated()
@@ -113,14 +114,14 @@ class HCKeyboardView: UIView {
                                 buttonDown = true
                             }
                         }
+                        let aa = key as? HCButton
                         
-                        if buttonDown
+                        if buttonDown && aa!.btype == 0
                         {
-                            let aa = key as! HCButton
-                            let width2 = buttonWidth * aa.buttonDownWidthFactor
-                            let height2 = (buttonHeight * aa.buttonDownHeightFactor) + aa.buttonTail
-                            let x2 = xoff - (((buttonWidth * aa.buttonDownWidthFactor) - buttonWidth) / 2)
-                            let y2 = ((CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing) - height2 + buttonHeight + aa.buttonTail
+                            let width2 = buttonWidth * aa!.buttonDownWidthFactor
+                            let height2 = (buttonHeight * aa!.buttonDownHeightFactor) + aa!.buttonTail
+                            let x2 = xoff - (((buttonWidth * aa!.buttonDownWidthFactor) - buttonWidth) / 2)
+                            let y2 = ((CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing) - height2 + buttonHeight + aa!.buttonTail
                             
                             key.frame = CGRect(x: x2, y: y2, width: width2, height: height2)
                             key.superview?.bringSubview(toFront: key)

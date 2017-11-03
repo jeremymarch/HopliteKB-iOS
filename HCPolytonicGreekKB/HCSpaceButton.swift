@@ -11,6 +11,7 @@ import UIKit
 class HCSpaceButton: UIButton {
         
         var btype: Int? = nil
+    var buttonDown:Bool = false
         /*
          var bgColor:UIColor = .white
          var bgDownColor:UIColor = .black
@@ -46,6 +47,9 @@ class HCSpaceButton: UIButton {
             self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
             self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
             self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
+            
+            self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+            self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchDragExit)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -56,6 +60,7 @@ class HCSpaceButton: UIButton {
 
                 setTitleColor(.gray, for: [])
                 backgroundColor = .white
+            buttonDown = false
         }
         
         @objc func touchUpOutside(sender: UIButton!) {
@@ -63,12 +68,14 @@ class HCSpaceButton: UIButton {
 
                 setTitleColor(.gray, for: [])
                 backgroundColor = .white
+            buttonDown = false
         }
         
         @objc func touchDown(sender: UIButton!) {
 
                 setTitleColor(.white, for: [])
                 backgroundColor = .black
+            buttonDown = true
         }
         
 }
