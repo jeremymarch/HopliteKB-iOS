@@ -19,6 +19,7 @@ class TestingViewController: UIViewController, UITextViewDelegate {
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        kb?.topRowButtonDepressNotAppExt = false
         
         textView!.inputView = kb?.view
         textView!.delegate = self
