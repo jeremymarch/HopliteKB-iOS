@@ -30,15 +30,15 @@ class AboutViewController: UIViewController {
         }
         
         let font = UIFont(name: "HelveticaNeue", size: fsize)!
-        let s2 = NSMutableAttributedString(string: s, attributes: [NSAttributedStringKey.font: font])
+        let s2 = NSMutableAttributedString(string: s, attributes: [NSAttributedString.Key.font: font])
         
         let italicsFont = UIFont(name: "HelveticaNeue-BoldItalic", size: fsize)!
         
         //s2.addAttribute(NSFontAttributeName, value: italicsFont, range: NSRange(location: 335, length:11))
         
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 368, length:11))
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 515, length:21))
-        s2.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: NSRange(location: 708, length:16))
+        s2.addAttribute(NSAttributedString.Key.font, value: italicsFont, range: NSRange(location: 368, length:11))
+        s2.addAttribute(NSAttributedString.Key.font, value: italicsFont, range: NSRange(location: 515, length:21))
+        s2.addAttribute(NSAttributedString.Key.font, value: italicsFont, range: NSRange(location: 708, length:16))
         
         label?.attributedText = s2
     }

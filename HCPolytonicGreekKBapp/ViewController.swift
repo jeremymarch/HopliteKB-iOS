@@ -129,7 +129,7 @@ class ViewController: UIViewController {
         var topCorrect:CGFloat  = (tv.bounds.size.height - tv.contentSize.height * tv.zoomScale) / 2.0;
         topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect )
         NSLog("content fix")
-        tv.contentInset = UIEdgeInsetsMake(topCorrect,0,0,0)
+        tv.contentInset = UIEdgeInsets(top: topCorrect,left: 0,bottom: 0,right: 0)
         
         
     }
